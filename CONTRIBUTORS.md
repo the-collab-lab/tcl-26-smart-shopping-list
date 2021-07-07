@@ -14,5 +14,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 - [Yenly Ma](https://github.com/yenly) 🍄
 - [Camerone Stoney](https://github.com/Cjstoney) 🏍
+- [April Bowler](https://github.com/abowler2) 🐼
 
 ## Code of Conduct Contacts

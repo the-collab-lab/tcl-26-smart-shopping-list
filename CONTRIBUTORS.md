@@ -13,5 +13,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Mentors
 
 - [Yenly Ma](https://github.com/yenly) 🍄
+- [Camerone Stoney](https://github.com/Cjstoney) 🏍
 
 ## Code of Conduct Contacts

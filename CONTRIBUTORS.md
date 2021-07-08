@@ -9,6 +9,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Cohort Participants
 
 - [Ander Swift](https://github.com/anderswift) 🐙
+- [Nick Zanetti](https://github.com/nick-zanetti):zap: 
 
 ## Mentors
 

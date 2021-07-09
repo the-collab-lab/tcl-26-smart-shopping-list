@@ -19,3 +19,5 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [April Bowler](https://github.com/abowler2) 🐼
 
 ## Code of Conduct Contacts
+
+- Juliana Gomez

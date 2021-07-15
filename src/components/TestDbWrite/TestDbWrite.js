@@ -1,13 +1,13 @@
 import React from 'react';
-import firebase from 'firebase/app';
+import { db } from '../../lib/firebase.js';
 
 function TestDbWrite() {
   async function handleClick() {
     try {
-      await firebase
-        .firestore()
-        .collection('items')
-        .add({ name: 'test list item' });
+      await db.collection('items').add({
+        name: 'test list item',
+        createdAt: Date.now(),
+      });
     } catch (err) {
       console.log(err);
     }

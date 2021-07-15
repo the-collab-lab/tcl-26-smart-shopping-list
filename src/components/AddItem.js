@@ -1,8 +1,8 @@
 const AddItem = () => {
   return (
-    <div>
+    <main>
       <h1>This is the Add Item component</h1>
-    </div>
+    </main>
   );
 };
 

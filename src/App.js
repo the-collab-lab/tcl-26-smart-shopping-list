@@ -14,6 +14,7 @@ import './App.css';
 // Components
 import List from './components/List';
 import AddItem from './components/AddItem';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -26,15 +27,23 @@ function App() {
           <Route path="/add">
             <AddItem />
           </Route>
+          <Route component={NotFound} />
         </Switch>
 
-        <NavLink exact to="/" activeClassName="selected">
-          <button>View List</button>
-        </NavLink>
-
-        <NavLink to="/add" activeClassName="selected">
-          <button>Add Item</button>
-        </NavLink>
+        <nav className="menu" aria-label="Main Navigation">
+          <ul className="menu-list">
+            <li>
+              <NavLink exact to="/" activeClassName="menu-item_current">
+                View List
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/add" activeClassName="menu-item_current">
+                Add Item
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
       </div>
     </Router>
   );

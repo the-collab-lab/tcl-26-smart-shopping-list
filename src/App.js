@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 
 // External Files
-import logo from './logo.svg';
 import './App.css';
 
 // Components

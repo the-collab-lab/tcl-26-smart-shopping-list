@@ -1,30 +1,22 @@
-.App {
+/* Global styles shared across the app */
+
+/*
+BEM conventions we are using:
+
+.block   
+.some-block-with-long-name   
+
+.block__element
+.some-block__some-verbose-element
+
+.block_modifier
+
+.block__element_modifier
+
+.block__element_modifier_option
+(ie. .block__element_color-scheme_dark)
+*/
+
+.container {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-
-.menu-list {
-  list-style: none;
-}
-
-.menu-item_current {
-  font-weight: 600;
 }

@@ -1,0 +1,7 @@
+.nav-menu__list {
+  list-style: none;
+}
+
+.nav-menu__item_current {
+  font-weight: 600;
+}

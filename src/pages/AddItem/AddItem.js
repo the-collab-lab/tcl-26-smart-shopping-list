@@ -1,4 +1,4 @@
-import TestDbWrite from './TestDbWrite/TestDbWrite';
+import TestDbWrite from '../../components/TestDbWrite/TestDbWrite';
 
 const AddItem = () => {
   return (

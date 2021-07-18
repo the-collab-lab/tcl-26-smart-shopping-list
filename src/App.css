@@ -20,3 +20,11 @@
 .App-link {
   color: #09d3ac;
 }
+
+.menu-list {
+  list-style: none;
+}
+
+.menu-item_current {
+  font-weight: 600;
+}

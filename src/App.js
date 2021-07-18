@@ -11,9 +11,9 @@ import {
 import './App.css';
 
 // Components
-import List from './components/List';
-import AddItem from './components/AddItem';
-import NotFound from './components/NotFound';
+import List from './pages/List/List';
+import AddItem from './pages/AddItem/AddItem';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (

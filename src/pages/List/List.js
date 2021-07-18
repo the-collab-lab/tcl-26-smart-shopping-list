@@ -1,4 +1,4 @@
-import TestDbRead from './TestDbRead/TestDbRead';
+import TestDbRead from '../../components/TestDbRead/TestDbRead';
 
 const List = () => {
   return (

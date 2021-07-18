@@ -1,24 +1,22 @@
 // Packages
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // External Files
 import './App.css';
 
-// Components
+// View Components
 import List from './pages/List/List';
 import AddItem from './pages/AddItem/AddItem';
 import NotFound from './pages/NotFound/NotFound';
 
+// Components
+import NavMenu from './components/NavMenu/NavMenu';
+
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App container">
         <Switch>
           <Route exact path="/">
             <List />
@@ -29,20 +27,7 @@ function App() {
           <Route component={NotFound} />
         </Switch>
 
-        <nav className="menu" aria-label="Main Navigation">
-          <ul className="menu-list">
-            <li>
-              <NavLink exact to="/" activeClassName="menu-item_current">
-                View List
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/add" activeClassName="menu-item_current">
-                Add Item
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+        <NavMenu />
       </div>
     </Router>
   );

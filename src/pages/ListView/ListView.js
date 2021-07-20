@@ -1,6 +1,6 @@
 import TestDbRead from '../../components/TestDbRead/TestDbRead';
 
-const List = () => {
+const ListView = () => {
   return (
     <main>
       <h1>This is the List component</h1>
@@ -9,4 +9,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default ListView;

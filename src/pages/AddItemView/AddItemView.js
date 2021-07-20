@@ -1,6 +1,6 @@
 import TestDbWrite from '../../components/TestDbWrite/TestDbWrite';
 
-const AddItem = () => {
+const AddItemView = () => {
   return (
     <main>
       <h1>This is the Add Item component</h1>
@@ -9,4 +9,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default AddItemView;

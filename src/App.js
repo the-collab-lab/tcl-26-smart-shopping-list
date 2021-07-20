@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
 // View Components
-import List from './pages/List/List';
-import AddItem from './pages/AddItem/AddItem';
+import ListView from './pages/ListView/ListView';
+import AddItemView from './pages/AddItemView/AddItemView';
 import NotFound from './pages/NotFound/NotFound';
 
 // Components
@@ -19,10 +19,10 @@ function App() {
       <div className="App container">
         <Switch>
           <Route exact path="/">
-            <List />
+            <ListView />
           </Route>
           <Route path="/add">
-            <AddItem />
+            <AddItemView />
           </Route>
           <Route component={NotFound} />
         </Switch>

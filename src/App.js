@@ -17,7 +17,7 @@ import NotFound from './pages/NotFound/NotFound';
 import NavMenu from './components/NavMenu/NavMenu';
 
 function App() {
-  const [listDocumentId, setListDocumentId] = useState(null);
+  const [listId, setListId] = useState(null);
 
   // on component mounting, look for token in local storage and use it to retrieve the list id
   useEffect(() => {
@@ -38,7 +38,7 @@ function App() {
             documents.length &&
             typeof documents[0] === 'object'
           ) {
-            setListDocumentId(documents[0].id); // save the list id for later
+            setListId(documents[0].id); // save the list id for later
           }
         })
         .catch((error) => {
@@ -52,10 +52,10 @@ function App() {
       <div className="App container">
         <Switch>
           <Route exact path="/">
-            <ListView />
+            <ListView listId={listId} />
           </Route>
           <Route path="/add">
-            <AddItemView listId={listDocumentId} />
+            <AddItemView listId={listId} />
           </Route>
           <Route component={NotFound} />
         </Switch>

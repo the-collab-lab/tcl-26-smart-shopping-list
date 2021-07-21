@@ -1,10 +1,10 @@
-import TestDbRead from '../../components/TestDbRead/TestDbRead';
+import ShoppingList from '../../components/ShoppingList/ShoppingList';
 
-const ListView = () => {
+const ListView = ({ listId }) => {
   return (
     <main>
       <h1>This is the List component</h1>
-      <TestDbRead />
+      <ShoppingList listId={listId} />
     </main>
   );
 };

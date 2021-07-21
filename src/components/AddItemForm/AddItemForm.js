@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { db } from '../../lib/firebase.js';
 
 const AddItemForm = ({ listId }) => {
-  const [formValues, setFormValues] = useState({
+  const defaultFormValues = {
     itemName: '',
     purchaseInterval: '7',
-  });
+  };
+
+  const [formValues, setFormValues] = useState(defaultFormValues);
 
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
@@ -23,18 +25,13 @@ const AddItemForm = ({ listId }) => {
     newItem.numberOfPurchases = 0;
 
     try {
-      await db
-        .collection('lists')
-        .doc(listId)
-        .collection('items')
-        .add(formValues); // add item to Firestore database
-      setFormValues({ itemName: '', purchaseInterval: '7' }); // after saving to db, reset form values to defaults
+      await db.collection(`lists/${listId}/items`).add(formValues); // add item to Firestore database
+      setFormValues(defaultFormValues); // after saving to db, reset form values to defaults
     } catch (err) {
       console.log(err);
     }
   };
 
-  // ***IMPORTANT: this form won't work without local storage token, and should check for it before allowing someone to add an item
   return (
     <form name="addItemForm" onSubmit={handleSubmit}>
       <label htmlFor="itemName">Item name:</label>

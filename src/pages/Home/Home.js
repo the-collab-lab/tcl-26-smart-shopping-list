@@ -1,5 +1,5 @@
 import React from 'react';
-import getToken from '../lib/tokens';
+import getToken from '../../lib/tokens';
 
 const Home = () => {
   const saveToken = () => {

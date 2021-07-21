@@ -14,7 +14,7 @@ import './App.css';
 import List from './pages/List/List';
 import AddItem from './pages/AddItem/AddItem';
 import NotFound from './pages/NotFound/NotFound';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 
 // Components
 import NavMenu from './components/NavMenu/NavMenu';

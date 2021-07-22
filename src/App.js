@@ -13,9 +13,6 @@ import ListView from './pages/ListView/ListView';
 import AddItemView from './pages/AddItemView/AddItemView';
 import NotFound from './pages/NotFound/NotFound';
 
-// Components
-import NavMenu from './components/NavMenu/NavMenu';
-
 function App() {
   const [listId, setListId] = useState(null);
 
@@ -59,8 +56,6 @@ function App() {
           </Route>
           <Route component={NotFound} />
         </Switch>
-
-        <NavMenu />
       </div>
     </Router>
   );

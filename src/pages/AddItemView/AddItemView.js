@@ -1,11 +1,18 @@
+import Header from '../../components/Header/Header';
+import NavMenu from '../../components/NavMenu/NavMenu';
 import AddItemForm from '../../components/AddItemForm/AddItemForm';
 
 const AddItemView = ({ listId }) => {
   return (
-    <main>
-      <h1>This is the Add Item component</h1>
-      <AddItemForm listId={listId} />
-    </main>
+    <>
+      <Header />
+
+      <main>
+        <AddItemForm listId={listId} />
+      </main>
+
+      <NavMenu />
+    </>
   );
 };
 

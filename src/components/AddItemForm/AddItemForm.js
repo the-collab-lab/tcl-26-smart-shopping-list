@@ -15,7 +15,7 @@ const AddItemForm = ({ listId }) => {
     setFormValues({ ...formValues, [inputName]: event.target.value });
   };
 
-  // on form submit
+  // on form submit, add user input and other default values to database
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -26,16 +26,22 @@ const AddItemForm = ({ listId }) => {
 
     try {
       await db.collection(`lists/${listId}/items`).add(formValues); // add item to Firestore database
-      setFormValues(defaultFormValues); // after saving to db, reset form values to defaults
+      setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <form name="addItemForm" onSubmit={handleSubmit}>
-      <label htmlFor="itemName">Item name:</label>
+    <form name="addItemForm" onSubmit={handleSubmit} className="add-item-form">
+      <label
+        className="add-item-form__label add-item-form__label_type_text label"
+        htmlFor="itemName"
+      >
+        Item name:
+      </label>
       <input
+        className="add-item-form__text-field text-field"
         type="text"
         id="itemName"
         name="itemName"
@@ -53,35 +59,55 @@ const AddItemForm = ({ listId }) => {
         <input
           type="radio"
           id="soonOption"
+          className="add-item-form__radio"
           name="purchaseInterval"
           value="7"
           onChange={handleChange}
           checked={formValues.purchaseInterval === '7'}
         />
-        <label htmlFor="soonOption">Soon</label>
+        <label
+          htmlFor="soonOption"
+          className="add-item-form__label add-item-form__label_type_radio label"
+        >
+          Soon
+        </label>
 
         <input
           type="radio"
+          className="add-item-form__radio"
           id="kindaSoonOption"
           name="purchaseInterval"
           value="14"
           onChange={handleChange}
           checked={formValues.purchaseInterval === '14'}
         />
-        <label htmlFor="kindaSoonOption">Kind of Soon</label>
+        <label
+          htmlFor="kindaSoonOption"
+          className="add-item-form__label add-item-form__label_type_radio label"
+        >
+          Kind of Soon
+        </label>
 
         <input
           type="radio"
+          className="add-item-form__radio"
           id="notSoonOption"
           name="purchaseInterval"
           value="30"
           onChange={handleChange}
           checked={formValues.purchaseInterval === '30'}
         />
-        <label htmlFor="notSoonOption">Not Soon</label>
+        <label
+          htmlFor="notSoonOption"
+          className="add-item-form__label add-item-form__label_type_radio label"
+        >
+          Not Soon
+        </label>
       </fieldset>
 
-      <button type="submit">Add Item</button>
+      <button type="submit" className="add-item-form__submit button">
+        Add Item
+      </button>
     </form>
   );
 };

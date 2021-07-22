@@ -8,11 +8,21 @@ function ShoppingList({ listId }) {
   );
 
   return (
-    <div>
-      {loading && <>Loading...</>}
-      {error && <>Error</>}
+    <div className="shopping-list">
+      {loading && (
+        <div className="shopping-list__notice notice notice_type_loading">
+          Loading...
+        </div>
+      )}
+
+      {error && (
+        <div className="shopping-list__notice notice notice_type_error">
+          Error
+        </div>
+      )}
+
       {!loading && listItems && (
-        <ul className="shopping-list">
+        <ul className="shopping-list__list">
           {listItems.docs.map((doc) => (
             <ShoppingListItem key={doc.id} item={doc.data()} />
           ))}

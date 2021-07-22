@@ -7,7 +7,7 @@ const ListView = ({ listId }) => {
     <>
       <Header />
 
-      <main>
+      <main className="container__main">
         <ShoppingList listId={listId} />
       </main>
 

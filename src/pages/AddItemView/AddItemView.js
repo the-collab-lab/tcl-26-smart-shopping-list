@@ -7,7 +7,7 @@ const AddItemView = ({ listId }) => {
     <>
       <Header />
 
-      <main>
+      <main className="container__main">
         <AddItemForm listId={listId} />
       </main>
 

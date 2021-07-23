@@ -1,12 +1,13 @@
 import React from 'react';
 import getToken from '../../lib/tokens';
 
+const saveToken = () => {
+  const token = getToken();
+  localStorage.setItem('token', token);
+  window.location.reload(false);
+};
+
 const Home = () => {
-  const saveToken = () => {
-    const token = getToken();
-    localStorage.setItem('token', token);
-    window.location.reload(false);
-  };
   return (
     <main>
       <h1>Welcome To Your Smart Shopping List</h1>

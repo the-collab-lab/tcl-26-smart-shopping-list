@@ -1,7 +1,8 @@
 import React from 'react';
 import getToken from '../../lib/tokens';
 
-const saveToken = () => {
+const saveToken = (e) => {
+  e.preventDefault();
   const token = getToken();
   localStorage.setItem('token', token);
   window.location.reload(false);

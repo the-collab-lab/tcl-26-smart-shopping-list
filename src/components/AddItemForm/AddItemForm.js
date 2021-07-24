@@ -45,13 +45,11 @@ const AddItemForm = ({ listId }) => {
         type="text"
         id="itemName"
         name="itemName"
-        aria-describedby="itemNameHint"
         value={formValues.itemName}
         onChange={handleChange}
         maxLength="100"
         required
       />
-      <span id="itemNameHint"></span>
 
       <fieldset>
         <legend>How soon will you buy this again?</legend>

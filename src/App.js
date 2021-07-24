@@ -26,14 +26,15 @@ function App() {
         .where('token', '==', token)
         .get()
         .then((querySnapshot) => {
-          // for some reason, extracting this array seems necessary to avoid errors?
-          const documents = querySnapshot.docs;
+          // make sure docs exists, then store array in documents (or null if no property exists)
+          const documents = 'docs' in querySnapshot ? querySnapshot.docs : null;
 
           // check if the expected data is returned
           if (
             Array.isArray(documents) &&
             documents.length &&
-            typeof documents[0] === 'object'
+            typeof documents[0] === 'object' &&
+            'id' in documents[0]
           ) {
             setListId(documents[0].id); // save the list id for later
           }
@@ -42,7 +43,7 @@ function App() {
           console.log('Error getting list: ', error);
         });
     }
-  }, []);
+  }, [listId]);
 
   return (
     <Router>

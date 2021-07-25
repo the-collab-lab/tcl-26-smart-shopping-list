@@ -19,13 +19,15 @@ import Home from './pages/Home/Home';
 // Components
 import NavMenu from './components/NavMenu/NavMenu';
 
+// Functions
+
 function App() {
-  const [haveToken, setHaveToken] = useState(false);
+  const [userToken, setUserToken] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setHaveToken(true);
+      setUserToken(token);
     }
   }, []);
   return (
@@ -33,13 +35,17 @@ function App() {
       <div className="App container">
         <Switch>
           <Route exact path="/">
-            {haveToken ? <Redirect to="/list" /> : <Home />}
+            {userToken ? (
+              <Redirect to="/list" />
+            ) : (
+              <Home userToken={userToken} setUserToken={setUserToken} />
+            )}
           </Route>
           <Route path="/list">
-            <List />
+            {!userToken ? <Redirect exact to="/" /> : <List />}
           </Route>
           <Route path="/add">
-            <AddItem />
+            {!userToken ? <Redirect exact to="/" /> : <AddItem />}
           </Route>
           <Route component={NotFound} />
         </Switch>

@@ -19,13 +19,15 @@ const AddItemForm = ({ listId }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newItem = formValues;
-    newItem.purchaseInterval = parseInt(newItem.purchaseInterval); // convert purchaseInterval to integer
-    newItem.lastPurchaseDate = null;
-    newItem.numberOfPurchases = 0;
+    const newItem = {
+      ...formValues,
+      purchaseInterval: Number(formValues.purchaseInterval),
+      lastPurchaseDate: null,
+      numberOfPurchases: 0,
+    };
 
     try {
-      await db.collection(`lists/${listId}/items`).add(formValues); // add item to Firestore database
+      await db.collection(`lists/${listId}/items`).add(newItem); // add item to Firestore database
       setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
     } catch (err) {
       console.log(err);

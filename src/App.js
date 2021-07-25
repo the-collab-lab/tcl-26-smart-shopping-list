@@ -26,17 +26,9 @@ function App() {
         .where('token', '==', token)
         .get()
         .then((querySnapshot) => {
-          // make sure docs exists, then store array in documents (or null if no property exists)
-          const documents = 'docs' in querySnapshot ? querySnapshot.docs : null;
-
-          // check if the expected data is returned
-          if (
-            Array.isArray(documents) &&
-            documents.length &&
-            typeof documents[0] === 'object' &&
-            'id' in documents[0]
-          ) {
-            setListId(documents[0].id); // save the list id for later
+          // if there are results and an id property exists
+          if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
+            setListId(querySnapshot.docs[0].id); // save the list id for later
           }
         })
         .catch((error) => {

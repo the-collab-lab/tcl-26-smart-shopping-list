@@ -1,23 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import getToken from '../../lib/tokens';
 
-function Home({ userToken, setUserToken }) {
+function Home({ userToken, saveToken }) {
   let history = useHistory();
 
-  function saveToken(e) {
-    e.preventDefault();
-    const token = getToken();
-    localStorage.setItem('token', token);
-    setUserToken(token);
+  function handleClick(e) {
+    saveToken(e);
+
     if (userToken) {
       history.push('/list');
     }
   }
+
   return (
     <main>
       <h1>Welcome To Your Smart Shopping List</h1>
-      <button type="button" onClick={saveToken}>
+      <button type="button" onClick={handleClick}>
         Create a new list
       </button>
     </main>

@@ -20,6 +20,7 @@ import Home from './pages/Home/Home';
 import NavMenu from './components/NavMenu/NavMenu';
 
 // Functions
+import getToken from './lib/tokens';
 
 function App() {
   const [userToken, setUserToken] = useState('');
@@ -30,6 +31,13 @@ function App() {
       setUserToken(token);
     }
   }, []);
+
+  function saveToken(e) {
+    e.preventDefault();
+    const token = getToken();
+    localStorage.setItem('token', token);
+    setUserToken(token);
+  }
   return (
     <Router>
       <div className="App container">
@@ -38,7 +46,11 @@ function App() {
             {userToken ? (
               <Redirect to="/list" />
             ) : (
-              <Home userToken={userToken} setUserToken={setUserToken} />
+              <Home
+                userToken={userToken}
+                setUserToken={setUserToken}
+                saveToken={saveToken}
+              />
             )}
           </Route>
           <Route path="/list">

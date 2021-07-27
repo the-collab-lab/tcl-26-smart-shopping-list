@@ -1,6 +1,11 @@
 // Packages
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 
 // Firestore
 import { db } from './lib/firebase.js';
@@ -12,15 +17,29 @@ import './App.css';
 import ListView from './pages/ListView/ListView';
 import AddItemView from './pages/AddItemView/AddItemView';
 import NotFound from './pages/NotFound/NotFound';
+import Home from './pages/Home/Home';
+
+// Functions
+import getToken from './lib/tokens';
 
 function App() {
   const [listId, setListId] = useState(null);
+  const [userToken, setUserToken] = useState('');
+
+  function saveToken(e) {
+    e.preventDefault();
+    const token = getToken();
+    localStorage.setItem('token', token);
+    setUserToken(token);
+  }
 
   // on component mounting, look for token in local storage and use it to retrieve the list id
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (token) {
+      setUserToken(token);
+
       // find the list in Firestore associated with the stored token from local storage
       db.collection('lists')
         .where('token', '==', token)
@@ -42,10 +61,29 @@ function App() {
       <div className="App container">
         <Switch>
           <Route exact path="/">
-            <ListView listId={listId} />
+            {userToken ? (
+              <Redirect to="/list" />
+            ) : (
+              <Home
+                userToken={userToken}
+                setUserToken={setUserToken}
+                saveToken={saveToken}
+              />
+            )}
+          </Route>
+          <Route path="/list">
+            {!userToken ? (
+              <Redirect exact to="/" />
+            ) : (
+              <ListView listId={listId} />
+            )}
           </Route>
           <Route path="/add">
-            <AddItemView listId={listId} />
+            {!userToken ? (
+              <Redirect exact to="/" />
+            ) : (
+              <AddItemView listId={listId} />
+            )}
           </Route>
           <Route component={NotFound} />
         </Switch>

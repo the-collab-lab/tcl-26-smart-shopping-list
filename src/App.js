@@ -44,23 +44,34 @@ function App() {
       });
   }
 
-  function joinList(shareToken) {
+  // returns true if token matches a list in db, returns false if no list, throws error on connection problem
+  function isTokenValid(token) {
     return db
       .collection('lists')
-      .where('token', '==', shareToken)
+      .where('token', '==', token)
       .get()
       .then((querySnapshot) => {
         // if there are results and an id property exists
         if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
           setListId(querySnapshot.docs[0].id);
-          localStorage.setItem('token', shareToken);
           return true;
 
-          // otherwise, the token is invalid
+          // check metadata.fromCache to distinguish between no results (invalid token) and a connection issue
+        } else if (!querySnapshot.metadata.fromCache) {
+          return false;
         } else {
-          throw new Error('Token is invalid.');
+          throw new Error('Connection problem');
         }
       });
+  }
+
+  function joinList(shareToken) {
+    return isTokenValid(shareToken).then((listExists) => {
+      if (listExists) {
+        localStorage.setItem('token', shareToken);
+        return true;
+      } else throw new Error('Invalid token');
+    });
   }
 
   // on component mounting, look for token in local storage and use it to retrieve the list id
@@ -68,15 +79,9 @@ function App() {
     const token = localStorage.getItem('token');
 
     if (token) {
-      // find the list in Firestore associated with the stored token from local storage
-      db.collection('lists')
-        .where('token', '==', token)
-        .get()
-        .then((querySnapshot) => {
-          // if there are results and an id property exists
-          if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
-            setListId(querySnapshot.docs[0].id); // save the list id for later
-          }
+      isTokenValid(token)
+        .then((listExists) => {
+          if (listExists !== true) localStorage.removeItem('token');
         })
         .catch((error) => {
           console.log('Error getting list: ', error);

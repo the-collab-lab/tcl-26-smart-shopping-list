@@ -5,8 +5,10 @@ function Home({ createList, joinList }) {
   let history = useHistory();
 
   const [shareToken, setShareToken] = useState('');
+  const [joinListError, setJoinListError] = useState('');
 
   const handleTokenChange = (event) => {
+    setJoinListError('');
     setShareToken(event.target.value);
   };
 
@@ -22,12 +24,20 @@ function Home({ createList, joinList }) {
 
   function handleJoinList(event) {
     event.preventDefault();
+    setJoinListError(''); // remove message to ensure repeated error is read again by screen reader
     joinList(shareToken)
       .then((success) => {
         history.push('/list');
       })
       .catch((err) => {
-        console.log(err);
+        if (err.message === 'Invalid token')
+          setJoinListError(
+            'Sorry, that token is invalid. Please try again or create a new list.',
+          );
+        else
+          setJoinListError(
+            'Sorry, there was a problem connecting to the database. Please try again.',
+          );
       });
   }
 
@@ -58,8 +68,12 @@ function Home({ createList, joinList }) {
           <p>Join an existing shopping list by entering a three word token.</p>
           <div
             aria-live="assertive"
-            className="join-list-form__error error"
-          ></div>
+            className={`join-list-form__error error ${
+              joinListError ? 'error_on' : ''
+            }`}
+          >
+            {joinListError}
+          </div>
           <label
             className="join-list-form__label join-list-form__label_type_text label"
             htmlFor="shareToken"

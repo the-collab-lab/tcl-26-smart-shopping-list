@@ -1,12 +1,29 @@
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
-function Home({ createList }) {
+function Home({ createList, joinList }) {
   let history = useHistory();
+
+  const [shareToken, setShareToken] = useState('');
+
+  const handleTokenChange = (event) => {
+    setShareToken(event.target.value);
+  };
 
   function handleCreateList() {
     createList()
       .then((success) => {
-        console.log(success);
+        history.push('/list');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleJoinList(event) {
+    event.preventDefault();
+    joinList(shareToken)
+      .then((success) => {
         history.push('/list');
       })
       .catch((err) => {
@@ -29,7 +46,11 @@ function Home({ createList }) {
       <div className="container__separator">- or -</div>
 
       <div className="join-list-section">
-        <form name="joinListForm" className="join-list-form">
+        <form
+          name="joinListForm"
+          onSubmit={handleJoinList}
+          className="join-list-form"
+        >
           <div aria-live="assertive" className="join-list__error error"></div>
           <label
             className="join-list-form__label join-list-form__label_type_text label"
@@ -42,7 +63,8 @@ function Home({ createList }) {
             type="text"
             id="shareToken"
             name="shareToken"
-            value=""
+            value={shareToken}
+            onChange={handleTokenChange}
             maxLength="100"
             required
           />

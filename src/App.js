@@ -40,7 +40,26 @@ function App() {
         // list successfully created in db, so update listId state and save token to localStorage
         setListId(newListId);
         localStorage.setItem('token', token);
-        return newListId;
+        return true;
+      });
+  }
+
+  function joinList(shareToken) {
+    return db
+      .collection('lists')
+      .where('token', '==', shareToken)
+      .get()
+      .then((querySnapshot) => {
+        // if there are results and an id property exists
+        if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
+          setListId(querySnapshot.docs[0].id);
+          localStorage.setItem('token', shareToken);
+          return true;
+
+          // otherwise, the token is invalid
+        } else {
+          throw new Error('Token is invalid.');
+        }
       });
   }
 
@@ -73,7 +92,7 @@ function App() {
             {listId ? (
               <Redirect to="/list" />
             ) : (
-              <Home createList={createList} />
+              <Home createList={createList} joinList={joinList} />
             )}
           </Route>
           <Route path="/list">

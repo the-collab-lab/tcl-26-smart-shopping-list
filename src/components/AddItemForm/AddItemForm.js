@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { db } from '../../lib/firebase.js';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 const AddItemForm = ({ listId }) => {
   const defaultFormValues = {
@@ -8,6 +9,7 @@ const AddItemForm = ({ listId }) => {
   };
 
   const [formValues, setFormValues] = useState(defaultFormValues);
+  const [inputMessage, setInputMessage] = useState('Sheila is great');
 
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
@@ -18,6 +20,14 @@ const AddItemForm = ({ listId }) => {
   // on form submit, add user input and other default values to database
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // on form submit, check if itemName already exists in Firestore
+
+    // get array of listItems from Firestore and compare against itemName input value
+
+    // if matches, show error message
+
+    // otherwise, continue with adding to database (below)
 
     const newItem = {
       ...formValues,
@@ -47,11 +57,13 @@ const AddItemForm = ({ listId }) => {
         type="text"
         id="itemName"
         name="itemName"
+        aria-describedby="itemNameMessage"
         value={formValues.itemName}
         onChange={handleChange}
         maxLength="100"
         required
       />
+      <span id="itemNameMessage">{inputMessage}</span>
 
       <fieldset>
         <legend>How soon will you buy this again?</legend>

@@ -1,7 +1,9 @@
+import './Header.css';
+
 const Header = () => {
   return (
     <header className="container__header header">
-      <h1>Smart Shopping List</h1>
+      <h1 className="header__logo">Smart Shopping List</h1>
     </header>
   );
 };

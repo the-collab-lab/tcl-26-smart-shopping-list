@@ -24,13 +24,24 @@ import getToken from './lib/tokens';
 
 function App() {
   const [listId, setListId] = useState(null);
-  const [userToken, setUserToken] = useState('');
 
-  function saveToken(e) {
-    e.preventDefault();
+  function createList() {
     const token = getToken();
-    localStorage.setItem('token', token);
-    setUserToken(token);
+
+    return db
+      .collection('lists')
+      .add({ token: token })
+      .then((results) => {
+        const { id } = results;
+        if (id === undefined) throw new Error('Failed to create list.');
+        return id;
+      })
+      .then((newListId) => {
+        // list successfully created in db, so update listId state and save token to localStorage
+        setListId(newListId);
+        localStorage.setItem('token', token);
+        return newListId;
+      });
   }
 
   // on component mounting, look for token in local storage and use it to retrieve the list id
@@ -38,8 +49,6 @@ function App() {
     const token = localStorage.getItem('token');
 
     if (token) {
-      setUserToken(token);
-
       // find the list in Firestore associated with the stored token from local storage
       db.collection('lists')
         .where('token', '==', token)
@@ -54,32 +63,24 @@ function App() {
           console.log('Error getting list: ', error);
         });
     }
-  }, [listId]);
+  }, []);
 
   return (
     <Router>
       <div className="App container">
         <Switch>
           <Route exact path="/">
-            {userToken ? (
+            {listId ? (
               <Redirect to="/list" />
             ) : (
-              <Home
-                userToken={userToken}
-                setUserToken={setUserToken}
-                saveToken={saveToken}
-              />
+              <Home createList={createList} />
             )}
           </Route>
           <Route path="/list">
-            {!userToken ? (
-              <Redirect exact to="/" />
-            ) : (
-              <ListView listId={listId} />
-            )}
+            {!listId ? <Redirect exact to="/" /> : <ListView listId={listId} />}
           </Route>
           <Route path="/add">
-            {!userToken ? (
+            {!listId ? (
               <Redirect exact to="/" />
             ) : (
               <AddItemView listId={listId} />

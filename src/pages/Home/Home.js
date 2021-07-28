@@ -1,15 +1,17 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Home({ userToken, saveToken }) {
+function Home({ createList }) {
   let history = useHistory();
 
-  function handleClick(e) {
-    saveToken(e);
-
-    if (userToken) {
-      history.push('/list');
-    }
+  function handleClick() {
+    createList()
+      .then((success) => {
+        console.log(success);
+        history.push('/list');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (

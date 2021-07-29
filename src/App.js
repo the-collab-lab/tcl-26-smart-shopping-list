@@ -28,7 +28,8 @@ function App() {
 
   function saveToken(e) {
     e.preventDefault();
-    const token = getToken();
+    //const token = getToken();
+    const token = 'three word token'; // SM TODO- Get rid of this line
     localStorage.setItem('token', token);
     setUserToken(token);
   }
@@ -48,6 +49,8 @@ function App() {
           // if there are results and an id property exists
           if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
             setListId(querySnapshot.docs[0].id); // save the list id for later
+            console.log(token);
+            console.log(listId);
           }
         })
         .catch((error) => {

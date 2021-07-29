@@ -11,6 +11,14 @@ const AddItemForm = ({ listId }) => {
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [inputMessage, setInputMessage] = useState('Sheila is great');
 
+  const isItemDuplicate = (item, array) => {
+    // TODO: Potential to remove all spaces in item and items in array
+    const itemToCompare = item.toLowerCase().trim(); // transform and remove leading and/or trailing whitespace
+
+    // if .indexOf returns -1, the item does not exist in array, aka it's not a duplicate, aka false
+    return array.indexOf(itemToCompare) === -1 ? false : true;
+  };
+
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
     const inputName = event.target.name;
@@ -21,9 +29,27 @@ const AddItemForm = ({ listId }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // on form submit, check if itemName already exists in Firestore
+    // check if itemName already exists in Firestore
+    try {
+      // get array of listItems from Firestore
+      await db
+        .collection(`lists/${listId}/items`)
+        .get()
+        .then((querySnapshot) => {
+          // create array (dbItemArray) by returning itemNames from Firestore response (querySnapshot)
+          let dbItemArray = querySnapshot.docs.map((doc) => {
+            return doc.data().itemName;
+          });
 
-    // get array of listItems from Firestore and compare against itemName input value
+          const duplicateResult = isItemDuplicate(
+            formValues.itemName,
+            dbItemArray,
+          );
+          console.log(duplicateResult);
+        });
+    } catch (err) {
+      console.log(err);
+    }
 
     // if matches, show error message
 

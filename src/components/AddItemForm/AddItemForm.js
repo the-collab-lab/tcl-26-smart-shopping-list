@@ -19,6 +19,22 @@ const AddItemForm = ({ listId }) => {
     return array.indexOf(itemToCompare) === -1 ? false : true;
   };
 
+  const addItemToDatabase = async () => {
+    const newItem = {
+      ...formValues,
+      purchaseInterval: Number(formValues.purchaseInterval),
+      lastPurchaseDate: null,
+      numberOfPurchases: 0,
+    };
+
+    try {
+      await db.collection(`lists/${listId}/items`).add(newItem); // add item to Firestore database
+      setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
     const inputName = event.target.name;
@@ -35,7 +51,7 @@ const AddItemForm = ({ listId }) => {
       await db
         .collection(`lists/${listId}/items`)
         .get()
-        .then((querySnapshot) => {
+        .then(async (querySnapshot) => {
           // create array (dbItemArray) by returning itemNames from Firestore response (querySnapshot)
           let dbItemArray = querySnapshot.docs.map((doc) => {
             return doc.data().itemName;
@@ -45,26 +61,14 @@ const AddItemForm = ({ listId }) => {
             formValues.itemName,
             dbItemArray,
           );
-          console.log(duplicateResult);
+
+          // if item exists, show error message, otherwise, continue with adding to database
+          if (duplicateResult === true) {
+            setInputMessage('Item already exists in Shopping List');
+          } else {
+            addItemToDatabase();
+          }
         });
-    } catch (err) {
-      console.log(err);
-    }
-
-    // if matches, show error message
-
-    // otherwise, continue with adding to database (below)
-
-    const newItem = {
-      ...formValues,
-      purchaseInterval: Number(formValues.purchaseInterval),
-      lastPurchaseDate: null,
-      numberOfPurchases: 0,
-    };
-
-    try {
-      await db.collection(`lists/${listId}/items`).add(newItem); // add item to Firestore database
-      setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
     } catch (err) {
       console.log(err);
     }

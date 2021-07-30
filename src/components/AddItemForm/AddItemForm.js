@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { db } from '../../lib/firebase.js';
 
 const AddItemForm = ({ listId }) => {
+  /** Default Values **/
   const defaultFormValues = {
     itemName: '',
     purchaseInterval: '7',
@@ -9,43 +10,11 @@ const AddItemForm = ({ listId }) => {
 
   const defaultErrorMessage = '';
 
+  /** State **/
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
 
-  // used when comparing entered item and array of db items for duplicates
-  const normalizeInput = (item) => {
-    return item
-      .toLowerCase()
-      .replace(/[.,/#!$%^&*;:{}=\-_`~()@[\]|<>+'"/?]/g, '') // remove punctuation
-      .replace(/\s{2,}/g, ' ') // remove extra spaces from removing punctuation
-      .trim(); // remove leading and trailing whitespace (trim must be last)
-  };
-
-  const isItemDuplicate = (item, array) => {
-    // TODO: Potential to remove all spaces in item and items in array
-
-    const itemToCompare = normalizeInput(item);
-    const arrayToCompare = array.map((dbItem) => normalizeInput(dbItem));
-
-    // if .indexOf returns -1, the item does not exist in array, aka it's not a duplicate, aka false
-    return arrayToCompare.indexOf(itemToCompare) === -1 ? false : true;
-  };
-
-  const addItemToDatabase = async () => {
-    const newItem = {
-      itemName: formValues.itemName.trim(), // remove extra whitespace from itemName to keep data clean
-      purchaseInterval: Number(formValues.purchaseInterval),
-      lastPurchaseDate: null,
-      numberOfPurchases: 0,
-    };
-
-    try {
-      await db.collection(`lists/${listId}/items`).add(newItem); // add item to Firestore database
-      setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  /** Functions **/
 
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
@@ -83,6 +52,41 @@ const AddItemForm = ({ listId }) => {
             addItemToDatabase();
           }
         });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const isItemDuplicate = (item, array) => {
+    // TODO: Potential to remove all spaces in item and items in array
+
+    const itemToCompare = normalizeInput(item);
+    const arrayToCompare = array.map((dbItem) => normalizeInput(dbItem));
+
+    // if .indexOf returns -1, the item does not exist in array, aka it's not a duplicate, aka false
+    return arrayToCompare.indexOf(itemToCompare) === -1 ? false : true;
+  };
+
+  // used when comparing entered item and array of db items for duplicates
+  const normalizeInput = (item) => {
+    return item
+      .toLowerCase()
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()@[\]|<>+'"/?]/g, '') // remove punctuation
+      .replace(/\s{2,}/g, ' ') // remove extra spaces from removing punctuation
+      .trim(); // remove leading and trailing whitespace (trim must be last)
+  };
+
+  const addItemToDatabase = async () => {
+    const newItem = {
+      itemName: formValues.itemName.trim(), // remove extra whitespace from itemName to keep data clean
+      purchaseInterval: Number(formValues.purchaseInterval),
+      lastPurchaseDate: null,
+      numberOfPurchases: 0,
+    };
+
+    try {
+      await db.collection(`lists/${listId}/items`).add(newItem); // add item to Firestore database
+      setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
     } catch (err) {
       console.log(err);
     }

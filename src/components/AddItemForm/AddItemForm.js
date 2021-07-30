@@ -12,19 +12,23 @@ const AddItemForm = ({ listId }) => {
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [inputMessage, setInputMessage] = useState(defaultInputMessage);
 
+  // used when comparing entered item and array of db items for duplicates
+  const normalizeInput = (item) => {
+    return item
+      .toLowerCase()
+      .replace(/[.,/#!$%^&*;:{}=\-_`~()@[\]|<>+'"/?]/g, '') // remove punctuation
+      .replace(/\s{2,}/g, ' ') // remove extra spaces from removing punctuation
+      .trim(); // remove leading and trailing whitespace (trim must be last)
+  };
+
   const isItemDuplicate = (item, array) => {
     // TODO: Potential to remove all spaces in item and items in array
 
-    // .replace's remove punctuation, then remove extra spaces from removing punctuation
-    // .trim() to remove leading and/or trailing whitespace (must be last)
-    const itemToCompare = item
-      .toLowerCase()
-      .replace(/[.,\/#!$%^&*;:{}=\-_`~()@[\]|<>+'"/?]/g, '')
-      .replace(/\s{2,}/g, ' ')
-      .trim();
+    const itemToCompare = normalizeInput(item);
+    const arrayToCompare = array.map((dbItem) => normalizeInput(dbItem));
 
     // if .indexOf returns -1, the item does not exist in array, aka it's not a duplicate, aka false
-    return array.indexOf(itemToCompare) === -1 ? false : true;
+    return arrayToCompare.indexOf(itemToCompare) === -1 ? false : true;
   };
 
   const addItemToDatabase = async () => {

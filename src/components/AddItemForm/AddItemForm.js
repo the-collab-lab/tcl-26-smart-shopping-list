@@ -8,17 +8,15 @@ const AddItemForm = ({ listId }) => {
     purchaseInterval: '7',
   };
 
-  const defaultErrorMessage = '';
-
   /** State **/
   const [formValues, setFormValues] = useState(defaultFormValues);
-  const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
+  const [errorMessage, setErrorMessage] = useState('');
 
   /** Functions **/
 
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
-    setErrorMessage(defaultErrorMessage); // if input field changes, reset error message
+    setErrorMessage(''); // if input field changes, reset error message
 
     const inputName = event.target.name;
     setFormValues({ ...formValues, [inputName]: event.target.value });
@@ -27,6 +25,8 @@ const AddItemForm = ({ listId }) => {
   // on form submit, add user input and other default values to database
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setErrorMessage(''); // clear any old errors when the form is submitted for accessibility to provide feedback after 1st submission
 
     // check if itemName already exists in Firestore
     try {

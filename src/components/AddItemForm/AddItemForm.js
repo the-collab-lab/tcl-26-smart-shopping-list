@@ -14,7 +14,14 @@ const AddItemForm = ({ listId }) => {
 
   const isItemDuplicate = (item, array) => {
     // TODO: Potential to remove all spaces in item and items in array
-    const itemToCompare = item.toLowerCase().trim(); // transform and remove leading and/or trailing whitespace
+
+    // .replace's remove punctuation, then remove extra spaces from removing punctuation
+    // .trim() to remove leading and/or trailing whitespace (must be last)
+    const itemToCompare = item
+      .toLowerCase()
+      .replace(/[.,\/#!$%^&*;:{}=\-_`~()@[\]|<>+'"/?]/g, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
 
     // if .indexOf returns -1, the item does not exist in array, aka it's not a duplicate, aka false
     return array.indexOf(itemToCompare) === -1 ? false : true;
@@ -22,7 +29,7 @@ const AddItemForm = ({ listId }) => {
 
   const addItemToDatabase = async () => {
     const newItem = {
-      ...formValues,
+      itemName: formValues.itemName.trim(), // remove extra whitespace from itemName to keep data clean
       purchaseInterval: Number(formValues.purchaseInterval),
       lastPurchaseDate: null,
       numberOfPurchases: 0,

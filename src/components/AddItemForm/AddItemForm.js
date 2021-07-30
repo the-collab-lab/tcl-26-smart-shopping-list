@@ -7,10 +7,10 @@ const AddItemForm = ({ listId }) => {
     purchaseInterval: '7',
   };
 
-  const defaultInputMessage = '';
+  const defaultErrorMessage = '';
 
   const [formValues, setFormValues] = useState(defaultFormValues);
-  const [inputMessage, setInputMessage] = useState(defaultInputMessage);
+  const [errorMessage, setErrorMessage] = useState(defaultErrorMessage);
 
   // used when comparing entered item and array of db items for duplicates
   const normalizeInput = (item) => {
@@ -49,7 +49,7 @@ const AddItemForm = ({ listId }) => {
 
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
-    setInputMessage(defaultInputMessage); // if input field changes, reset error message
+    setErrorMessage(defaultErrorMessage); // if input field changes, reset error message
 
     const inputName = event.target.name;
     setFormValues({ ...formValues, [inputName]: event.target.value });
@@ -78,7 +78,7 @@ const AddItemForm = ({ listId }) => {
 
           // if item exists, show error message, otherwise, continue with adding to database
           if (duplicateResult === true) {
-            setInputMessage('Item already exists in Shopping List');
+            setErrorMessage('Item already exists in Shopping List');
           } else {
             addItemToDatabase();
           }
@@ -101,13 +101,13 @@ const AddItemForm = ({ listId }) => {
         type="text"
         id="itemName"
         name="itemName"
-        aria-describedby="itemNameMessage"
+        aria-describedby="itemErrorMessage"
         value={formValues.itemName}
         onChange={handleChange}
         maxLength="100"
         required
       />
-      <span id="itemNameMessage">{inputMessage}</span>
+      <span id="itemErrorMessage">{errorMessage}</span>
 
       <fieldset>
         <legend>How soon will you buy this again?</legend>

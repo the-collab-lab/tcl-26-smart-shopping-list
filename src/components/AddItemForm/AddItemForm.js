@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { db } from '../../lib/firebase.js';
-import { useCollection } from 'react-firebase-hooks/firestore';
 
 const AddItemForm = ({ listId }) => {
   const defaultFormValues = {
@@ -8,8 +7,10 @@ const AddItemForm = ({ listId }) => {
     purchaseInterval: '7',
   };
 
+  const defaultInputMessage = '';
+
   const [formValues, setFormValues] = useState(defaultFormValues);
-  const [inputMessage, setInputMessage] = useState('Sheila is great');
+  const [inputMessage, setInputMessage] = useState(defaultInputMessage);
 
   const isItemDuplicate = (item, array) => {
     // TODO: Potential to remove all spaces in item and items in array
@@ -37,6 +38,8 @@ const AddItemForm = ({ listId }) => {
 
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
+    setInputMessage(defaultInputMessage); // if input field changes, reset error message
+
     const inputName = event.target.name;
     setFormValues({ ...formValues, [inputName]: event.target.value });
   };

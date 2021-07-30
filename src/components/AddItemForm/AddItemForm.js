@@ -35,18 +35,13 @@ const AddItemForm = ({ listId }) => {
         .collection(`lists/${listId}/items`)
         .get()
         .then(async (querySnapshot) => {
-          // create array (dbItemArray) by returning itemNames from Firestore response (querySnapshot)
-          let dbItemArray = querySnapshot.docs.map((doc) => {
-            return doc.data().itemName;
-          });
-
-          const duplicateResult = isItemDuplicate(
-            formValues.itemName,
-            dbItemArray,
+          // create array of normalized item names from Firestore response (querySnapshot)
+          const dbItemArray = querySnapshot.docs.map((doc) =>
+            normalizeInput(doc.data().itemName),
           );
 
           // if item exists, show error message, otherwise, continue with adding to database
-          if (duplicateResult === true) {
+          if (dbItemArray.includes(normalizeInput(formValues.itemName))) {
             setErrorMessage('Item already exists in Shopping List');
           } else {
             addItemToDatabase();
@@ -57,21 +52,9 @@ const AddItemForm = ({ listId }) => {
     }
   };
 
-  const isItemDuplicate = (item, array) => {
-    const itemToCompare = normalizeInput(item);
-    const arrayToCompare = array.map((dbItem) => normalizeInput(dbItem));
-
-    // if .indexOf returns -1, the item does not exist in array, aka it's not a duplicate, aka false
-    return arrayToCompare.indexOf(itemToCompare) === -1 ? false : true;
-  };
-
   // used when comparing entered item and array of db items for duplicates
   const normalizeInput = (item) => {
-    return item
-      .toLowerCase()
-      .replace(/\W/g, '') // remove non-word characters aka remove punctuation
-      .replace(/ /g, '') // remove spaces
-      .trim(); // remove leading and trailing whitespace (trim must be last)
+    return item.toLowerCase().replace(/\W/g, ''); // remove non-word characters aka remove punctuation and all spaces
   };
 
   const addItemToDatabase = async () => {

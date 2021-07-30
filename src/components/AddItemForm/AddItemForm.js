@@ -58,8 +58,6 @@ const AddItemForm = ({ listId }) => {
   };
 
   const isItemDuplicate = (item, array) => {
-    // TODO: Potential to remove all spaces in item and items in array
-
     const itemToCompare = normalizeInput(item);
     const arrayToCompare = array.map((dbItem) => normalizeInput(dbItem));
 
@@ -71,8 +69,8 @@ const AddItemForm = ({ listId }) => {
   const normalizeInput = (item) => {
     return item
       .toLowerCase()
-      .replace(/[.,/#!$%^&*;:{}=\-_`~()@[\]|<>+'"/?]/g, '') // remove punctuation
-      .replace(/\s{2,}/g, ' ') // remove extra spaces from removing punctuation
+      .replace(/\W/g, '') // remove non-word characters aka remove punctuation
+      .replace(/ /g, '') // remove spaces
       .trim(); // remove leading and trailing whitespace (trim must be last)
   };
 

@@ -40,6 +40,14 @@ BEM conventions we are using:
   width: 100%;
   font-size: 20px;
   margin: 5px 0 20px 0;
+  border: 1px solid #888;
+  border-radius: 3px;
+  padding: 8px 10px;
+}
+
+.text-field_has-error {
+  margin-bottom: 5px;
+  border: 2px solid red;
 }
 
 .button {
@@ -52,4 +60,10 @@ BEM conventions we are using:
 
 .error {
   color: red;
+  margin: 10px 0;
+}
+
+.error_type_field {
+  font-size: 16px;
+  margin: 0 0 20px 0;
 }

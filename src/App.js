@@ -30,9 +30,9 @@ function App() {
 
     return db
       .collection('lists')
-      .add({ token: token })
+      .add({ token: token }) //add a list and assign it the user's token
       .then((results) => {
-        const { id } = results;
+        const { id } = results; //get the firestore-generated id from the created list
         if (id === undefined) throw new Error('Failed to create list.');
         return id;
       })

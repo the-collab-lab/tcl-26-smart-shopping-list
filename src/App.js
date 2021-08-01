@@ -28,20 +28,29 @@ function App() {
   function createList() {
     const token = getToken();
 
-    return db
-      .collection('lists')
-      .add({ token: token }) //add a list and assign it the user's token
-      .then((results) => {
-        const { id } = results; //get the firestore-generated id from the created list
-        if (id === undefined) throw new Error('Failed to create list.');
-        return id;
-      })
-      .then((newListId) => {
-        // list successfully created in db, so update listId state and save token to localStorage
-        setListId(newListId);
-        localStorage.setItem('token', token);
-        return true;
-      });
+    // before attempting to add new list, make sure token hasn't been used before in the db
+    return isTokenValid(token).then((listExists) => {
+      if (listExists) {
+        // if isTokenValid returns true the token is taken, so try again
+        createList();
+      } else {
+        // otherwise the token is not already associated with a list, so we can safely use it
+        return db
+          .collection('lists')
+          .add({ token: token }) // add a list and assign it the user's token
+          .then((results) => {
+            const { id } = results; // get the firestore-generated id from the created list
+            if (id === undefined) throw new Error('Failed to create list.');
+            return id;
+          })
+          .then((newListId) => {
+            // list successfully created in db, so update listId state and save token to localStorage
+            setListId(newListId);
+            localStorage.setItem('token', token);
+            return true;
+          });
+      }
+    });
   }
 
   // returns true if token matches a list in db, returns false if no list, throws error on connection problem

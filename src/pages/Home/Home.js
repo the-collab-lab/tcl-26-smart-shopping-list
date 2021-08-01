@@ -108,7 +108,7 @@ function Home({ createList, joinList }) {
           />
           <div
             id="shareTokenHint"
-            class={`error error_type_field ${
+            className={`error error_type_field ${
               shareTokenError ? 'error_on' : ''
             }`}
           >

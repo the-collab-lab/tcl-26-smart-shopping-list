@@ -81,7 +81,7 @@ function App() {
     if (token) {
       isTokenValid(token)
         .then((listExists) => {
-          if (listExists !== true) localStorage.removeItem('token');
+          if (!listExists) localStorage.removeItem('token');
         })
         .catch((error) => {
           console.log('Error getting list: ', error);

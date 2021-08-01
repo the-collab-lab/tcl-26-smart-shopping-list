@@ -1,0 +1,13 @@
+.header {
+  text-align: center;
+}
+
+.header__welcome {
+  margin: 0;
+  font-size: 36px;
+}
+
+.header__logo {
+  margin: 0;
+  font-size: 30px;
+}

@@ -24,13 +24,63 @@ import getToken from './lib/tokens';
 
 function App() {
   const [listId, setListId] = useState(null);
-  const [userToken, setUserToken] = useState('');
 
-  function saveToken(e) {
-    e.preventDefault();
+  function createList() {
     const token = getToken();
-    localStorage.setItem('token', token);
-    setUserToken(token);
+
+    // before attempting to add new list, make sure token hasn't been used before in the db
+    return isTokenValid(token).then((listExists) => {
+      if (listExists) {
+        // if isTokenValid returns true the token is taken, so try again
+        createList();
+      } else {
+        // otherwise the token is not already associated with a list, so we can safely use it
+        return db
+          .collection('lists')
+          .add({ token: token }) // add a list and assign it the user's token
+          .then((results) => {
+            const { id } = results; // get the firestore-generated id from the created list
+            if (id === undefined) throw new Error('Failed to create list.');
+            return id;
+          })
+          .then((newListId) => {
+            // list successfully created in db, so update listId state and save token to localStorage
+            setListId(newListId);
+            localStorage.setItem('token', token);
+            return true;
+          });
+      }
+    });
+  }
+
+  // returns true if token matches a list in db, returns false if no list, throws error on connection problem
+  function isTokenValid(token) {
+    return db
+      .collection('lists')
+      .where('token', '==', token)
+      .get()
+      .then((querySnapshot) => {
+        // if there are results and an id property exists
+        if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
+          setListId(querySnapshot.docs[0].id);
+          return true;
+
+          // check metadata.fromCache to distinguish between no results (invalid token) and a connection issue
+        } else if (!querySnapshot.metadata.fromCache) {
+          return false;
+        } else {
+          throw new Error('Connection problem');
+        }
+      });
+  }
+
+  function joinList(shareToken) {
+    return isTokenValid(shareToken).then((listExists) => {
+      if (listExists) {
+        localStorage.setItem('token', shareToken);
+        return true;
+      } else throw new Error('Invalid token');
+    });
   }
 
   // on component mounting, look for token in local storage and use it to retrieve the list id
@@ -38,48 +88,32 @@ function App() {
     const token = localStorage.getItem('token');
 
     if (token) {
-      setUserToken(token);
-
-      // find the list in Firestore associated with the stored token from local storage
-      db.collection('lists')
-        .where('token', '==', token)
-        .get()
-        .then((querySnapshot) => {
-          // if there are results and an id property exists
-          if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
-            setListId(querySnapshot.docs[0].id); // save the list id for later
-          }
+      isTokenValid(token)
+        .then((listExists) => {
+          if (!listExists) localStorage.removeItem('token');
         })
         .catch((error) => {
           console.log('Error getting list: ', error);
         });
     }
-  }, [listId]);
+  }, []);
 
   return (
     <Router>
       <div className="App container">
         <Switch>
           <Route exact path="/">
-            {userToken ? (
+            {listId ? (
               <Redirect to="/list" />
             ) : (
-              <Home
-                userToken={userToken}
-                setUserToken={setUserToken}
-                saveToken={saveToken}
-              />
+              <Home createList={createList} joinList={joinList} />
             )}
           </Route>
           <Route path="/list">
-            {!userToken ? (
-              <Redirect exact to="/" />
-            ) : (
-              <ListView listId={listId} />
-            )}
+            {!listId ? <Redirect exact to="/" /> : <ListView listId={listId} />}
           </Route>
           <Route path="/add">
-            {!userToken ? (
+            {!listId ? (
               <Redirect exact to="/" />
             ) : (
               <AddItemView listId={listId} />

@@ -18,5 +18,52 @@ BEM conventions we are using:
 */
 
 .container {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 20px;
+  padding: 40px;
+  position: relative;
+}
+
+.container__header {
+  margin-bottom: 40px;
+}
+
+.container__separator {
   text-align: center;
+  margin: 40px 0;
+}
+
+.text-field {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 20px;
+  margin: 5px 0 20px 0;
+  border: 1px solid #888;
+  border-radius: 3px;
+  padding: 8px 10px;
+}
+
+.text-field_has-error {
+  margin-bottom: 5px;
+  border: 2px solid red;
+}
+
+.button {
+  font-size: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 10px 0;
+}
+
+.error {
+  color: red;
+  margin: 10px 0;
+}
+
+.error_type_field {
+  font-size: 16px;
+  margin: 0 0 20px 0;
 }

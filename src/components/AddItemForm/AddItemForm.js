@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { db } from '../../lib/firebase.js';
 
 const AddItemForm = ({ listId }) => {
@@ -10,6 +10,7 @@ const AddItemForm = ({ listId }) => {
 
   /** State **/
   const [formValues, setFormValues] = useState(defaultFormValues);
+  const itemNameRef = useRef(); // ref for the item name field
   const [errorMessage, setErrorMessage] = useState('');
 
   /** Functions **/
@@ -40,9 +41,11 @@ const AddItemForm = ({ listId }) => {
             normalizeInput(doc.data().itemName),
           );
 
-          // if item exists, show error message, otherwise, continue with adding to database
+          // if item exists, show error message and put focus on field
+          // otherwise, continue with adding to database
           if (dbItemArray.includes(normalizeInput(formValues.itemName))) {
-            setErrorMessage('Item already exists in Shopping List');
+            setErrorMessage('Item already exists in Shopping List.');
+            itemNameRef.current.focus();
           } else {
             addItemToDatabase();
           }
@@ -82,17 +85,26 @@ const AddItemForm = ({ listId }) => {
         Item name:
       </label>
       <input
-        className="add-item-form__text-field text-field"
+        ref={itemNameRef}
+        className={`add-item-form__text-field text-field ${
+          errorMessage ? 'text-field_has-error' : ''
+        }`} // errorMessage ternary adds className
         type="text"
         id="itemName"
         name="itemName"
         aria-describedby="itemErrorMessage"
+        aria-invalid={Boolean(errorMessage)} // aria-invalid helps screenreader indicate invalid field
         value={formValues.itemName}
         onChange={handleChange}
         maxLength="100"
         required
       />
-      <span id="itemErrorMessage">{errorMessage}</span>
+      <div
+        id="itemErrorMessage"
+        className={`error error_type_field ${errorMessage ? 'error_on' : ''}`}
+      >
+        {errorMessage}
+      </div>
 
       <fieldset>
         <legend>How soon will you buy this again?</legend>

@@ -78,7 +78,7 @@ function Home({ createList, joinList }) {
         >
           <p>Join an existing shopping list by entering a three word token.</p>
           <div
-            role="alert"
+            role="alert" // error for overall form, role makes screenreader read this first
             className={`error error_type_summary ${
               joinListError ? 'error_on' : ''
             }`}
@@ -102,7 +102,7 @@ function Home({ createList, joinList }) {
             value={shareToken}
             onChange={handleTokenChange}
             aria-describedby="shareTokenHint"
-            aria-invalid={!!shareTokenError} //
+            aria-invalid={Boolean(shareTokenError)}
             maxLength="100"
             required
           />

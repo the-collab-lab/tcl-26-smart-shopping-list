@@ -32,7 +32,7 @@ function App() {
     return isTokenValid(token).then((listExists) => {
       if (listExists) {
         // if isTokenValid returns true the token is taken, so try again
-        createList();
+        return createList();
       } else {
         // otherwise the token is not already associated with a list, so we can safely use it
         return db

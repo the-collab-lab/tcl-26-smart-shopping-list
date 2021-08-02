@@ -8,16 +8,19 @@ const AddItemForm = ({ listId }) => {
     purchaseInterval: '7',
   };
 
-  /** State **/
+  /** Form State Variables and Refs **/
   const [formValues, setFormValues] = useState(defaultFormValues);
   const itemNameRef = useRef(); // ref for the item name field
-  const [errorMessage, setErrorMessage] = useState('');
+  const [addItemFormError, setAddItemFormError] = useState('');
+  const [itemErrorMessage, setItemErrorMessage] = useState('');
 
   /** Functions **/
 
   // generic function updates formValues state for any of the below form inputs
   const handleChange = (event) => {
-    setErrorMessage(''); // if input field changes, reset error message
+    // if input field changes, reset error messages
+    setAddItemFormError('');
+    setItemErrorMessage('');
 
     const inputName = event.target.name;
     setFormValues({ ...formValues, [inputName]: event.target.value });
@@ -27,7 +30,9 @@ const AddItemForm = ({ listId }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setErrorMessage(''); // clear any old errors when the form is submitted for accessibility to provide feedback after 1st submission
+    // clear any old errors when the form is submitted for accessibility to provide feedback after 1st submission
+    setAddItemFormError('');
+    setItemErrorMessage('');
 
     // check if itemName already exists in Firestore
     try {
@@ -36,22 +41,35 @@ const AddItemForm = ({ listId }) => {
         .collection(`lists/${listId}/items`)
         .get()
         .then(async (querySnapshot) => {
-          // create array of normalized item names from Firestore response (querySnapshot)
-          const dbItemArray = querySnapshot.docs.map((doc) =>
-            normalizeInput(doc.data().itemName),
-          );
+          if (!querySnapshot.empty) {
+            // create array of normalized item names from Firestore response (querySnapshot)
+            const dbItemArray = querySnapshot.docs.map((doc) =>
+              normalizeInput(doc.data().itemName),
+            );
 
-          // if item exists, show error message and put focus on field
-          // otherwise, continue with adding to database
-          if (dbItemArray.includes(normalizeInput(formValues.itemName))) {
-            setErrorMessage('Item already exists in Shopping List.');
-            itemNameRef.current.focus();
-          } else {
+            // if item exists, show error message and put focus on field
+            // otherwise, continue with adding to database
+            if (dbItemArray.includes(normalizeInput(formValues.itemName))) {
+              setItemErrorMessage('Item already exists in Shopping List.');
+              itemNameRef.current.focus();
+            } else {
+              addItemToDatabase();
+            }
+          } else if (!querySnapshot.metadata.fromCache) {
+            // if empty results and data is NOT cached, just add the item
             addItemToDatabase();
+          } else {
+            // empty results and querySnapshot.metadata.fromCache indicates a connection issue
+            setAddItemFormError(
+              'Sorry, there was a problem adding your item. Please check your connection and try again.',
+            );
           }
         });
     } catch (err) {
       console.log(err);
+      setAddItemFormError(
+        'Sorry, there was a problem adding your item. Please check your connection and try again.',
+      );
     }
   };
 
@@ -73,11 +91,23 @@ const AddItemForm = ({ listId }) => {
       setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
     } catch (err) {
       console.log(err);
+      setAddItemFormError(
+        'Sorry, there was a problem adding your item. Please check your connection and try again.',
+      );
     }
   };
 
   return (
     <form name="addItemForm" onSubmit={handleSubmit} className="add-item-form">
+      <div
+        role="alert"
+        className={`error error_type_summary ${
+          addItemFormError ? 'error_on' : ''
+        }`}
+      >
+        {addItemFormError}
+      </div>
+
       <label
         className="add-item-form__label add-item-form__label_type_text label"
         htmlFor="itemName"
@@ -87,13 +117,13 @@ const AddItemForm = ({ listId }) => {
       <input
         ref={itemNameRef}
         className={`add-item-form__text-field text-field ${
-          errorMessage ? 'text-field_has-error' : ''
+          itemErrorMessage ? 'text-field_has-error' : ''
         }`} // errorMessage ternary adds className
         type="text"
         id="itemName"
         name="itemName"
         aria-describedby="itemErrorMessage"
-        aria-invalid={Boolean(errorMessage)} // aria-invalid helps screenreader indicate invalid field
+        aria-invalid={Boolean(itemErrorMessage)} // aria-invalid helps screenreader indicate invalid field
         value={formValues.itemName}
         onChange={handleChange}
         maxLength="100"
@@ -101,9 +131,11 @@ const AddItemForm = ({ listId }) => {
       />
       <div
         id="itemErrorMessage"
-        className={`error error_type_field ${errorMessage ? 'error_on' : ''}`}
+        className={`error error_type_field ${
+          itemErrorMessage ? 'error_on' : ''
+        }`}
       >
-        {errorMessage}
+        {itemErrorMessage}
       </div>
 
       <fieldset>

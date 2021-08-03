@@ -60,13 +60,11 @@ const AddItemForm = ({ listId }) => {
             addItemToDatabase();
           } else {
             // empty results and querySnapshot.metadata.fromCache indicates a connection issue
-            setAddItemFormError(
-              'Sorry, there was a problem adding your item. Please check your connection and try again.',
-            );
+            throw new Error('Connection problem');
           }
         });
     } catch (err) {
-      console.log(err);
+      console.error(err.message);
       setAddItemFormError(
         'Sorry, there was a problem adding your item. Please check your connection and try again.',
       );
@@ -90,7 +88,7 @@ const AddItemForm = ({ listId }) => {
       await db.collection(`lists/${listId}/items`).add(newItem); // add item to Firestore database
       setFormValues(defaultFormValues); // after saving to database, reset form values to defaults
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setAddItemFormError(
         'Sorry, there was a problem adding your item. Please check your connection and try again.',
       );

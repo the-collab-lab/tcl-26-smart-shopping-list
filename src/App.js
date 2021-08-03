@@ -93,7 +93,7 @@ function App() {
           if (!listExists) localStorage.removeItem('token');
         })
         .catch((error) => {
-          console.log('Error getting list: ', error);
+          console.error('Problem getting list: ', error.message);
         });
     }
   }, []);

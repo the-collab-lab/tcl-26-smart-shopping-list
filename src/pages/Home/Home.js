@@ -4,10 +4,13 @@ import { useState, useRef } from 'react';
 function Home({ createList, joinList }) {
   let history = useHistory();
 
+  const [createListError, setCreateListError] = useState(''); // error for the create list form
+
+  const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
+
   const [shareToken, setShareToken] = useState(''); // value for the shareToken field
   const shareTokenRef = useRef(); // ref for the shareToken field
   const [shareTokenError, setShareTokenError] = useState(''); // error hint for the shareToken field
-  const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
 
   const handleTokenChange = (event) => {
     setJoinListError('');
@@ -16,12 +19,15 @@ function Home({ createList, joinList }) {
   };
 
   function handleCreateList() {
+    setCreateListError('');
     createList()
       .then((success) => {
         history.push('/list');
       })
       .catch((err) => {
-        console.log(err);
+        setCreateListError(
+          'Sorry, there was a problem creating your list. Please check your connection and try again.',
+        );
       });
   }
 
@@ -60,6 +66,14 @@ function Home({ createList, joinList }) {
 
       <main>
         <div className="new-list">
+          <div
+            role="alert"
+            className={`error error_type_summary ${
+              createListError ? 'error_on' : ''
+            }`}
+          >
+            {createListError}
+          </div>
           <button
             type="button"
             className="new-list__button button"
@@ -78,7 +92,7 @@ function Home({ createList, joinList }) {
         >
           <p>Join an existing shopping list by entering a three word token.</p>
           <div
-            role="alert"
+            role="alert" // error for overall form, role makes screenreader read this first
             className={`error error_type_summary ${
               joinListError ? 'error_on' : ''
             }`}
@@ -102,7 +116,7 @@ function Home({ createList, joinList }) {
             value={shareToken}
             onChange={handleTokenChange}
             aria-describedby="shareTokenHint"
-            aria-invalid={!!shareTokenError} //
+            aria-invalid={Boolean(shareTokenError)}
             maxLength="100"
             required
           />

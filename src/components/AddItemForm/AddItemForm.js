@@ -150,7 +150,7 @@ const AddItemForm = ({ listId }) => {
         />
         <label
           htmlFor="soonOption"
-          className="add-item-form__label add-item-form__label_type_radio label"
+          className="add-item-form__label add-item-form__label_type_radio label label_check-radio"
         >
           Soon
         </label>
@@ -166,7 +166,7 @@ const AddItemForm = ({ listId }) => {
         />
         <label
           htmlFor="kindaSoonOption"
-          className="add-item-form__label add-item-form__label_type_radio label"
+          className="add-item-form__label add-item-form__label_type_radio label label_check-radio"
         >
           Kind of Soon
         </label>
@@ -182,7 +182,7 @@ const AddItemForm = ({ listId }) => {
         />
         <label
           htmlFor="notSoonOption"
-          className="add-item-form__label add-item-form__label_type_radio label"
+          className="add-item-form__label add-item-form__label_type_radio label label_check-radio"
         >
           Not Soon
         </label>

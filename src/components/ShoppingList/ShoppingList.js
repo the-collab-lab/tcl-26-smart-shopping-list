@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
@@ -9,6 +10,19 @@ function ShoppingList({ listId }) {
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
+
+  const handleCheck = (e) => {
+    const itemId = e.target.value;
+    db.collection(`lists/${listId}/items`)
+      .doc(itemId)
+      .update({
+        lastPurchaseDate: firebase.firestore.FieldValue.serverTimestamp(),
+        numberOfPurchases: firebase.firestore.FieldValue.increment(1),
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleClick = () => {
     history.push('/add');
@@ -24,15 +38,21 @@ function ShoppingList({ listId }) {
           </button>
         </>
       );
+    } else {
+      return (
+        <ul className="shopping-list__list list-reset">
+          {listItems.docs.map((doc) => (
+            <ShoppingListItem
+              key={doc.id}
+              listId={listId}
+              itemId={doc.id}
+              item={doc.data()}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </ul>
+      );
     }
-
-    return (
-      <ul className="shopping-list__list">
-        {listItems.docs.map((doc) => (
-          <ShoppingListItem key={doc.id} item={doc.data()} />
-        ))}
-      </ul>
-    );
   };
 
   return (

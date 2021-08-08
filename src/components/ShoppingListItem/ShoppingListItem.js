@@ -8,11 +8,7 @@ const ShoppingListItem = ({ listId, itemId, item, handleCheck }) => {
   // update whether item is recently purchased
   useEffect(() => {
     // make sure properties exist and are not null
-    if (
-      'lastPurchaseDate' in item &&
-      item.lastPurchaseDate &&
-      'seconds' in item.lastPurchaseDate
-    )
+    if (item?.lastPurchaseDate?.seconds)
       setRecentlyPurchased(
         isUnder24hSincePurchased(item.lastPurchaseDate.seconds),
       );

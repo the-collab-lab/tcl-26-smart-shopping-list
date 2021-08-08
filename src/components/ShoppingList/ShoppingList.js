@@ -9,8 +9,6 @@ function ShoppingList({ listId }) {
   );
 
   const handleCheck = (e) => {
-    if (!e.target.checked) return; // don't do anything if the checkbox isn't checked
-
     const itemId = e.target.value;
     db.collection(`lists/${listId}/items`)
       .doc(itemId)

@@ -3,6 +3,7 @@ import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
 function ShoppingList({ listId }) {
   let history = useHistory();
@@ -10,6 +11,8 @@ function ShoppingList({ listId }) {
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
+
+  const [filter, setFilter] = useState('');
 
   const handleCheck = (e) => {
     const itemId = e.target.value;
@@ -22,6 +25,10 @@ function ShoppingList({ listId }) {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleInput = (e) => {
+    setFilter(e.target.value);
   };
 
   const handleClick = () => {
@@ -41,15 +48,19 @@ function ShoppingList({ listId }) {
     } else {
       return (
         <ul className="shopping-list__list list-reset">
-          {listItems.docs.map((doc) => (
-            <ShoppingListItem
-              key={doc.id}
-              listId={listId}
-              itemId={doc.id}
-              item={doc.data()}
-              handleCheck={handleCheck}
-            />
-          ))}
+          {listItems.docs
+            .filter((doc) => {
+              return doc.data().itemName.includes(filter.toLowerCase());
+            })
+            .map((doc) => (
+              <ShoppingListItem
+                key={doc.id}
+                listId={listId}
+                itemId={doc.id}
+                item={doc.data()}
+                handleCheck={handleCheck}
+              />
+            ))}
         </ul>
       );
     }
@@ -57,6 +68,28 @@ function ShoppingList({ listId }) {
 
   return (
     <div className="shopping-list">
+      <div className="filter">
+        <label htmlFor="filterInput" className="filter__label">
+          Filter items
+        </label>
+        <input
+          type="text"
+          id="filterInput"
+          name="filterInput"
+          value={filter}
+          onChange={handleInput}
+          className="filter__text-field text-field"
+        />
+        <button
+          type="button"
+          aria-label="clear"
+          className="filter__button"
+          onClick={() => setFilter('')}
+        >
+          Clear Filter
+        </button>
+      </div>
+
       {loading && (
         <div className="shopping-list__notice notice notice_type_loading">
           Loading...

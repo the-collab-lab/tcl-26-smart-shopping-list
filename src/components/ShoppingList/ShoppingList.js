@@ -47,49 +47,50 @@ function ShoppingList({ listId }) {
       );
     } else {
       return (
-        <ul className="shopping-list__list list-reset">
-          {listItems.docs
-            .filter((doc) => {
-              return doc.data().itemName.includes(filter.toLowerCase());
-            })
-            .map((doc) => (
-              <ShoppingListItem
-                key={doc.id}
-                listId={listId}
-                itemId={doc.id}
-                item={doc.data()}
-                handleCheck={handleCheck}
-              />
-            ))}
-        </ul>
+        <div>
+          <div className="filter">
+            <label htmlFor="filterInput" className="filter__label label">
+              Filter items
+            </label>
+            <input
+              type="text"
+              id="filterInput"
+              name="filterInput"
+              value={filter}
+              onChange={handleInput}
+              className="filter__text-field text-field"
+            />
+            <button
+              type="button"
+              aria-label="clear"
+              className="filter__button"
+              onClick={() => setFilter('')}
+            >
+              Clear Filter
+            </button>
+          </div>
+          <ul className="shopping-list__list list-reset">
+            {listItems.docs
+              .filter((doc) =>
+                new RegExp(filter, 'i').test(doc.data().itemName),
+              )
+              .map((doc) => (
+                <ShoppingListItem
+                  key={doc.id}
+                  listId={listId}
+                  itemId={doc.id}
+                  item={doc.data()}
+                  handleCheck={handleCheck}
+                />
+              ))}
+          </ul>
+        </div>
       );
     }
   };
 
   return (
     <div className="shopping-list">
-      <div className="filter">
-        <label htmlFor="filterInput" className="filter__label">
-          Filter items
-        </label>
-        <input
-          type="text"
-          id="filterInput"
-          name="filterInput"
-          value={filter}
-          onChange={handleInput}
-          className="filter__text-field text-field"
-        />
-        <button
-          type="button"
-          aria-label="clear"
-          className="filter__button"
-          onClick={() => setFilter('')}
-        >
-          Clear Filter
-        </button>
-      </div>
-
       {loading && (
         <div className="shopping-list__notice notice notice_type_loading">
           Loading...

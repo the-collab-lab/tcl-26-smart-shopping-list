@@ -20,7 +20,10 @@ function ShoppingList({ listId }) {
   const getLatestInterval = (args) => {
     const { lastPurchaseDate, newPurchaseDate, defaultInterval } = args;
 
-    if (lastPurchaseDate instanceof DateTime) {
+    if (
+      lastPurchaseDate instanceof DateTime &&
+      newPurchaseDate instanceof DateTime
+    ) {
       // if lastPurchaseDate is a valid date, calculate the interval
       const duration = newPurchaseDate.diff(lastPurchaseDate, ['days']);
       return Math.round(duration.as('days'));

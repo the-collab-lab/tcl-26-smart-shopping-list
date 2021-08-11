@@ -13,24 +13,10 @@ function ShoppingList({ listId }) {
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
 
-  /*
-   * Helper function to get the latest interval between purchases (takes Luxon date objects)
-   * Note: must account for the possibility an item hasn't been purchased, so lastPurchaseDate is null
-   **/
-  const getLatestInterval = (args) => {
-    const { lastPurchaseDate, newPurchaseDate, defaultInterval } = args;
-
-    if (
-      lastPurchaseDate instanceof DateTime &&
-      newPurchaseDate instanceof DateTime
-    ) {
-      // if lastPurchaseDate is a valid date, calculate the interval
-      const duration = newPurchaseDate.diff(lastPurchaseDate, ['days']);
-      return Math.round(duration.as('days'));
-    } else {
-      // otherwise, return the default value provided
-      return defaultInterval;
-    }
+  // Helper function to get the latest interval between purchases (expects Luxon date objects)
+  const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
+    const duration = newPurchaseDate.diff(lastPurchaseDate, ['days']);
+    return Math.round(duration.as('days'));
   };
 
   const checkAsPurchased = (itemId, item) => {
@@ -38,15 +24,14 @@ function ShoppingList({ listId }) {
     const lastPurchaseDate = item.lastPurchaseDate?.seconds
       ? DateTime.fromSeconds(item.lastPurchaseDate.seconds)
       : null; // for new items, lastPurchaseDate will be null so keep it null
-    const newPurchaseDate = DateTime.fromMillis(Date.now());
+    const newPurchaseDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
 
-    /* since an interval can't be calculated when the lastPurchaseDate is null,
-     * we provide the saved purchaseInterval as a default (the user's initial estimate) */
-    const latestInterval = getLatestInterval({
-      lastPurchaseDate: lastPurchaseDate,
-      newPurchaseDate: newPurchaseDate,
-      defaultInterval: item.purchaseInterval,
-    });
+    // if lastPurchaseDate is null (item not yet purchased), a latest interval can't be
+    // calculated, so in that case set latestInterval to the current purchaseInterval
+    const latestInterval =
+      lastPurchaseDate === null
+        ? item.purchaseInterval
+        : getLatestInterval({ lastPurchaseDate, newPurchaseDate });
 
     const newPurchaseInterval = calculateEstimate(
       item.purchaseInterval,
@@ -57,8 +42,9 @@ function ShoppingList({ listId }) {
     db.collection(`lists/${listId}/items`)
       .doc(itemId)
       .update({
-        lastPurchaseDate: firebase.firestore.Timestamp.fromMillis(
-          newPurchaseDate.toMillis(),
+        lastPurchaseDate: new firebase.firestore.Timestamp(
+          newPurchaseDate.toSeconds(),
+          0,
         ),
         numberOfPurchases: firebase.firestore.FieldValue.increment(1),
         purchaseInterval: newPurchaseInterval,

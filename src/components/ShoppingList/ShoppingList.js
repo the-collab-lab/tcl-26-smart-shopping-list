@@ -2,13 +2,11 @@ import firebase from 'firebase/app';
 import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
-import { useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import calculateEstimate from '../../lib/estimates.js';
 import { DateTime } from 'luxon';
 
 function ShoppingList({ listId }) {
-  let history = useHistory();
-
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
@@ -54,18 +52,14 @@ function ShoppingList({ listId }) {
       });
   };
 
-  const handleClick = () => {
-    history.push('/add');
-  };
-
   const createListElement = () => {
     if (listItems.empty) {
       return (
         <>
           <p>Your shopping list is currently empty.</p>
-          <button className="button" type="button" onClick={handleClick}>
+          <NavLink to="/add" className="button">
             Add Item
-          </button>
+          </NavLink>
         </>
       );
     } else {

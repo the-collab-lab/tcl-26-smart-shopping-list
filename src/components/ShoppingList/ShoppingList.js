@@ -1,15 +1,21 @@
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import firebase from 'firebase/app';
 import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
-import { NavLink } from 'react-router-dom';
+
 import calculateEstimate from '../../lib/estimates.js';
 import { DateTime } from 'luxon';
+
+import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
 function ShoppingList({ listId }) {
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
+
+  const [filter, setFilter] = useState('');
 
   // Helper function to get the latest interval between purchases (expects Luxon date objects)
   const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
@@ -52,6 +58,10 @@ function ShoppingList({ listId }) {
       });
   };
 
+  const handleInput = (e) => {
+    setFilter(e.target.value);
+  };
+
   const createListElement = () => {
     if (listItems.empty) {
       return (
@@ -64,17 +74,45 @@ function ShoppingList({ listId }) {
       );
     } else {
       return (
-        <ul className="shopping-list__list list-reset">
-          {listItems.docs.map((doc) => (
-            <ShoppingListItem
-              key={doc.id}
-              listId={listId}
-              itemId={doc.id}
-              item={doc.data()}
-              checkAsPurchased={checkAsPurchased}
+        <>
+          <div className="filter">
+            <label htmlFor="filterInput" className="filter__label label">
+              Filter items
+            </label>
+            <input
+              type="text"
+              id="filterInput"
+              name="filterInput"
+              value={filter}
+              onChange={handleInput}
+              className="filter__text-field text-field"
             />
-          ))}
-        </ul>
+            <button
+              type="button"
+              aria-label="clear"
+              className="filter__button"
+              onClick={() => setFilter('')}
+            >
+              Clear Filter
+            </button>
+          </div>
+
+          <ul className="shopping-list__list list-reset">
+            {listItems.docs
+              .filter((doc) =>
+                new RegExp(filter, 'i').test(doc.data().itemName),
+              )
+              .map((doc) => (
+                <ShoppingListItem
+                  key={doc.id}
+                  listId={listId}
+                  itemId={doc.id}
+                  item={doc.data()}
+                  checkAsPurchased={checkAsPurchased}
+                />
+              ))}
+          </ul>
+        </>
       );
     }
   };

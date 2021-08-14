@@ -1,26 +1,57 @@
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import firebase from 'firebase/app';
 import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
+
+import calculateEstimate from '../../lib/estimates.js';
+import { DateTime } from 'luxon';
+
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
-import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
 
 function ShoppingList({ listId }) {
-  let history = useHistory();
-
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
 
   const [filter, setFilter] = useState('');
 
-  const handleCheck = (e) => {
-    const itemId = e.target.value;
+  // Helper function to get the latest interval between purchases (expects Luxon date objects)
+  const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
+    const duration = newPurchaseDate.diff(lastPurchaseDate, ['days']);
+    return Math.round(duration.as('days'));
+  };
+
+  const checkAsPurchased = (itemId, item) => {
+    // convert lastPurchaseDate from firestore and JS current time to Luxon DateTime objects
+    const lastPurchaseDate = item.lastPurchaseDate?.seconds
+      ? DateTime.fromSeconds(item.lastPurchaseDate.seconds)
+      : null; // for new items, lastPurchaseDate will be null so keep it null
+    const newPurchaseDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
+
+    // if lastPurchaseDate is null (item not yet purchased), a latest interval can't be
+    // calculated, so in that case set latestInterval to the current purchaseInterval
+    const latestInterval =
+      lastPurchaseDate === null
+        ? item.purchaseInterval
+        : getLatestInterval({ lastPurchaseDate, newPurchaseDate });
+
+    const newPurchaseInterval = calculateEstimate(
+      item.purchaseInterval,
+      latestInterval,
+      item.numberOfPurchases,
+    );
+
     db.collection(`lists/${listId}/items`)
       .doc(itemId)
       .update({
-        lastPurchaseDate: firebase.firestore.FieldValue.serverTimestamp(),
+        lastPurchaseDate: new firebase.firestore.Timestamp(
+          newPurchaseDate.toSeconds(),
+          0,
+        ),
         numberOfPurchases: firebase.firestore.FieldValue.increment(1),
+        purchaseInterval: newPurchaseInterval,
       })
       .catch((err) => {
         console.log(err);
@@ -31,23 +62,19 @@ function ShoppingList({ listId }) {
     setFilter(e.target.value);
   };
 
-  const handleClick = () => {
-    history.push('/add');
-  };
-
   const createListElement = () => {
     if (listItems.empty) {
       return (
         <>
           <p>Your shopping list is currently empty.</p>
-          <button className="button" type="button" onClick={handleClick}>
+          <NavLink to="/add" className="button">
             Add Item
-          </button>
+          </NavLink>
         </>
       );
     } else {
       return (
-        <div>
+        <>
           <div className="filter">
             <label htmlFor="filterInput" className="filter__label label">
               Filter items
@@ -69,6 +96,7 @@ function ShoppingList({ listId }) {
               Clear Filter
             </button>
           </div>
+
           <ul className="shopping-list__list list-reset">
             {listItems.docs
               .filter((doc) =>
@@ -80,11 +108,11 @@ function ShoppingList({ listId }) {
                   listId={listId}
                   itemId={doc.id}
                   item={doc.data()}
-                  handleCheck={handleCheck}
+                  checkAsPurchased={checkAsPurchased}
                 />
               ))}
           </ul>
-        </div>
+        </>
       );
     }
   };

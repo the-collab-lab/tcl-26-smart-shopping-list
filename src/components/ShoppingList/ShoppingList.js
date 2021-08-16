@@ -82,14 +82,41 @@ function ShoppingList({ listId }) {
     return daysRemaining.as('days');
   };
 
+  const isItemInactive = (item) => {
+    const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
+
+    if (item.lastPurchaseDate?.seconds) {
+      return (
+        currentDate
+          .diff(DateTime.fromSeconds(item.lastPurchaseDate.seconds), ['days'])
+          .as('days') >=
+        2 * item.purchaseInterval
+      );
+    } else if (item.createdAt?.seconds) {
+      return (
+        currentDate
+          .diff(DateTime.fromSeconds(item.createdAt.seconds), ['days'])
+          .as('days') >=
+        2 * item.purchaseInterval
+      );
+    } else return null;
+  };
+
   const sortListItems = (docOne, docTwo) => {
     const itemOne = docOne.data();
     const itemTwo = docTwo.data();
     const daysToPurchaseItemOne = getDaysToPurchase(itemOne);
     const daysToPurchaseItemTwo = getDaysToPurchase(itemTwo);
+    const itemOneInactive = isItemInactive(itemOne);
+    const itemTwoInactive = isItemInactive(itemTwo);
 
-    if (daysToPurchaseItemOne < daysToPurchaseItemTwo) return -1;
-    if (daysToPurchaseItemOne > daysToPurchaseItemTwo) return 1;
+    if (itemOneInactive === itemTwoInactive) {
+      if (daysToPurchaseItemOne < daysToPurchaseItemTwo) return -1;
+      if (daysToPurchaseItemOne > daysToPurchaseItemTwo) return 1;
+    } else {
+      if (itemTwoInactive) return -1;
+      if (itemOneInactive) return 1;
+    }
   };
 
   const createListElement = () => {
@@ -140,7 +167,6 @@ function ShoppingList({ listId }) {
                   itemId={doc.id}
                   item={doc.data()}
                   checkAsPurchased={checkAsPurchased}
-                  daysToPurchase={getDaysToPurchase(doc.data())}
                 />
               ))}
           </ul>

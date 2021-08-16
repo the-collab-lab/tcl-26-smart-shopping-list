@@ -12,7 +12,7 @@ import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
 function ShoppingList({ listId }) {
   const [listItems, loading, error] = useCollection(
-    db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
+    db.collection(`lists/${listId}/items`),
   );
 
   const [filter, setFilter] = useState('');
@@ -62,6 +62,36 @@ function ShoppingList({ listId }) {
     setFilter(e.target.value);
   };
 
+  const getDaysToPurchase = (item) => {
+    let nextPurchaseDate;
+    if (item.lastPurchaseDate?.seconds) {
+      // if the item has been purchased before, next purchase date is [purchaseInterval] days from the lastPurchaseDate
+      nextPurchaseDate = DateTime.fromSeconds(
+        item.lastPurchaseDate.seconds,
+      ).plus({ days: item.purchaseInterval });
+    } else if (item.createdAt?.seconds) {
+      // if there's no purchase history, estimate it will be bought [purchaseInterval] days from when item was created
+      // (user provides this info at item creation)
+      nextPurchaseDate = DateTime.fromSeconds(item.createdAt.seconds).plus({
+        days: item.purchaseInterval,
+      });
+    } else return null;
+
+    const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
+    const daysRemaining = nextPurchaseDate.diff(currentDate, ['days']);
+    return daysRemaining.as('days');
+  };
+
+  const sortListItems = (docOne, docTwo) => {
+    const itemOne = docOne.data();
+    const itemTwo = docTwo.data();
+    const daysToPurchaseItemOne = getDaysToPurchase(itemOne);
+    const daysToPurchaseItemTwo = getDaysToPurchase(itemTwo);
+
+    if (daysToPurchaseItemOne < daysToPurchaseItemTwo) return -1;
+    if (daysToPurchaseItemOne > daysToPurchaseItemTwo) return 1;
+  };
+
   const createListElement = () => {
     if (listItems.empty) {
       return (
@@ -102,6 +132,7 @@ function ShoppingList({ listId }) {
               .filter((doc) =>
                 new RegExp(filter, 'i').test(doc.data().itemName),
               )
+              .sort(sortListItems)
               .map((doc) => (
                 <ShoppingListItem
                   key={doc.id}
@@ -109,6 +140,7 @@ function ShoppingList({ listId }) {
                   itemId={doc.id}
                   item={doc.data()}
                   checkAsPurchased={checkAsPurchased}
+                  daysToPurchase={getDaysToPurchase(doc.data())}
                 />
               ))}
           </ul>

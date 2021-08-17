@@ -8,7 +8,8 @@ const Modal = ({ showModal, handleModalClose, listId, itemId }) => {
       .doc(itemId)
       .delete()
       .then(() => {
-        console.log('Document successfully deleted');
+        console.log(`Document ${itemId} successfully deleted`);
+        handleModalClose();
       })
       .catch((err) => {
         console.error('Error removing document: ', err);
@@ -17,9 +18,25 @@ const Modal = ({ showModal, handleModalClose, listId, itemId }) => {
 
   return (
     <div className={toggleModalClassName}>
-      <h2>Are you sure you want to delete this item?</h2>
-      <button onClick={handleModalClose}>No, Cancel</button>
-      <button onClick={deleteItem}>Yes, Delete</button>
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="dialog_label"
+        aria-describedby="dialog_desc"
+      >
+        <h2 id="dialog_label">Confirmation</h2>
+        <h3 id="dialog_desc">Are you sure you want to delete this item?</h3>
+        <button type="button" onClick={handleModalClose}>
+          No, Cancel
+        </button>
+        <button
+          type="button"
+          onClick={deleteItem}
+          aria-controls={`item-${itemId}`}
+        >
+          Yes, Delete
+        </button>
+      </div>
     </div>
   );
 };

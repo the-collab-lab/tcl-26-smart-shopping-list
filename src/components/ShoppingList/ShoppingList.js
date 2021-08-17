@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import firebase from 'firebase/app';
@@ -134,6 +134,7 @@ function ShoppingList({ listId }) {
                     type="button"
                     value={doc.id} // set button value to Firebase item to pass to Modal
                     onClick={handleModalOpen}
+                    aria-controls={`item-${doc.id}`} // use 'item-' to match id in ShoppingListItem
                   >
                     Delete
                   </button>

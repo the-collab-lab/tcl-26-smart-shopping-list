@@ -1,4 +1,5 @@
 import { db } from '../../lib/firebase.js';
+import './Modal.css';
 
 const Modal = ({ showModal, handleModalClose, listId, itemId }) => {
   const toggleModalClassName = showModal ? 'display-block' : 'display-none';
@@ -17,7 +18,7 @@ const Modal = ({ showModal, handleModalClose, listId, itemId }) => {
   };
 
   return (
-    <div className={toggleModalClassName}>
+    <div className={`dialog-backdrop ${toggleModalClassName}`}>
       <div
         role="alertdialog"
         aria-modal="true"

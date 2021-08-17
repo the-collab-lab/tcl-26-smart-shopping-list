@@ -11,6 +11,8 @@ import { DateTime } from 'luxon';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 import Modal from '../Modal/Modal.js';
 
+import './ShoppingList.css';
+
 function ShoppingList({ listId }) {
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
@@ -123,7 +125,7 @@ function ShoppingList({ listId }) {
                 new RegExp(filter, 'i').test(doc.data().itemName),
               )
               .map((doc) => (
-                <div key={doc.id}>
+                <div key={doc.id} className="shopping-list__row">
                   <ShoppingListItem
                     listId={listId}
                     itemId={doc.id}

@@ -18,6 +18,7 @@ function ShoppingList({ listId }) {
 
   const [filter, setFilter] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState('');
 
   // Helper function to get the latest interval between purchases (expects Luxon date objects)
   const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
@@ -64,7 +65,9 @@ function ShoppingList({ listId }) {
     setFilter(e.target.value);
   };
 
-  const handleModalOpen = () => {
+  const handleModalOpen = (e) => {
+    // e.target.value is doc.id to identify item to be deleted in Modal
+    setItemToDelete(e.target.value);
     setShowModal(true);
   };
 
@@ -107,7 +110,12 @@ function ShoppingList({ listId }) {
             </button>
           </div>
 
-          <Modal showModal={showModal} handleModalClose={handleModalClose} />
+          <Modal
+            showModal={showModal}
+            handleModalClose={handleModalClose}
+            listId={listId}
+            itemId={itemToDelete}
+          />
 
           <ul className="shopping-list__list list-reset">
             {listItems.docs
@@ -122,7 +130,11 @@ function ShoppingList({ listId }) {
                     item={doc.data()}
                     checkAsPurchased={checkAsPurchased}
                   />
-                  <button type="button" onClick={handleModalOpen}>
+                  <button
+                    type="button"
+                    value={doc.id} // set button value to Firebase item to pass to Modal
+                    onClick={handleModalOpen}
+                  >
                     Delete
                   </button>
                 </div>

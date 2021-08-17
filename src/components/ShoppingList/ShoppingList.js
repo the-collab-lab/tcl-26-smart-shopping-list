@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import firebase from 'firebase/app';
@@ -9,6 +9,7 @@ import calculateEstimate from '../../lib/estimates.js';
 import { DateTime } from 'luxon';
 
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
+import Modal from '../Modal/Modal.js';
 
 function ShoppingList({ listId }) {
   const [listItems, loading, error] = useCollection(
@@ -16,6 +17,7 @@ function ShoppingList({ listId }) {
   );
 
   const [filter, setFilter] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   // Helper function to get the latest interval between purchases (expects Luxon date objects)
   const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
@@ -62,6 +64,14 @@ function ShoppingList({ listId }) {
     setFilter(e.target.value);
   };
 
+  const handleModalOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
   const createListElement = () => {
     if (listItems.empty) {
       return (
@@ -97,19 +107,25 @@ function ShoppingList({ listId }) {
             </button>
           </div>
 
+          <Modal showModal={showModal} handleModalClose={handleModalClose} />
+
           <ul className="shopping-list__list list-reset">
             {listItems.docs
               .filter((doc) =>
                 new RegExp(filter, 'i').test(doc.data().itemName),
               )
               .map((doc) => (
-                <ShoppingListItem
-                  key={doc.id}
-                  listId={listId}
-                  itemId={doc.id}
-                  item={doc.data()}
-                  checkAsPurchased={checkAsPurchased}
-                />
+                <div key={doc.id}>
+                  <ShoppingListItem
+                    listId={listId}
+                    itemId={doc.id}
+                    item={doc.data()}
+                    checkAsPurchased={checkAsPurchased}
+                  />
+                  <button type="button" onClick={handleModalOpen}>
+                    Delete
+                  </button>
+                </div>
               ))}
           </ul>
         </>

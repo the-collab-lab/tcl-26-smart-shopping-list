@@ -87,3 +87,11 @@ BEM conventions we are using:
   margin: 0;
   list-style: none;
 }
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}

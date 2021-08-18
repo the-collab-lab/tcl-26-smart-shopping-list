@@ -110,6 +110,12 @@ function ShoppingList({ listId }) {
     ) {
       if (itemA.daysToPurchase < itemB.daysToPurchase) return -1;
       if (itemA.daysToPurchase > itemB.daysToPurchase) return 1;
+
+      // if we've made it this far, days to purchase is the same for both items so alphabetize
+      return itemA.itemName.localeCompare(itemB.itemName, 'en', {
+        sensitivity: 'base',
+        ignorePunctuation: true,
+      });
     } else {
       // if one item is inactive and the other is not, bump down the inactive item
       if (itemA.status === 'inactive') return 1;

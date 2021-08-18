@@ -9,18 +9,13 @@ import calculateEstimate from '../../lib/estimates.js';
 import { DateTime } from 'luxon';
 
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
-import Modal from '../Modal/Modal.js';
 
-import './ShoppingList.css';
-
-function ShoppingList({ listId }) {
+function ShoppingList({ listId, handleModalOpen }) {
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
 
   const [filter, setFilter] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState('');
 
   // Helper function to get the latest interval between purchases (expects Luxon date objects)
   const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
@@ -67,16 +62,6 @@ function ShoppingList({ listId }) {
     setFilter(e.target.value);
   };
 
-  const handleModalOpen = (e) => {
-    // e.target.value is doc.id to identify item to be deleted in Modal
-    setItemToDelete(e.target.value);
-    setShowModal(true);
-  };
-
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
-
   const createListElement = () => {
     if (listItems.empty) {
       return (
@@ -112,35 +97,18 @@ function ShoppingList({ listId }) {
             </button>
           </div>
 
-          <Modal
-            showModal={showModal}
-            handleModalClose={handleModalClose}
-            listId={listId}
-            itemId={itemToDelete}
-          />
-
           <ul className="shopping-list__list list-reset">
             {listItems.docs
               .filter((doc) =>
                 new RegExp(filter, 'i').test(doc.data().itemName),
               )
               .map((doc) => (
-                <div key={doc.id} className="shopping-list__row">
-                  <ShoppingListItem
-                    listId={listId}
-                    itemId={doc.id}
-                    item={doc.data()}
-                    checkAsPurchased={checkAsPurchased}
-                  />
-                  <button
-                    type="button"
-                    value={doc.id} // set button value to Firebase item to pass to Modal
-                    onClick={handleModalOpen}
-                    aria-controls={`item-${doc.id}`} // use 'item-' to match id in ShoppingListItem
-                  >
-                    Delete
-                  </button>
-                </div>
+                <ShoppingListItem
+                  itemId={doc.id}
+                  item={doc.data()}
+                  checkAsPurchased={checkAsPurchased}
+                  handleModalOpen={handleModalOpen}
+                />
               ))}
           </ul>
         </>

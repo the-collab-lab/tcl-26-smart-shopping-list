@@ -23,19 +23,18 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
       handleModalClose();
     }
 
-    // keep keyboard focus in modal
+    // this keeps keyboard focus within modal. if user hits Tab (9)
     if (e.keyCode === 9) {
-      // if user hits Tab (9)...
-      // and NOT shift while on Delete, put focus on Cancel
+      // ...and NOT shift while on Delete, put focus on Cancel
       if (!e.shiftKey && document.activeElement === deleteRef.current) {
         cancelRef.current.focus();
         return e.preventDefault();
       }
 
-      // and shift while on Cancel, put focus on Delete
+      // ...and shift while on Cancel, put focus on Delete
       if (e.shiftKey && document.activeElement === cancelRef.current) {
         deleteRef.current.focus();
-        e.preventDefault();
+        return e.preventDefault();
       }
     }
   };
@@ -43,14 +42,16 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
   return (
     <div className={`dialog-backdrop ${toggleModalClassName}`}>
       <div role="alertdialog" aria-modal="true" aria-labelledby="dialog_label">
-        <h3 id="dialog_label">{`Are you sure you want to delete ${item.itemName}?`}</h3>
+        <h3 id="dialog_label">
+          {`Are you sure you want to delete ${item.itemName}?`}
+        </h3>
         <button type="button" onClick={handleModalClose} ref={cancelRef}>
           No, Cancel
         </button>
         <button
           type="button"
           onClick={deleteItem}
-          aria-controls={`item-${item.id}`}
+          aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
           ref={deleteRef}
         >
           Yes, Delete

@@ -104,6 +104,7 @@ function ShoppingList({ listId, handleModalOpen }) {
               )
               .map((doc) => (
                 <ShoppingListItem
+                  key={doc.id}
                   itemId={doc.id}
                   item={doc.data()}
                   checkAsPurchased={checkAsPurchased}

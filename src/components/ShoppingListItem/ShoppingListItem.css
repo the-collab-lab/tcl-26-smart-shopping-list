@@ -1,0 +1,15 @@
+.item__label_soon {
+  background: #e5f5e1;
+}
+
+.item__label_kind-of-soon {
+  background: #fff2da;
+}
+
+.item__label_not-soon {
+  background: #fee0d4;
+}
+
+.item__label_inactive {
+  background: #eee;
+}

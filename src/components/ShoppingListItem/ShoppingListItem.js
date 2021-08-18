@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import isUnder24hSincePurchased from '../../utils/isUnder24hSincePurchased.js';
 
+import './ShoppingListItem.css';
+
 const ShoppingListItem = ({ item, checkAsPurchased }) => {
   const [recentlyPurchased, setRecentlyPurchased] = useState(false);
 
@@ -22,14 +24,13 @@ const ShoppingListItem = ({ item, checkAsPurchased }) => {
         type="checkbox"
         disabled={recentlyPurchased}
         checked={recentlyPurchased}
-        className={`checkbox shopping-list__checkbox 
-        ${recentlyPurchased} ? 'checkbox_recently-purchased' : '' 
-        checkbox_${item.status}
-        `}
+        className={`checkbox item__checkbox ${
+          recentlyPurchased ? 'checkbox_recently-purchased' : ''
+        } item__checkbox_${item.status}`}
         onChange={() => checkAsPurchased(item)}
       />
       <label
-        className="label label_check-radio shopping-list__label"
+        className={`label label_check-radio item__label item__label_${item.status}`}
         htmlFor={`item-${item.id}`}
       >
         {item.itemName}

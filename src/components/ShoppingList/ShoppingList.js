@@ -23,7 +23,7 @@ function ShoppingList({ listId }) {
     return Math.round(duration.as('days'));
   };
 
-  const checkAsPurchased = (itemId, item) => {
+  const checkAsPurchased = (item) => {
     // convert lastPurchaseDate from firestore and JS current time to Luxon DateTime objects
     const lastPurchaseDate = item.lastPurchaseDate?.seconds
       ? DateTime.fromSeconds(item.lastPurchaseDate.seconds)
@@ -44,7 +44,7 @@ function ShoppingList({ listId }) {
     );
 
     db.collection(`lists/${listId}/items`)
-      .doc(itemId)
+      .doc(item.id)
       .update({
         lastPurchaseDate: new firebase.firestore.Timestamp(
           newPurchaseDate.toSeconds(),
@@ -79,7 +79,7 @@ function ShoppingList({ listId }) {
 
     const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
     const daysRemaining = nextPurchaseDate.diff(currentDate, ['days']);
-    return daysRemaining.as('days');
+    return Math.round(daysRemaining.as('days'));
   };
 
   const isItemInactive = (item) => {
@@ -102,22 +102,39 @@ function ShoppingList({ listId }) {
     } else return null;
   };
 
-  const sortListItems = (docOne, docTwo) => {
-    const itemOne = docOne.data();
-    const itemTwo = docTwo.data();
-    const daysToPurchaseItemOne = getDaysToPurchase(itemOne);
-    const daysToPurchaseItemTwo = getDaysToPurchase(itemTwo);
-    const itemOneInactive = isItemInactive(itemOne);
-    const itemTwoInactive = isItemInactive(itemTwo);
-
-    if (itemOneInactive === itemTwoInactive) {
-      if (daysToPurchaseItemOne < daysToPurchaseItemTwo) return -1;
-      if (daysToPurchaseItemOne > daysToPurchaseItemTwo) return 1;
+  const sortListItems = (itemA, itemB) => {
+    // if items being compared are both inactive, or neither is inactive, sort by days until next purchase
+    if (
+      (itemA.status === 'inactive' && itemB.status === 'inactive') ||
+      (itemA.status !== 'inactive' && itemB.status !== 'inactive')
+    ) {
+      if (itemA.daysToPurchase < itemB.daysToPurchase) return -1;
+      if (itemA.daysToPurchase > itemB.daysToPurchase) return 1;
     } else {
-      if (itemTwoInactive) return -1;
-      if (itemOneInactive) return 1;
+      // if one item is inactive and the other is not, bump down the inactive item
+      if (itemA.status === 'inactive') return 1;
+      if (itemB.status === 'inactive') return -1;
     }
   };
+
+  const getItemStatus = (item) => {
+    if (isItemInactive(item)) return 'inactive';
+    if (item.daysToPurchase < 7) return 'soon';
+    if (item.daysToPurchase >= 7 && item.daysToPurchase <= 30)
+      return 'kind-of-soon';
+    if (item.daysToPurchase > 30) return 'not-soon';
+  };
+
+  const itemsToDisplay = listItems?.docs
+    .filter((doc) => new RegExp(filter, 'i').test(doc.data().itemName))
+    .map((doc) => {
+      const item = doc.data();
+      item.id = doc.id;
+      item.daysToPurchase = getDaysToPurchase(item);
+      item.status = getItemStatus(item);
+      return item;
+    })
+    .sort(sortListItems);
 
   const createListElement = () => {
     if (listItems.empty) {
@@ -155,20 +172,13 @@ function ShoppingList({ listId }) {
           </div>
 
           <ul className="shopping-list__list list-reset">
-            {listItems.docs
-              .filter((doc) =>
-                new RegExp(filter, 'i').test(doc.data().itemName),
-              )
-              .sort(sortListItems)
-              .map((doc) => (
-                <ShoppingListItem
-                  key={doc.id}
-                  listId={listId}
-                  itemId={doc.id}
-                  item={doc.data()}
-                  checkAsPurchased={checkAsPurchased}
-                />
-              ))}
+            {itemsToDisplay.map((item) => (
+              <ShoppingListItem
+                key={item.id}
+                item={item}
+                checkAsPurchased={checkAsPurchased}
+              />
+            ))}
           </ul>
         </>
       );

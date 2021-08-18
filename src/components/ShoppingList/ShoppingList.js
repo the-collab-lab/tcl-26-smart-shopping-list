@@ -86,6 +86,7 @@ function ShoppingList({ listId }) {
     const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
 
     if (item.lastPurchaseDate?.seconds) {
+      // if an item has been purchased before, compare the time elapsed since lastPurchaseDate to the purchaseInterval
       return (
         currentDate
           .diff(DateTime.fromSeconds(item.lastPurchaseDate.seconds), ['days'])
@@ -93,6 +94,7 @@ function ShoppingList({ listId }) {
         2 * item.purchaseInterval
       );
     } else if (item.createdAt?.seconds) {
+      // if an item has never been purchased, do the same calculating using createdAt date instead of lastPurchaseDate
       return (
         currentDate
           .diff(DateTime.fromSeconds(item.createdAt.seconds), ['days'])
@@ -131,6 +133,8 @@ function ShoppingList({ listId }) {
     if (item.daysToPurchase > 30) return 'not-soon';
   };
 
+  // format the data from firestore into a sorted, filtered array of items
+  // add new properties: item.status and item.daysToPurchase
   const itemsToDisplay = listItems?.docs
     .filter((doc) => new RegExp(filter, 'i').test(doc.data().itemName))
     .map((doc) => {

@@ -1,3 +1,11 @@
+.dialog-open {
+  display: block;
+}
+
+.dialog-close {
+  display: none;
+}
+
 .dialog-backdrop {
   position: fixed;
   overflow-y: auto;

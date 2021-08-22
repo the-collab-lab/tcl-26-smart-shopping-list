@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import './Modal.css';
 
 const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
-  const toggleModalClassName = showModal ? 'display-block' : 'display-none';
+  const toggleModalClassName = showModal ? 'dialog-open' : 'dialog-close';
 
   const cancelRef = useRef();
   const deleteRef = useRef();

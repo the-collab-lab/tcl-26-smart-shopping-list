@@ -13,17 +13,20 @@ import { db } from './lib/firebase.js';
 // External Files
 import './App.css';
 
-// View Components
+// Components
 import ListView from './pages/ListView/ListView';
 import AddItemView from './pages/AddItemView/AddItemView';
 import NotFound from './pages/NotFound/NotFound';
 import Home from './pages/Home/Home';
+import Modal from './components/Modal/Modal.js';
 
 // Functions
 import getToken from './lib/tokens';
 
 function App() {
   const [listId, setListId] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState({});
 
   function createList() {
     const token = getToken();
@@ -83,6 +86,28 @@ function App() {
     });
   }
 
+  const handleModalOpen = (item, itemId) => {
+    // set item to be deleted to item object and set itemId since it's separate from Firestore
+    setItemToDelete({ ...item, id: itemId });
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const deleteItem = () => {
+    db.collection(`lists/${listId}/items`)
+      .doc(itemToDelete.id)
+      .delete()
+      .then(() => {
+        handleModalClose();
+      })
+      .catch((err) => {
+        console.error('Error removing document: ', err);
+      });
+  };
+
   // on component mounting, look for token in local storage and use it to retrieve the list id
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -100,7 +125,10 @@ function App() {
 
   return (
     <Router>
-      <div className="App container">
+      <div
+        className="App container"
+        aria-hidden={showModal} // if showModal is true, hide the rest of the app
+      >
         <Switch>
           <Route exact path="/">
             {listId ? (
@@ -110,7 +138,11 @@ function App() {
             )}
           </Route>
           <Route path="/list">
-            {!listId ? <Redirect exact to="/" /> : <ListView listId={listId} />}
+            {!listId ? (
+              <Redirect exact to="/" />
+            ) : (
+              <ListView listId={listId} handleModalOpen={handleModalOpen} />
+            )}
           </Route>
           <Route path="/add">
             {!listId ? (
@@ -122,6 +154,13 @@ function App() {
           <Route component={NotFound} />
         </Switch>
       </div>
+
+      <Modal
+        showModal={showModal}
+        handleModalClose={handleModalClose}
+        deleteItem={deleteItem}
+        item={itemToDelete}
+      />
     </Router>
   );
 }

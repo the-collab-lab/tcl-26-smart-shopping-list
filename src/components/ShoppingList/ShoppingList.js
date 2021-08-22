@@ -10,7 +10,7 @@ import { DateTime } from 'luxon';
 
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
-function ShoppingList({ listId }) {
+function ShoppingList({ listId, handleModalOpen }) {
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`).orderBy('purchaseInterval', 'asc'),
   );
@@ -105,10 +105,10 @@ function ShoppingList({ listId }) {
               .map((doc) => (
                 <ShoppingListItem
                   key={doc.id}
-                  listId={listId}
                   itemId={doc.id}
                   item={doc.data()}
                   checkAsPurchased={checkAsPurchased}
+                  handleModalOpen={handleModalOpen}
                 />
               ))}
           </ul>

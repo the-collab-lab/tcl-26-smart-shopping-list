@@ -8,36 +8,34 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
   const deleteRef = useRef();
 
   useEffect(() => {
+    const handleKeyEvents = (e) => {
+      // close modal if user hits Escape (27)
+      if (e.keyCode === 27) {
+        handleModalClose();
+      }
+
+      // this keeps keyboard focus within modal. if user hits Tab (9)
+      if (e.keyCode === 9) {
+        // ...and NOT shift while on Delete, put focus on Cancel
+        if (!e.shiftKey && document.activeElement === deleteRef.current) {
+          cancelRef.current.focus();
+          return e.preventDefault();
+        }
+
+        // ...and shift while on Cancel, put focus on Delete
+        if (e.shiftKey && document.activeElement === cancelRef.current) {
+          deleteRef.current.focus();
+          return e.preventDefault();
+        }
+      }
+    };
     if (showModal) {
       // when modal opens, add eventListeners and put initial focus on "No, Cancel"
       document.addEventListener('keydown', handleKeyEvents);
       cancelRef.current.focus();
-    } else {
-      document.removeEventListener('keydown', handleKeyEvents);
     }
-  }, [showModal]);
-
-  const handleKeyEvents = (e) => {
-    // close modal if user hits Escape (27)
-    if (e.keyCode === 27) {
-      handleModalClose();
-    }
-
-    // this keeps keyboard focus within modal. if user hits Tab (9)
-    if (e.keyCode === 9) {
-      // ...and NOT shift while on Delete, put focus on Cancel
-      if (!e.shiftKey && document.activeElement === deleteRef.current) {
-        cancelRef.current.focus();
-        return e.preventDefault();
-      }
-
-      // ...and shift while on Cancel, put focus on Delete
-      if (e.shiftKey && document.activeElement === cancelRef.current) {
-        deleteRef.current.focus();
-        return e.preventDefault();
-      }
-    }
-  };
+    return () => document.removeEventListener('keydown', handleKeyEvents);
+  }, [handleModalClose, showModal]);
 
   return (
     <div className={`dialog-backdrop ${toggleModalClassName}`}>

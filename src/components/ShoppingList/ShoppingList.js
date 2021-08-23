@@ -17,6 +17,83 @@ function ShoppingList({ listId }) {
 
   const [filter, setFilter] = useState('');
 
+  const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
+
+  // format the data from firestore into a sorted, filtered array of items
+  // add new properties: item.status and item.daysToPurchase
+  const itemsToDisplay = listItems?.docs
+    .filter((doc) => new RegExp(filter, 'i').test(doc.data().itemName))
+    .map((doc) => {
+      const item = doc.data();
+      item.id = doc.id;
+      item.daysToPurchase = getDaysToPurchase(item);
+      item.status = getItemStatus(item);
+      return item;
+    })
+    .sort(sortListItems);
+
+  function getDaysToPurchase(item) {
+    let nextPurchaseDate;
+    if (item.lastPurchaseDate?.seconds) {
+      // if the item has been purchased before, next purchase date is `purchaseInterval` days from the lastPurchaseDate
+      nextPurchaseDate = DateTime.fromSeconds(
+        item.lastPurchaseDate.seconds,
+      ).plus({ days: item.purchaseInterval });
+    } else if (item.createdAt?.seconds) {
+      // if there's no purchase history, estimate it will be bought `purchaseInterval` days from when item was created
+      // (user provides this info at item creation)
+      nextPurchaseDate = DateTime.fromSeconds(item.createdAt.seconds).plus({
+        days: item.purchaseInterval,
+      });
+    } else return null;
+
+    const daysRemaining = nextPurchaseDate.diff(currentDate, ['days']);
+    return Math.round(daysRemaining.as('days'));
+  }
+
+  function getItemStatus(item) {
+    if (isItemInactive(item)) return 'inactive';
+    if (item.daysToPurchase < 7) return 'soon';
+    if (item.daysToPurchase >= 7 && item.daysToPurchase <= 30)
+      return 'kind-of-soon';
+    if (item.daysToPurchase > 30) return 'not-soon';
+  }
+
+  function isItemInactive(item) {
+    const estimateDate =
+      item.lastPurchaseDate?.seconds || item.createdAt?.seconds;
+
+    if (estimateDate) {
+      return (
+        currentDate
+          .diff(DateTime.fromSeconds(estimateDate), ['days'])
+          .as('days') >=
+        2 * item.purchaseInterval
+      );
+    }
+  }
+
+  function sortListItems(itemA, itemB) {
+    // if items being compared are both inactive, or neither is inactive, sort by days until next purchase
+    if (
+      (itemA.status === 'inactive' && itemB.status === 'inactive') ||
+      (itemA.status !== 'inactive' && itemB.status !== 'inactive')
+    ) {
+      if (itemA.daysToPurchase < itemB.daysToPurchase) return -1;
+      if (itemA.daysToPurchase > itemB.daysToPurchase) return 1;
+
+      // if we've made it this far, days to purchase is the same for both items so alphabetize
+      return itemA.itemName.localeCompare(itemB.itemName, 'en', {
+        sensitivity: 'base',
+        ignorePunctuation: true,
+      });
+    } else {
+      // if one item is inactive and the other is not, bump down the inactive item
+      if (itemA.status === 'inactive') return 1;
+      if (itemB.status === 'inactive') return -1;
+    }
+  }
+
   // Helper function to get the latest interval between purchases (expects Luxon date objects)
   const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
     const duration = newPurchaseDate.diff(lastPurchaseDate, ['days']);
@@ -28,7 +105,7 @@ function ShoppingList({ listId }) {
     const lastPurchaseDate = item.lastPurchaseDate?.seconds
       ? DateTime.fromSeconds(item.lastPurchaseDate.seconds)
       : null; // for new items, lastPurchaseDate will be null so keep it null
-    const newPurchaseDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
+    const newPurchaseDate = currentDate;
 
     // if lastPurchaseDate is null (item not yet purchased), a latest interval can't be
     // calculated, so in that case set latestInterval to the current purchaseInterval
@@ -61,90 +138,6 @@ function ShoppingList({ listId }) {
   const handleInput = (e) => {
     setFilter(e.target.value);
   };
-
-  const getDaysToPurchase = (item) => {
-    let nextPurchaseDate;
-    if (item.lastPurchaseDate?.seconds) {
-      // if the item has been purchased before, next purchase date is [purchaseInterval] days from the lastPurchaseDate
-      nextPurchaseDate = DateTime.fromSeconds(
-        item.lastPurchaseDate.seconds,
-      ).plus({ days: item.purchaseInterval });
-    } else if (item.createdAt?.seconds) {
-      // if there's no purchase history, estimate it will be bought [purchaseInterval] days from when item was created
-      // (user provides this info at item creation)
-      nextPurchaseDate = DateTime.fromSeconds(item.createdAt.seconds).plus({
-        days: item.purchaseInterval,
-      });
-    } else return null;
-
-    const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
-    const daysRemaining = nextPurchaseDate.diff(currentDate, ['days']);
-    return Math.round(daysRemaining.as('days'));
-  };
-
-  const isItemInactive = (item) => {
-    const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
-
-    if (item.lastPurchaseDate?.seconds) {
-      // if an item has been purchased before, compare the time elapsed since lastPurchaseDate to the purchaseInterval
-      return (
-        currentDate
-          .diff(DateTime.fromSeconds(item.lastPurchaseDate.seconds), ['days'])
-          .as('days') >=
-        2 * item.purchaseInterval
-      );
-    } else if (item.createdAt?.seconds) {
-      // if an item has never been purchased, do the same calculating using createdAt date instead of lastPurchaseDate
-      return (
-        currentDate
-          .diff(DateTime.fromSeconds(item.createdAt.seconds), ['days'])
-          .as('days') >=
-        2 * item.purchaseInterval
-      );
-    } else return null;
-  };
-
-  const sortListItems = (itemA, itemB) => {
-    // if items being compared are both inactive, or neither is inactive, sort by days until next purchase
-    if (
-      (itemA.status === 'inactive' && itemB.status === 'inactive') ||
-      (itemA.status !== 'inactive' && itemB.status !== 'inactive')
-    ) {
-      if (itemA.daysToPurchase < itemB.daysToPurchase) return -1;
-      if (itemA.daysToPurchase > itemB.daysToPurchase) return 1;
-
-      // if we've made it this far, days to purchase is the same for both items so alphabetize
-      return itemA.itemName.localeCompare(itemB.itemName, 'en', {
-        sensitivity: 'base',
-        ignorePunctuation: true,
-      });
-    } else {
-      // if one item is inactive and the other is not, bump down the inactive item
-      if (itemA.status === 'inactive') return 1;
-      if (itemB.status === 'inactive') return -1;
-    }
-  };
-
-  const getItemStatus = (item) => {
-    if (isItemInactive(item)) return 'inactive';
-    if (item.daysToPurchase < 7) return 'soon';
-    if (item.daysToPurchase >= 7 && item.daysToPurchase <= 30)
-      return 'kind-of-soon';
-    if (item.daysToPurchase > 30) return 'not-soon';
-  };
-
-  // format the data from firestore into a sorted, filtered array of items
-  // add new properties: item.status and item.daysToPurchase
-  const itemsToDisplay = listItems?.docs
-    .filter((doc) => new RegExp(filter, 'i').test(doc.data().itemName))
-    .map((doc) => {
-      const item = doc.data();
-      item.id = doc.id;
-      item.daysToPurchase = getDaysToPurchase(item);
-      item.status = getItemStatus(item);
-      return item;
-    })
-    .sort(sortListItems);
 
   const createListElement = () => {
     if (listItems.empty) {

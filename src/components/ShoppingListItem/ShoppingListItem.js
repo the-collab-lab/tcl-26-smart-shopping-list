@@ -35,6 +35,7 @@ const ShoppingListItem = ({ item, checkAsPurchased }) => {
       >
         {item.itemName}
         <span className="visually-hidden">
+          {/* text for screen readers only, based on item.status set in ShoppingList with getItemStatus function */}
           {item.status === 'soon' && ' Need to buy soon'}
           {item.status === 'kind-of-soon' && ' Need to buy kind of soon'}
           {item.status === 'not-soon' && " Don't need to buy soon"}

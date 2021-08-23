@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+
+import firebase from 'firebase/app';
 import { db } from '../../lib/firebase.js';
 
 const AddItemForm = ({ listId }) => {
@@ -82,6 +84,7 @@ const AddItemForm = ({ listId }) => {
       purchaseInterval: Number(formValues.purchaseInterval),
       lastPurchaseDate: null,
       numberOfPurchases: 0,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
 
     try {

@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react';
 
 import isUnder24hSincePurchased from '../../utils/isUnder24hSincePurchased.js';
 
-const ShoppingListItem = ({
-  itemId,
-  item,
-  checkAsPurchased,
-  handleModalOpen,
-}) => {
+import './ShoppingListItem.css';
+
+const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
   const [recentlyPurchased, setRecentlyPurchased] = useState(false);
 
   // update whether item is recently purchased
@@ -20,27 +17,36 @@ const ShoppingListItem = ({
   }, [item]);
 
   return (
-    <li className="shopping-list__item item" id={`item-${itemId}`}>
+    <li className="shopping-list__item item" id={`item-${item.id}`}>
       <input
-        id={`item-input-${itemId}`}
-        value={itemId}
+        id={`item-input-${item.id}`}
+        value={item.id}
         type="checkbox"
         disabled={recentlyPurchased}
         checked={recentlyPurchased}
-        className={`checkbox item__checkbox ${recentlyPurchased} ? 'checkbox_recently-purchased' : '' `}
-        onChange={() => checkAsPurchased(itemId, item)}
+        className={`checkbox item__checkbox ${
+          recentlyPurchased ? 'checkbox_recently-purchased' : ''
+        } item__checkbox_${item.status}`}
+        onChange={() => checkAsPurchased(item)}
       />
       <label
-        className="label label_check-radio item__label"
-        htmlFor={`item-input-${itemId}`}
+        className={`label label_check-radio item__label item__label_${item.status}`}
+        htmlFor={`item-${item.id}`}
       >
         {item.itemName}
+        <span className="visually-hidden">
+          {/* text for screen readers only, based on item.status set in ShoppingList with getItemStatus function */}
+          {item.status === 'soon' && ' Need to buy soon'}
+          {item.status === 'kind-of-soon' && ' Need to buy kind of soon'}
+          {item.status === 'not-soon' && " Don't need to buy soon"}
+          {item.status === 'inactive' && ' Inactive'}
+        </span>
       </label>
 
       <button
         type="button"
-        onClick={() => handleModalOpen(item, itemId)}
-        aria-controls={`item-${itemId}`} // destructive delete controls shopping list item id
+        onClick={() => handleModalOpen(item)}
+        aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
         aria-label={`Delete ${item.itemName}`}
         className="item__delete"
       >

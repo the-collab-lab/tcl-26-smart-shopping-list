@@ -86,9 +86,8 @@ function App() {
     });
   }
 
-  const handleModalOpen = (item, itemId) => {
-    // set item to be deleted to item object and set itemId since it's separate from Firestore
-    setItemToDelete({ ...item, id: itemId });
+  const handleModalOpen = (item) => {
+    setItemToDelete(item);
     setShowModal(true);
   };
 

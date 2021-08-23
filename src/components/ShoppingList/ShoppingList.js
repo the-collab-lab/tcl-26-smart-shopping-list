@@ -10,7 +10,7 @@ import { DateTime } from 'luxon';
 
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
-function ShoppingList({ listId }) {
+function ShoppingList({ listId, handleModalOpen }) {
   const [listItems, loading, error] = useCollection(
     db.collection(`lists/${listId}/items`),
   );
@@ -227,6 +227,7 @@ function ShoppingList({ listId }) {
                 key={item.id}
                 item={item}
                 checkAsPurchased={checkAsPurchased}
+                handleModalOpen={handleModalOpen}
               />
             ))}
           </ul>

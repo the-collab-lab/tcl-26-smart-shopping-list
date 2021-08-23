@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header';
 import NavMenu from '../../components/NavMenu/NavMenu';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
 
-const ListView = ({ listId }) => {
+const ListView = ({ listId, handleModalOpen }) => {
   return (
     <>
       <Helmet>
@@ -13,7 +13,7 @@ const ListView = ({ listId }) => {
       <Header />
 
       <main className="container__main">
-        <ShoppingList listId={listId} />
+        <ShoppingList listId={listId} handleModalOpen={handleModalOpen} />
       </main>
 
       <NavMenu />

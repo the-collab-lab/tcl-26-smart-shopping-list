@@ -9,10 +9,11 @@
 
 .filter__clear {
   position: absolute;
-  bottom: 1px;
-  right: 1px;
+  bottom: var(--border-width);
+  right: var(--border-width);
   width: 2em;
   height: 2em;
   font-size: inherit;
   border: none;
+  box-sizing: border-box;
 }

@@ -8,6 +8,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import calculateEstimate from '../../lib/estimates.js';
 import { DateTime } from 'luxon';
 
+import ItemFilter from '../ItemFilter/ItemFilter.js';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
 function ShoppingList({ listId, handleModalOpen }) {
@@ -182,10 +183,6 @@ function ShoppingList({ listId, handleModalOpen }) {
       });
   };
 
-  const handleInput = (e) => {
-    setFilter(e.target.value);
-  };
-
   const createListElement = () => {
     if (listItems.empty) {
       return (
@@ -199,27 +196,7 @@ function ShoppingList({ listId, handleModalOpen }) {
     } else {
       return (
         <>
-          <div className="filter">
-            <label htmlFor="filterInput" className="filter__label label">
-              Filter items
-            </label>
-            <input
-              type="text"
-              id="filterInput"
-              name="filterInput"
-              value={filter}
-              onChange={handleInput}
-              className="filter__text-field text-field"
-            />
-            <button
-              type="button"
-              aria-label="clear"
-              className="filter__button"
-              onClick={() => setFilter('')}
-            >
-              Clear Filter
-            </button>
-          </div>
+          <ItemFilter filter={filter} setFilter={setFilter} />
 
           <ul className="shopping-list__list list-reset">
             {itemsToDisplay.map((item) => (

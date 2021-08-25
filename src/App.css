@@ -35,14 +35,17 @@ BEM conventions we are using:
 }
 
 .text-field {
+  box-shadow: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
   display: block;
-  box-sizing: border-box;
   width: 100%;
-  font-size: 20px;
-  margin: 5px 0 20px 0;
+  box-sizing: border-box;
   border: 1px solid #888;
   border-radius: 3px;
-  padding: 8px 10px;
+  line-height: 1.5;
+  padding: 0.25em 0.5em;
 }
 
 .text-field_has-error {

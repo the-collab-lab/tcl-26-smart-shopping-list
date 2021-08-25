@@ -1,0 +1,18 @@
+.filter {
+  position: relative;
+  margin: 20px 0;
+}
+
+.filter__text-field {
+  padding-right: 2.5em;
+}
+
+.filter__clear {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 2em;
+  height: 2em;
+  font-size: inherit;
+  border: none;
+}

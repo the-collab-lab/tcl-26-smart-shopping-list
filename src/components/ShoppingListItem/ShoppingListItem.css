@@ -1,3 +1,5 @@
+/*
+
 .item__label_soon {
   background: #e5f5e1;
 }
@@ -12,4 +14,25 @@
 
 .item__label_inactive {
   background: #eee;
+}
+
+*/
+
+.item {
+  display: flex;
+  align-items: center;
+  border-top: var(--border-width) solid var(--light-gray);
+  padding: 12px 6px 14px 6px;
+}
+
+.item:first-child {
+  border-top: var(--border-width) solid transparent;
+}
+
+.item__delete-button {
+  margin: 0 0 0 auto;
+}
+
+.item__details-button {
+  margin: 0 10px;
 }

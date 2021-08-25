@@ -42,13 +42,19 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
           {item.status === 'inactive' && ' Inactive'}
         </span>
       </label>
-
+      <button
+        type="button"
+        aria-label={`${item.itemName} details`}
+        className="item__details-button"
+      >
+        Details
+      </button>
       <button
         type="button"
         onClick={() => handleModalOpen(item)}
         aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
         aria-label={`Delete ${item.itemName}`}
-        className="item__delete"
+        className="item__delete-button"
       >
         Delete
       </button>

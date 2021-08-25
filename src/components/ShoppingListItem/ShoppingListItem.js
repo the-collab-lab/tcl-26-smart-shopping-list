@@ -31,7 +31,7 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
       />
       <label
         className={`label label_check-radio item__label item__label_${item.status}`}
-        htmlFor={`item-${item.id}`}
+        htmlFor={`item-input-${item.id}`}
       >
         {item.itemName}
         <span className="visually-hidden">

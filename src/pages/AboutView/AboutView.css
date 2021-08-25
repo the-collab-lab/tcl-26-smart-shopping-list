@@ -1,0 +1,34 @@
+.flex {
+  display: flex;
+}
+
+.flex--image {
+  flex-direction: column;
+  margin-right: 15px;
+}
+
+.left-image {
+  margin-top: 50%;
+  height: 250px;
+  width: auto;
+}
+
+.flex--info {
+  flex-direction: column;
+}
+
+.info-title {
+  font-size: 28px;
+}
+
+.info-item__title {
+  font-size: 20px;
+}
+
+.info-item__body {
+  font-size: 12px;
+}
+
+.footnote {
+  font-size: 10px;
+}

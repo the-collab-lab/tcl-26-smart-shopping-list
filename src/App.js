@@ -18,6 +18,7 @@ import ListView from './pages/ListView/ListView';
 import AddItemView from './pages/AddItemView/AddItemView';
 import NotFound from './pages/NotFound/NotFound';
 import Home from './pages/Home/Home';
+import AboutView from './pages/AboutView/AboutView.js';
 import Modal from './components/Modal/Modal.js';
 
 // Functions
@@ -149,6 +150,9 @@ function App() {
             ) : (
               <AddItemView listId={listId} />
             )}
+          </Route>
+          <Route path="/about">
+            <AboutView listId={listId} />
           </Route>
           <Route component={NotFound} />
         </Switch>

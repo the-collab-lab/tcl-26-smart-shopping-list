@@ -189,3 +189,20 @@ body {
   white-space: nowrap;
   width: 1px;
 }
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+
+.icon__border {
+  fill: var(--charcoal);
+}
+
+.icon__bg {
+  fill: transparent;
+}
+
+.icon__mark {
+  fill: var(--charcoal);
+}

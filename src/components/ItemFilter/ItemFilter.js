@@ -1,3 +1,4 @@
+import { ReactComponent as ClearIcon } from '../../images/icon-x.svg';
 import './ItemFilter.css';
 
 const ItemFilter = ({ filter, setFilter }) => {
@@ -22,7 +23,7 @@ const ItemFilter = ({ filter, setFilter }) => {
           className="filter__clear"
           onClick={() => setFilter('')}
         >
-          x
+          <ClearIcon />
         </button>
       )}
     </div>

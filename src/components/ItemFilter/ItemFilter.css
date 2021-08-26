@@ -4,15 +4,15 @@
 }
 
 .filter__text-field {
-  padding-right: 2.75em;
+  padding-right: 3rem;
 }
 
 .filter__clear {
   position: absolute;
   bottom: var(--border-width);
   right: var(--border-width);
-  width: 2.25em;
-  height: 2.25em;
+  width: 2.75rem;
+  height: 2.75rem;
   font-size: inherit;
   border: none;
   color: var(--charcoal);

@@ -177,6 +177,11 @@ function ShoppingList({ listId, handleModalOpen }) {
         ),
         numberOfPurchases: firebase.firestore.FieldValue.increment(1),
         purchaseInterval: newPurchaseInterval,
+        // back up some info in case user mistakenly checks item and wants to undo
+        undoRestore: {
+          lastPurchaseDate: item.lastPurchaseDate,
+          purchaseInterval: item.purchaseInterval,
+        },
       });
   };
 

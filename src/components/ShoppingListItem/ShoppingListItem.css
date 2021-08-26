@@ -30,9 +30,21 @@
 }
 
 .item__label {
-  font-size: 24px;
+  font-size: 18px;
   margin: 0 0 0 16px;
   padding-bottom: 0.25em; /* bumps the label up to be more even with the icons */
+}
+
+@media only screen and (min-width: 600px) {
+  .item__label {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .item__label {
+    font-size: 24px;
+  }
 }
 
 .item__details-button {
@@ -53,10 +65,17 @@
   display: block;
   padding: 0;
   margin: 0;
-  height: 32px;
-  width: 32px;
+  height: 28px;
+  width: 28px;
   padding: 2px;
   border-radius: 3px; /* so a11y focus outline is not all pointy */
+}
+
+@media only screen and (min-width: 600px) {
+  .checkbox-target {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .checkbox-icon__border {

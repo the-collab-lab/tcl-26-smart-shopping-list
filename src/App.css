@@ -39,15 +39,28 @@ BEM conventions we are using:
   --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
 }
 
-body {
+.global {
   background: var(--medium-gray);
+  font-size: 18px;
+  color: var(--charcoal);
+}
+
+@media only screen and (min-width: 600px) {
+  .global {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .global {
+    font-size: 22px;
+  }
 }
 
 .container {
   max-width: 700px;
   margin: 0 auto;
-  font-size: 20px;
-  padding: 60px;
+  padding: 30px;
   position: relative;
   background: #fff;
 }
@@ -219,9 +232,16 @@ body {
 
 /* these are classes within the SVG styles, so we can reuse the same icons and swap icons easily */
 .icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   color: currentColor;
+}
+
+@media only screen and (min-width: 600px) {
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .icon__border {

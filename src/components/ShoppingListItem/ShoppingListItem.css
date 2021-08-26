@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   border-top: var(--border-width) solid var(--light-gray);
-  padding: 12px 6px 14px 6px;
+  padding: 13px 6px 12px 6px;
 }
 
 .item:first-child {
@@ -31,11 +31,12 @@
 
 .item__label {
   font-size: 24px;
+  margin: 0 0 0 16px;
   padding-bottom: 0.25em; /* bumps the label up to be more even with the icons */
 }
 
 .item__details-button {
-  margin: 0 12px;
+  margin: 0 16px;
 }
 
 .item__delete-button {
@@ -45,4 +46,37 @@
 .item__delete-button:hover,
 .item__delete-button:focus {
   color: var(--warning-color);
+}
+
+.checkbox-target {
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  margin: 0;
+  height: 32px;
+  width: 32px;
+  padding: 2px;
+  border-radius: 3px; /* so a11y focus outline is not all pointy */
+}
+
+.checkbox-icon__border {
+  fill: currentColor;
+}
+
+.checkbox-icon__bg {
+  fill: currentColor;
+}
+
+/* by default, checkbox icon unchecked */
+.checkbox-icon__mark {
+  fill: none;
+}
+
+/* if checkbox input is checked, change the SVG color in the label.checkbox-target beside it */
+.checkbox:checked + .checkbox-target .checkbox-icon__mark {
+  fill: #fff;
+}
+
+.checkbox:focus-visible + .checkbox-target {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
 }

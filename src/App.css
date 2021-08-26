@@ -122,7 +122,8 @@ body {
   cursor: pointer;
   text-decoration: none;
   font-size: inherit;
-  line-height: 1;
+  line-height: 1.25;
+  outline: none;
   padding: 0.625em;
   margin: 16px 0;
   border: var(--border-width) solid var(--charcoal);
@@ -195,14 +196,13 @@ body {
   border: none;
   background: none;
   box-shadow: none;
-  border: 2px solid transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--icon-a11y-gray); /* controls icon color using currentColor */
   transition: color var(--transition-timing);
-  padding: 1px;
+  padding: 2px;
   outline: none;
   border-radius: 3px; /* so a11y focus outline is not all pointy */
 }

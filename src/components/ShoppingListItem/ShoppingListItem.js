@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import isUnder24hSincePurchased from '../../utils/isUnder24hSincePurchased.js';
+import {
+  isRecentlyPurchased,
+  isPurchaseWithinUndoWindow,
+} from '../../utils/dateTimeUtils.js';
 
 import './ShoppingListItem.css';
 
@@ -11,9 +14,7 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
   useEffect(() => {
     // make sure properties exist and are not null
     if (item?.lastPurchaseDate?.seconds)
-      setRecentlyPurchased(
-        isUnder24hSincePurchased(item.lastPurchaseDate.seconds),
-      );
+      setRecentlyPurchased(isRecentlyPurchased(item.lastPurchaseDate.seconds));
   }, [item]);
 
   return (

@@ -29,12 +29,23 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
         }
       }
     };
+
+    const closeOnClickOutside = (e) => {
+      if (e.target.classList.contains('dialog')) {
+        handleModalClose();
+      }
+    };
+
     if (showModal) {
       // when modal opens, add eventListeners and put initial focus on "No, Cancel"
       document.addEventListener('keydown', handleKeyEvents);
+      document.addEventListener('click', closeOnClickOutside);
       cancelRef.current.focus();
     }
-    return () => document.removeEventListener('keydown', handleKeyEvents);
+    return () => {
+      document.removeEventListener('keydown', handleKeyEvents);
+      document.removeEventListener('click', closeOnClickOutside);
+    };
   }, [handleModalClose, showModal]);
 
   return (

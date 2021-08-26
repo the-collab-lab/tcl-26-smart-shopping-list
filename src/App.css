@@ -43,9 +43,9 @@ BEM conventions we are using:
 }
 
 .global {
-  background: var(--medium-gray);
   font-size: 1.125rem;
   color: var(--charcoal);
+  background: var(--medium-gray);
 }
 
 @media only screen and (min-width: 600px) {
@@ -61,10 +61,10 @@ BEM conventions we are using:
 }
 
 .container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 30px;
   position: relative;
+  max-width: 700px;
+  padding: 30px;
+  margin: 0 auto;
   background: #fff;
 }
 
@@ -73,25 +73,27 @@ BEM conventions we are using:
 }
 
 .container__separator {
-  text-align: center;
   margin: 40px 0;
+  text-align: center;
 }
 
 .text-field {
-  box-shadow: none;
-  outline: none;
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
   display: block;
   width: 100%;
   height: 3rem; /* after switching to rems, need this or clear button slightly off */
-  line-height: 1.75;
   padding: 0.25rem 0.75rem;
   box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.75;
+  color: inherit;
+
   background: var(--input-bg-color);
   border: var(--border-width) solid var(--input-border-color);
   border-radius: var(--ui-border-radius);
+  outline: none;
+  box-shadow: none;
 }
 
 .text-field:focus {
@@ -104,9 +106,9 @@ BEM conventions we are using:
 }
 
 .fieldset {
-  border: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  border: none;
 }
 
 .fieldset_type_check-radio {
@@ -116,8 +118,8 @@ BEM conventions we are using:
 }
 
 .legend {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .legend_type_check-radio {
@@ -135,18 +137,20 @@ BEM conventions we are using:
 
 .button {
   display: block;
-  text-align: center;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: inherit;
-  line-height: 1.25;
-  outline: none;
   padding: 0.75rem;
-  border: var(--border-width) solid var(--charcoal);
-  background: transparent;
-  border-radius: var(--ui-border-radius);
-  color: var(--charcoal);
+
+  font-size: inherit;
   font-weight: 700;
+  line-height: 1.25;
+  color: var(--charcoal);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  background: transparent;
+  border: var(--border-width) solid var(--charcoal);
+  border-radius: var(--ui-border-radius);
+  outline: none;
   transition: color var(--transition-timing),
     border-color var(--transition-timing),
     background-color var(--transition-timing);
@@ -158,38 +162,38 @@ BEM conventions we are using:
 }
 
 .button_type_primary {
-  background: var(--charcoal);
   color: #fff;
+  background: var(--charcoal);
 }
 
 .button_type_primary:hover,
 .button_type_primary:focus {
-  border-color: var(--main-accent-color);
-  background: var(--main-accent-color);
   color: #fff;
+  background: var(--main-accent-color);
+  border-color: var(--main-accent-color);
 }
 
 .button_type_delete {
-  border-color: var(--warning-color);
-  background: var(--warning-color);
   color: #fff;
+  background: var(--warning-color);
+  border-color: var(--warning-color);
 }
 
 .button_type_delete:hover,
 .button_type_delete:focus {
-  border-color: var(--warning-color-focus);
-  background: var(--warning-color-focus);
   color: #fff;
+  background: var(--warning-color-focus);
+  border-color: var(--warning-color-focus);
 }
 
 .error {
-  color: var(--warning-color);
   margin: 0.625rem 0;
+  color: var(--warning-color);
 }
 
 .error_type_field {
-  font-size: 1rem;
   margin: 0 0 1.25rem 0;
+  font-size: 1rem;
 }
 
 @media only screen and (min-width: 600px) {
@@ -212,28 +216,28 @@ BEM conventions we are using:
 
 /* More info: https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/ */
 .visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
+  position: absolute;
+  width: 1px;
   height: 1px;
   overflow: hidden;
-  position: absolute;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
-  width: 1px;
 }
 
 .icon-only-button {
-  border: none;
-  background: none;
-  box-shadow: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--icon-a11y-gray); /* controls icon color using currentColor */
-  transition: color var(--transition-timing);
   padding: 0.125rem;
-  outline: none;
+  color: var(--icon-a11y-gray); /* controls icon color using currentColor */
+  cursor: pointer;
+  background: none;
+  border: none;
   border-radius: 3px; /* so a11y focus outline is not all pointy */
+  outline: none;
+  box-shadow: none;
+  transition: color var(--transition-timing);
 }
 
 .icon-only-button:hover,

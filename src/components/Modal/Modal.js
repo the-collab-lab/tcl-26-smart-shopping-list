@@ -44,7 +44,7 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
           {`Are you sure you want to delete ${item.itemName}?`}
         </h3>
         <button
-          className="button button"
+          className="button"
           type="button"
           onClick={handleModalClose}
           ref={cancelRef}

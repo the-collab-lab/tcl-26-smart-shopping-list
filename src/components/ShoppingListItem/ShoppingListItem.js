@@ -36,7 +36,7 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
           recentlyPurchased ? 'checkbox-target_recently-purchased' : ''
         } checkbox-target_status_${item.status}`}
       >
-        <CheckboxIcon aria-hidden="true" />
+        <CheckboxIcon aria-hidden="true" focusable="false" />
       </label>
       <label
         className={`label label_check-radio item__label item__label_${item.status}`}
@@ -56,7 +56,7 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
         aria-label={`${item.itemName} details`}
         className="item__details-button icon-only-button"
       >
-        <DetailsIcon aria-hidden="true" />
+        <DetailsIcon aria-hidden="true" focusable="false" />
       </button>
       <button
         type="button"
@@ -65,7 +65,7 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
         aria-label={`Delete ${item.itemName}`}
         className="item__delete-button icon-only-button"
       >
-        <DeleteIcon aria-hidden="true" />
+        <DeleteIcon aria-hidden="true" focusable="false" />
       </button>
     </li>
   );

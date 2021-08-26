@@ -185,8 +185,20 @@ function ShoppingList({ listId, handleModalOpen }) {
       });
   };
 
+  // restores item's previous lastPurchaseDate, purchaseInterval and numberOfPurchases
+  // for use when a user accidentally checks an item off, and wants to undo
   const uncheckAsPurchased = (item) => {
-    console.log('uncheck it');
+    return db
+      .collection(`lists/${listId}/items`)
+      .doc(item.id)
+      .update({
+        // decrement total purchases by 1
+        numberOfPurchases: firebase.firestore.FieldValue.increment(-1),
+        // restore to stats saved in undoRestore field
+        lastPurchaseDate: item.undoRestore.lastPurchaseDate,
+        purchaseInterval: item.undoRestore.purchaseInterval,
+        undoRestore: {},
+      });
   };
 
   const handleInput = (e) => {

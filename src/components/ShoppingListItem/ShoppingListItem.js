@@ -20,15 +20,33 @@ const ShoppingListItem = ({
 
   // allows for undoing an accidental purchase within a certain time window
   const handleUncheck = (item) => {
-    // check if the purchase happened within the last 5 minutes
-    isPurchaseWithinUndoWindow(item.lastPurchaseDate.seconds)
-      ? uncheckAsPurchased(item)
-      : setItemNotice({
-          message: itemUncheckWarningMessage,
-          type: 'assertive',
-          error: false,
-          screenReadOnly: false,
+    if (isPurchaseWithinUndoWindow(item.lastPurchaseDate.seconds)) {
+      // if the purchase happened within the last 5 minutes, undo it
+      uncheckAsPurchased(item)
+        .then(() => {
+          setItemNotice({
+            message: `${item.itemName} purchase undone`,
+            type: 'polite',
+            error: false,
+            screenReadOnly: true,
+          });
+        })
+        .catch((err) => {
+          setItemNotice({
+            message: 'Sorry, there was a problem',
+            type: 'assertive',
+            error: true,
+            screenReadOnly: false,
+          });
         });
+    } else {
+      setItemNotice({
+        message: itemUncheckWarningMessage,
+        type: 'assertive',
+        error: false,
+        screenReadOnly: false,
+      });
+    }
   };
 
   // allows for undoing an accidental purchase within a certain time window

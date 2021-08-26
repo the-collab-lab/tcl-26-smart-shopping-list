@@ -1,12 +1,5 @@
-.dialog-open {
-  display: block;
-}
-
-.dialog-close {
+.dialog {
   display: none;
-}
-
-.dialog-backdrop {
   position: fixed;
   overflow-y: auto;
   top: 0;
@@ -16,7 +9,11 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
-[role='alertdialog'] {
+.dialog_open {
+  display: block;
+}
+
+.dialog__modal {
   position: absolute;
   top: 2rem;
   left: 35vw;

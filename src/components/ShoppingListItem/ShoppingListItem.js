@@ -7,8 +7,50 @@ import {
 
 import './ShoppingListItem.css';
 
-const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
+const ShoppingListItem = ({
+  item,
+  checkAsPurchased,
+  uncheckAsPurchased,
+  handleModalOpen,
+}) => {
   const [recentlyPurchased, setRecentlyPurchased] = useState(false);
+  const [itemNotice, setItemNotice] = useState({});
+
+  const itemUncheckWarningMessage = `You already purchased this in the last 24 hours`;
+
+  // allows for undoing an accidental purchase within a certain time window
+  const handleUncheck = (item) => {
+    // check if the purchase happened within the last 5 minutes
+    isPurchaseWithinUndoWindow(item.lastPurchaseDate.seconds)
+      ? uncheckAsPurchased(item)
+      : setItemNotice({
+          message: itemUncheckWarningMessage,
+          type: 'assertive',
+          error: false,
+          screenReadOnly: false,
+        });
+  };
+
+  // allows for undoing an accidental purchase within a certain time window
+  const handleCheck = (item) => {
+    checkAsPurchased(item)
+      .then(() => {
+        setItemNotice({
+          message: `Purchased ${item.itemName}`,
+          type: 'polite',
+          error: false,
+          screenReadOnly: true,
+        });
+      })
+      .catch((err) => {
+        setItemNotice({
+          message: 'Sorry, there was a problem',
+          type: 'assertive',
+          error: true,
+          screenReadOnly: false,
+        });
+      });
+  };
 
   // update whether item is recently purchased
   useEffect(() => {
@@ -23,16 +65,23 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
         id={`item-input-${item.id}`}
         value={item.id}
         type="checkbox"
-        disabled={recentlyPurchased}
         checked={recentlyPurchased}
+        onBlur={
+          () =>
+            setItemNotice(
+              '',
+            ) /*remove message when no longer focused on checkbox */
+        }
         className={`checkbox item__checkbox ${
           recentlyPurchased ? 'checkbox_recently-purchased' : ''
         } item__checkbox_${item.status}`}
-        onChange={() => checkAsPurchased(item)}
+        onChange={(e) =>
+          e.target.checked ? handleCheck(item) : handleUncheck(item)
+        }
       />
       <label
         className={`label label_check-radio item__label item__label_${item.status}`}
-        htmlFor={`item-${item.id}`}
+        htmlFor={`item-input-${item.id}`}
       >
         {item.itemName}
         <span className="visually-hidden">
@@ -53,6 +102,14 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
       >
         Delete
       </button>
+      <div
+        aria-live={itemNotice?.type ? itemNotice.type : 'polite'}
+        className={`item__message ${
+          itemNotice?.screenReadOnly ? 'visually-hidden' : ''
+        } ${itemNotice?.error ? 'error' : ''}`}
+      >
+        {itemNotice.message}
+      </div>
     </li>
   );
 };

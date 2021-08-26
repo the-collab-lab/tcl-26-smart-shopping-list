@@ -167,7 +167,8 @@ function ShoppingList({ listId, handleModalOpen }) {
       item.numberOfPurchases,
     );
 
-    db.collection(`lists/${listId}/items`)
+    return db
+      .collection(`lists/${listId}/items`)
       .doc(item.id)
       .update({
         lastPurchaseDate: new firebase.firestore.Timestamp(
@@ -176,10 +177,11 @@ function ShoppingList({ listId, handleModalOpen }) {
         ),
         numberOfPurchases: firebase.firestore.FieldValue.increment(1),
         purchaseInterval: newPurchaseInterval,
-      })
-      .catch((err) => {
-        console.log(err);
       });
+  };
+
+  const uncheckAsPurchased = (item) => {
+    console.log('uncheck it');
   };
 
   const handleInput = (e) => {
@@ -227,6 +229,7 @@ function ShoppingList({ listId, handleModalOpen }) {
                 key={item.id}
                 item={item}
                 checkAsPurchased={checkAsPurchased}
+                uncheckAsPurchased={uncheckAsPurchased}
                 handleModalOpen={handleModalOpen}
               />
             ))}

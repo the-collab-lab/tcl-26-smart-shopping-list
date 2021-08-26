@@ -23,7 +23,7 @@ const ItemFilter = ({ filter, setFilter }) => {
           className="filter__clear icon-only-button"
           onClick={() => setFilter('')}
         >
-          <ClearIcon />
+          <ClearIcon aria-hidden="true" />
         </button>
       )}
     </div>

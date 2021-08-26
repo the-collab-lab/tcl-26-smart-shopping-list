@@ -20,7 +20,7 @@ const ItemFilter = ({ filter, setFilter }) => {
         <button
           type="button"
           aria-label="Clear filter"
-          className="filter__clear"
+          className="filter__clear icon-only-button"
           onClick={() => setFilter('')}
         >
           <ClearIcon />

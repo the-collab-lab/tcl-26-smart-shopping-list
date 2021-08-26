@@ -18,28 +18,29 @@ BEM conventions we are using:
 */
 
 :root {
-  --main-accent-color: #3fa448; /* sample green, a11y tested for >=18pt text */
-  --highlight-color: #ffc62e;
-  --warning-color: #dd380a; /* a11y tested */
-  --warning-color-focus: #a1381b;
+  --main-accent-color: #3fa448; /* sample accent color, a11y: passes AA for 18pt text */
+  --highlight-color: #ffc62e; /* sample highlight color, used for key nav focus outlines */
+  --warning-color: #dd380a; /* a11y: passes AA at 16 pt for text or bg with white */
+  --warning-color-focus: #a1381b; /* focus/hover alternative */
+
   --light-gray: #f3f2f7;
   --medium-gray: #dddce6;
-  --a11y-gray: #767676;
+  --text-a11y-gray: #76757c; /* a11y: passes AA at 16 pt */
+  --icon-a11y-gray: #8e8d96; /* a11y: passes AA at 18 pt or for icons */
   --charcoal: #171429;
 
-  --bg-color: var(--medium-gray);
+  --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */
+  --ui-border-radius: 7px; /* for buttons, text fields */
 
-  --border-width: 2px;
-  --ui-border-radius: 7px;
-
+  /* text fields styles */
   --input-bg-color: var(--medium-gray);
   --input-border-color: var(--medium-gray);
 
-  --transition-timing: 0.35s ease-in-out;
+  --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
 }
 
 body {
-  background: var(--bg-color);
+  background: var(--medium-gray);
 }
 
 .container {
@@ -72,7 +73,7 @@ body {
   background: var(--input-bg-color);
   border: var(--border-width) solid var(--input-border-color);
   border-radius: var(--ui-border-radius);
-  line-height: 1.5;
+  line-height: 1.75;
   padding: 0.25em 0.5em;
 }
 
@@ -190,13 +191,41 @@ body {
   width: 1px;
 }
 
+.icon-only-button {
+  border: none;
+  background: none;
+  box-shadow: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-a11y-gray); /* controls icon color using currentColor */
+  transition: color var(--transition-timing);
+  padding: 1px;
+  outline: none;
+  border-radius: 3px; /* so a11y focus outline is not all pointy */
+}
+
+.icon-only-button:hover,
+.icon-only-button:focus {
+  color: var(--charcoal); /* controls icon color using currentColor */
+  outline: none;
+}
+
+.icon-only-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
+/* these are classes within the SVG styles, so we can reuse the same icons and swap icons easily */
 .icon {
   width: 32px;
   height: 32px;
+  color: currentColor;
 }
 
 .icon__border {
-  fill: var(--charcoal);
+  fill: currentColor;
 }
 
 .icon__bg {
@@ -204,5 +233,5 @@ body {
 }
 
 .icon__mark {
-  fill: var(--charcoal);
+  fill: currentColor;
 }

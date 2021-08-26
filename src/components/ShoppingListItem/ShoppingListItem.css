@@ -29,10 +29,20 @@
   border-top: var(--border-width) solid transparent;
 }
 
+.item__label {
+  font-size: 24px;
+  padding-bottom: 0.25em; /* bumps the label up to be more even with the icons */
+}
+
+.item__details-button {
+  margin: 0 12px;
+}
+
 .item__delete-button {
   margin: 0 0 0 auto;
 }
 
-.item__details-button {
-  margin: 0 10px;
+.item__delete-button:hover,
+.item__delete-button:focus {
+  color: var(--warning-color);
 }

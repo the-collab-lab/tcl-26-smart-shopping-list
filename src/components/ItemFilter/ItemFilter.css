@@ -4,15 +4,32 @@
 }
 
 .filter__text-field {
-  padding-right: 2.5em;
+  padding-right: 2.75em;
 }
 
 .filter__clear {
   position: absolute;
   bottom: var(--border-width);
   right: var(--border-width);
-  width: 2em;
-  height: 2em;
+  width: 2.25em;
+  height: 2.25em;
   font-size: inherit;
   border: none;
+  color: var(--charcoal);
+}
+
+/* some slight BEM defiance here to avoid tons of classes on SVGs we may change */
+.filter__clear .icon__bg,
+.filter__clear .icon__mark {
+  transition: fill var(--transition-timing);
+}
+
+.filter__clear:hover .icon__bg,
+.filter__clear:focus .icon__bg {
+  fill: currentColor;
+}
+
+.filter__clear:hover .icon__mark,
+.filter__clear:focus .icon__mark {
+  fill: #fff;
 }

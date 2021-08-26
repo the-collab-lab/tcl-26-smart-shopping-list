@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import isUnder24hSincePurchased from '../../utils/isUnder24hSincePurchased.js';
 
+import { ReactComponent as DetailsIcon } from '../../images/icon-details.svg';
+import { ReactComponent as DeleteIcon } from '../../images/icon-delete.svg';
 import './ShoppingListItem.css';
 
 const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
@@ -45,18 +47,18 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
       <button
         type="button"
         aria-label={`${item.itemName} details`}
-        className="item__details-button"
+        className="item__details-button icon-only-button"
       >
-        Details
+        <DetailsIcon />
       </button>
       <button
         type="button"
         onClick={() => handleModalOpen(item)}
         aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
         aria-label={`Delete ${item.itemName}`}
-        className="item__delete-button"
+        className="item__delete-button icon-only-button"
       >
-        Delete
+        <DeleteIcon className="icon delete-icon" />
       </button>
     </li>
   );

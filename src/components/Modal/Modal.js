@@ -46,10 +46,11 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
         aria-labelledby="dialog-label"
       >
         <h3 className="dialog__heading" id="dialog-label">
-          {`Are you sure you want to delete ${item.itemName}?`}
+          Are you sure you want to delete{' '}
+          <strong className="dialog__item-name">{item.itemName}</strong>?
         </h3>
         <button
-          className="dialog__cancel button"
+          className="dialog__button button"
           type="button"
           onClick={handleModalClose}
           ref={cancelRef}
@@ -57,7 +58,7 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
           No, Cancel
         </button>
         <button
-          className="dialog__delete button button_type_delete"
+          className="dialog__button button button_type_delete"
           type="button"
           onClick={deleteItem}
           aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id

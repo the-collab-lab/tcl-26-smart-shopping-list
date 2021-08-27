@@ -27,7 +27,7 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
         type="checkbox"
         disabled={recentlyPurchased}
         checked={recentlyPurchased}
-        className="checkbox "
+        className="checkbox visually-hidden"
         onChange={() => checkAsPurchased(item)}
       />
       <label

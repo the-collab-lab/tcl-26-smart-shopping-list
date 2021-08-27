@@ -28,8 +28,8 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --warning-color-focus: #a1381b; /* focus/hover alternative */
 
   /* icons must have contrast of 3:1 according to WCAG */
-  --item-soon-color: #36700f;
-  --item-kinda-soon-color: #408a10;
+  --item-soon-color: #2e6907;
+  --item-kind-of-soon-color: #408a10;
   --item-not-soon-color: #54a71d;
   --item-inactive-color: #8e8d96;
 

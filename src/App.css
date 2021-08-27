@@ -15,6 +15,10 @@ BEM conventions we are using:
 
 .block__element_modifier_option
 (ie. .block__element_color-scheme_dark)
+
+BEM Reference: https://en.bem.info/methodology/quick-start/
+
+CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 */
 
 :root {

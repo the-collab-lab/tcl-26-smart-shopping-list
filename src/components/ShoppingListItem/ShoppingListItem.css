@@ -59,21 +59,15 @@
   color: var(--warning-color);
 }
 
-.checkbox-target {
-  display: block;
-  height: var(--icon-size-sm);
-  width: var(--icon-size-sm);
-  padding: 0.125rem;
-  margin: 0;
-  cursor: pointer;
-  border-radius: 3px; /* so a11y focus outline is not all pointy */
-}
-
 @media only screen and (min-width: 600px) {
   .checkbox-target {
     width: var(--icon-size-lg);
     height: var(--icon-size-lg);
   }
+}
+
+.checkbox-icon__mark {
+  transition: all var(--transition-timing);
 }
 
 .checkbox-icon__border {
@@ -96,4 +90,35 @@
 
 .checkbox:focus-visible + .checkbox-target {
   box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
+.checkbox-target_status_soon {
+  color: var(--item-soon-color);
+}
+
+.checkbox-target_status_kind-of-soon {
+  color: var(--item-kinda-soon-color);
+}
+
+.checkbox-target_status_not-soon {
+  color: var(--item-not-soon-color);
+}
+
+.checkbox-target_status_inactive {
+  color: var(--item-inactive-color);
+}
+
+.checkbox-target {
+  color: var(--item-soon-color);
+  display: block;
+  height: var(--icon-size-sm);
+  width: var(--icon-size-sm);
+  padding: 0.125rem;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 3px; /* so a11y focus outline is not all pointy */
+}
+
+.checkbox-target:hover .checkbox-icon__mark {
+  fill: rgba(255, 255, 255, 0.35);
 }

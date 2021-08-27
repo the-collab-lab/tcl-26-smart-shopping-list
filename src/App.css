@@ -18,10 +18,16 @@ BEM conventions we are using:
 */
 
 :root {
-  --main-accent-color: #3fa448; /* sample accent color, a11y: passes AA for 18pt text */
+  --main-accent-color: #408a10; /* sample accent color, a11y: passes AA for 18pt text */
   --highlight-color: #ffc62e; /* sample highlight color, used for key nav focus outlines */
   --warning-color: #dd380a; /* a11y: passes AA at 16 pt for text or bg with white */
   --warning-color-focus: #a1381b; /* focus/hover alternative */
+
+  /* icons must have contrast of 3:1 according to WCAG */
+  --item-soon-color: #36700f;
+  --item-kinda-soon-color: #408a10;
+  --item-not-soon-color: #54a71d;
+  --item-inactive-color: #8e8d96;
 
   --light-gray: #f3f2f7;
   --medium-gray: #dddce6;

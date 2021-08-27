@@ -18,6 +18,7 @@ const ShoppingListItem = ({
 }) => {
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
+  const [showDetails, setShowDetails] = useState(false);
 
   const itemUncheckWarningMessage =
     'You already purchased this in the last 24 hours';
@@ -127,6 +128,7 @@ const ShoppingListItem = ({
         </label>
         <button
           type="button"
+          onClick={() => setShowDetails(!showDetails)}
           aria-label={`${item.itemName} details`}
           className="item__details-button icon-only-button"
         >
@@ -154,6 +156,25 @@ const ShoppingListItem = ({
       >
         {itemNotice.message}
       </div>
+
+      <ul
+        className={`item__details details ${
+          showDetails ? 'details_visible' : ''
+        } list-reset`}
+      >
+        <li className="details__detail">
+          <span className="details__name">Purchases: </span>
+          <span className="details__value">{item.numberOfPurchases}</span>
+        </li>
+        <li className="details__detail">
+          <span className="details__name">Last purchase: </span>
+          <span className="details__value">Aug 11</span>
+        </li>
+        <li className="details__detail">
+          <span className="details__name">Next purchase: </span>
+          <span className="details__value">~ Aug 29</span>
+        </li>
+      </ul>
     </li>
   );
 };

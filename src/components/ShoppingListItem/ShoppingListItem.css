@@ -89,3 +89,11 @@
   /* account for icon size, icon padding, and margin between icon and item name */
   margin: 0.25rem 0 0.5rem calc(var(--icon-size-lg) + 1.25rem);
 }
+
+.details {
+  display: none;
+}
+
+.details_visible {
+  display: block;
+}

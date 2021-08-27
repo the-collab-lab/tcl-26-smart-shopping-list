@@ -16,14 +16,17 @@ const ShoppingListItem = ({
   uncheckAsPurchased,
   handleModalOpen,
 }) => {
-  const [recentlyPurchased, setRecentlyPurchased] = useState(false);
+  const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
 
   const itemUncheckWarningMessage = `You already purchased this in the last 24 hours`;
 
   // allows for undoing an accidental purchase within a certain time window
   const handleUncheck = (item) => {
-    if (isPurchaseWithinUndoWindow(item.lastPurchaseDate.seconds)) {
+    if (
+      item?.lastPurchaseDate?.seconds &&
+      isPurchaseWithinUndoWindow(item.lastPurchaseDate.seconds)
+    ) {
       // if the purchase happened within the last 5 minutes, undo it
       uncheckAsPurchased(item)
         .then(() => {
@@ -75,9 +78,12 @@ const ShoppingListItem = ({
 
   // update whether item is recently purchased
   useEffect(() => {
-    // make sure properties exist and are not null
-    if (item?.lastPurchaseDate?.seconds)
-      setRecentlyPurchased(isRecentlyPurchased(item.lastPurchaseDate.seconds));
+    // if last purchase date is null, make sure
+    setIsRecentlyPurchased(
+      item?.lastPurchaseDate?.seconds
+        ? isRecentlyPurchased(item.lastPurchaseDate.seconds)
+        : false,
+    );
   }, [item]);
 
   return (
@@ -87,12 +93,8 @@ const ShoppingListItem = ({
         value={item.id}
         type="checkbox"
         checked={recentlyPurchased}
-        onBlur={
-          () =>
-            setItemNotice(
-              '',
-            ) /*remove message when no longer focused on checkbox */
-        }
+        /*remove message when no longer focused on checkbox */
+        onBlur={() => setItemNotice('')}
         className={`checkbox item__checkbox visually-hidden ${
           recentlyPurchased ? 'checkbox_recently-purchased' : ''
         } item__checkbox_${item.status}`}

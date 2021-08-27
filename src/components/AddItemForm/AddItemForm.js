@@ -139,13 +139,14 @@ const AddItemForm = ({ listId }) => {
         {itemErrorMessage}
       </div>
 
-      <fieldset>
-        <legend>How soon will you buy this again?</legend>
-
+      <fieldset className="fieldset fieldset_type_check-radio add-item-form__options">
+        <legend className="legend legend_type_check-radio add-item-form__option-legend">
+          How soon will you buy this again?
+        </legend>
         <input
           type="radio"
           id="soonOption"
-          className="add-item-form__radio"
+          className="radio"
           name="purchaseInterval"
           value="7"
           onChange={handleChange}
@@ -153,14 +154,14 @@ const AddItemForm = ({ listId }) => {
         />
         <label
           htmlFor="soonOption"
-          className="add-item-form__label add-item-form__label_type_radio label label_check-radio"
+          className="add-item-form__label add-item-form__label_type_radio label label_type_check-radio"
         >
           Soon
         </label>
 
         <input
           type="radio"
-          className="add-item-form__radio"
+          className="radio"
           id="kindaSoonOption"
           name="purchaseInterval"
           value="14"
@@ -169,14 +170,14 @@ const AddItemForm = ({ listId }) => {
         />
         <label
           htmlFor="kindaSoonOption"
-          className="add-item-form__label add-item-form__label_type_radio label label_check-radio"
+          className="add-item-form__label add-item-form__label_type_radio label label_type_check-radio"
         >
           Kind of Soon
         </label>
 
         <input
           type="radio"
-          className="add-item-form__radio"
+          className="radio"
           id="notSoonOption"
           name="purchaseInterval"
           value="30"
@@ -185,13 +186,16 @@ const AddItemForm = ({ listId }) => {
         />
         <label
           htmlFor="notSoonOption"
-          className="add-item-form__label add-item-form__label_type_radio label label_check-radio"
+          className="add-item-form__label add-item-form__label_type_radio label label_type_check-radio"
         >
           Not Soon
         </label>
       </fieldset>
 
-      <button type="submit" className="add-item-form__submit button">
+      <button
+        type="submit"
+        className="add-item-form__submit button button_type_primary"
+      >
         Add Item
       </button>
     </form>

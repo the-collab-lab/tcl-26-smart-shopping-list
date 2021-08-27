@@ -15,14 +15,57 @@ BEM conventions we are using:
 
 .block__element_modifier_option
 (ie. .block__element_color-scheme_dark)
+
+BEM Reference: https://en.bem.info/methodology/quick-start/
+
+CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 */
 
+:root {
+  --main-accent-color: #3fa448; /* sample accent color, a11y: passes AA for 18pt text */
+  --highlight-color: #ffc62e; /* sample highlight color, used for key nav focus outlines */
+  --warning-color: #dd380a; /* a11y: passes AA at 16 pt for text or bg with white */
+  --warning-color-focus: #a1381b; /* focus/hover alternative */
+
+  --light-gray: #f3f2f7;
+  --medium-gray: #dddce6;
+  --text-a11y-gray: #76757c; /* a11y: passes AA at 16 pt */
+  --text-lg-a11y-gray: #8e8d96; /* a11y: passes AA at 18 pt or for icons */
+  --icon-a11y-gray: #91909b; /* a11y: passes AA at 18 pt or for icons */
+  --charcoal: #171429;
+
+  --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */
+  --ui-border-radius: 7px; /* for buttons, text fields */
+
+  --icon-size-sm: 28px;
+  --icon-size-lg: 32px;
+
+  /* text fields styles */
+  --input-bg-color: var(--medium-gray);
+  --input-border-color: var(--medium-gray);
+
+  --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
+
+  color: var(--charcoal);
+  background: var(--medium-gray);
+}
+
+.body {
+  font-size: 1.125rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .body {
+    font-size: 1.25rem;
+  }
+}
+
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  font-size: 20px;
-  padding: 40px;
   position: relative;
+  max-width: 800px;
+  padding: 30px;
+  margin: 0 auto;
+  background: #fff;
 }
 
 .container__header {
@@ -30,56 +73,139 @@ BEM conventions we are using:
 }
 
 .container__separator {
-  text-align: center;
   margin: 40px 0;
+  text-align: center;
 }
 
 .text-field {
   display: block;
-  box-sizing: border-box;
   width: 100%;
-  font-size: 20px;
-  margin: 5px 0 20px 0;
-  border: 1px solid #888;
-  border-radius: 3px;
-  padding: 8px 10px;
+  height: 3rem; /* after switching to rems, need this or clear button slightly off */
+  padding: 0.25rem 0.75rem;
+  box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.75;
+  color: inherit;
+
+  background: var(--input-bg-color);
+  border: var(--border-width) solid var(--input-border-color);
+  border-radius: var(--ui-border-radius);
+  outline: none;
+  box-shadow: none;
+}
+
+.text-field:focus {
+  border-color: var(--charcoal);
 }
 
 .text-field_has-error {
-  margin-bottom: 5px;
-  border: 2px solid red;
+  margin: 0 0 0.375rem;
+  border: var(--border-width) solid var(--warning-color);
+}
+
+.fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.fieldset_type_check-radio {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.legend {
+  padding: 0;
+  margin: 0;
+}
+
+.legend_type_check-radio {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.radio {
+  margin: 0 0.75rem 0 0;
+}
+
+.label_type_check-radio {
+  line-height: 1.25;
 }
 
 .button {
   display: block;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 0.75rem;
+
+  font-size: inherit;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--charcoal);
   text-align: center;
-  cursor: pointer;
   text-decoration: none;
-  font-size: 20px;
-  line-height: 1;
-  padding: 8px;
-  margin: 10px 0;
-  border: 1px solid #888;
-  background: #eee;
-  border-radius: 3px;
-  color: #000;
+  cursor: pointer;
+
+  background: transparent;
+  border: var(--border-width) solid var(--charcoal);
+  border-radius: var(--ui-border-radius);
+  outline: none;
+  transition: color var(--transition-timing),
+    border-color var(--transition-timing),
+    background-color var(--transition-timing);
 }
 
 .button:hover,
 .button:focus {
-  background: #ddd;
+  background-color: var(--medium-gray);
+}
+
+.button_type_primary {
+  color: #fff;
+  background: var(--charcoal);
+}
+
+.button_type_primary:hover,
+.button_type_primary:focus {
+  color: #fff;
+  background: var(--main-accent-color);
+  border-color: var(--main-accent-color);
+}
+
+.button_type_delete {
+  color: #fff;
+  background: var(--warning-color);
+  border-color: var(--warning-color);
+}
+
+.button_type_delete:hover,
+.button_type_delete:focus {
+  color: #fff;
+  background: var(--warning-color-focus);
+  border-color: var(--warning-color-focus);
 }
 
 .error {
-  color: red;
-  margin: 10px 0;
+  margin: 0.625rem 0;
+  color: var(--warning-color);
 }
 
 .error_type_field {
-  font-size: 16px;
-  margin: 0 0 20px 0;
+  margin: 0 0 1.25rem 0;
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .error_type_field {
+    font-size: 1.125rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .error_type_field {
+    font-size: 1.25rem;
+  }
 }
 
 .list-reset {
@@ -88,12 +214,64 @@ BEM conventions we are using:
   list-style: none;
 }
 
+/* More info: https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/ */
 .visually-hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
+  position: absolute;
+  width: 1px;
   height: 1px;
   overflow: hidden;
-  position: absolute;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   white-space: nowrap;
-  width: 1px;
+}
+
+.icon-only-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem;
+  color: var(--icon-a11y-gray); /* controls icon color using currentColor */
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 3px; /* so a11y focus outline is not all pointy */
+  outline: none;
+  box-shadow: none;
+  transition: color var(--transition-timing);
+}
+
+.icon-only-button:hover,
+.icon-only-button:focus {
+  color: var(--charcoal); /* controls icon color using currentColor */
+  outline: none;
+}
+
+.icon-only-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
+/* these are classes within the SVG styles, so we can reuse the same icons and swap icons easily */
+.icon {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+  color: currentColor;
+}
+
+@media only screen and (min-width: 600px) {
+  .icon {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+}
+
+.icon__border {
+  fill: currentColor;
+}
+
+.icon__bg {
+  fill: transparent;
+}
+
+.icon__mark {
+  fill: currentColor;
 }

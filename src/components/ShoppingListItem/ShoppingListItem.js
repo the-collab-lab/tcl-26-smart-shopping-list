@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 
 import isUnder24hSincePurchased from '../../utils/isUnder24hSincePurchased.js';
 
+import { ReactComponent as CheckboxIcon } from '../../images/icon-checkbox.svg';
+import { ReactComponent as DetailsIcon } from '../../images/icon-details.svg';
+import { ReactComponent as DeleteIcon } from '../../images/icon-delete.svg';
 import './ShoppingListItem.css';
 
 const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
@@ -24,14 +27,20 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
         type="checkbox"
         disabled={recentlyPurchased}
         checked={recentlyPurchased}
-        className={`checkbox item__checkbox ${
-          recentlyPurchased ? 'checkbox_recently-purchased' : ''
-        } item__checkbox_${item.status}`}
+        className="checkbox visually-hidden"
         onChange={() => checkAsPurchased(item)}
       />
       <label
+        htmlFor={`item-input-${item.id}`}
+        className={`item__checkbox-target checkbox-target ${
+          recentlyPurchased ? 'checkbox-target_recently-purchased' : ''
+        } checkbox-target_status_${item.status}`}
+      >
+        <CheckboxIcon aria-hidden="true" focusable="false" />
+      </label>
+      <label
         className={`label label_check-radio item__label item__label_${item.status}`}
-        htmlFor={`item-${item.id}`}
+        htmlFor={`item-input-${item.id}`}
       >
         {item.itemName}
         <span className="visually-hidden">
@@ -42,15 +51,21 @@ const ShoppingListItem = ({ item, checkAsPurchased, handleModalOpen }) => {
           {item.status === 'inactive' && ' Inactive'}
         </span>
       </label>
-
+      <button
+        type="button"
+        aria-label={`${item.itemName} details`}
+        className="item__details-button icon-only-button"
+      >
+        <DetailsIcon aria-hidden="true" focusable="false" />
+      </button>
       <button
         type="button"
         onClick={() => handleModalOpen(item)}
         aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
         aria-label={`Delete ${item.itemName}`}
-        className="item__delete"
+        className="item__delete-button icon-only-button"
       >
-        Delete
+        <DeleteIcon aria-hidden="true" focusable="false" />
       </button>
     </li>
   );

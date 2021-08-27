@@ -19,7 +19,8 @@ const ShoppingListItem = ({
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
 
-  const itemUncheckWarningMessage = `You already purchased this in the last 24 hours`;
+  const itemUncheckWarningMessage =
+    'You already purchased this in the last 24 hours';
 
   // allows for undoing an accidental purchase within a certain time window
   const handleUncheck = (item) => {
@@ -88,62 +89,68 @@ const ShoppingListItem = ({
 
   return (
     <li className="shopping-list__item item" id={`item-${item.id}`}>
-      <input
-        id={`item-input-${item.id}`}
-        value={item.id}
-        type="checkbox"
-        checked={recentlyPurchased}
-        /*remove message when no longer focused on checkbox */
-        onBlur={() => setItemNotice('')}
-        className={`checkbox item__checkbox visually-hidden ${
-          recentlyPurchased ? 'checkbox_recently-purchased' : ''
-        } item__checkbox_${item.status}`}
-        onChange={(e) =>
-          e.target.checked ? handleCheck(item) : handleUncheck(item)
-        }
-      />
-      <label
-        htmlFor={`item-input-${item.id}`}
-        className={`item__checkbox-target checkbox-target ${
-          recentlyPurchased ? 'checkbox-target_recently-purchased' : ''
-        } checkbox-target_status_${item.status}`}
-      >
-        <CheckboxIcon aria-hidden="true" focusable="false" />
-      </label>
-      <label
-        className={`label label_check-radio item__label item__label_${item.status}`}
-        htmlFor={`item-input-${item.id}`}
-      >
-        {item.itemName}
-        <span className="visually-hidden">
-          {/* text for screen readers only, based on item.status set in ShoppingList with getItemStatus function */}
-          {item.status === 'soon' && ' Need to buy soon'}
-          {item.status === 'kind-of-soon' && ' Need to buy kind of soon'}
-          {item.status === 'not-soon' && " Don't need to buy soon"}
-          {item.status === 'inactive' && ' Inactive'}
-        </span>
-      </label>
-      <button
-        type="button"
-        aria-label={`${item.itemName} details`}
-        className="item__details-button icon-only-button"
-      >
-        <DetailsIcon aria-hidden="true" focusable="false" />
-      </button>
-      <button
-        type="button"
-        onClick={() => handleModalOpen(item)}
-        aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
-        aria-label={`Delete ${item.itemName}`}
-        className="item__delete-button icon-only-button"
-      >
-        <DeleteIcon aria-hidden="true" focusable="false" />
-      </button>
+      <div className="item__primary">
+        <input
+          id={`item-input-${item.id}`}
+          value={item.id}
+          type="checkbox"
+          checked={recentlyPurchased}
+          /*remove message when no longer focused on checkbox */
+          onBlur={() => setItemNotice('')}
+          className={`checkbox item__checkbox visually-hidden ${
+            recentlyPurchased ? 'checkbox_recently-purchased' : ''
+          } item__checkbox_${item.status}`}
+          onChange={(e) =>
+            e.target.checked ? handleCheck(item) : handleUncheck(item)
+          }
+        />
+        <label
+          htmlFor={`item-input-${item.id}`}
+          className={`item__checkbox-target checkbox-target ${
+            recentlyPurchased ? 'checkbox-target_recently-purchased' : ''
+          } checkbox-target_status_${item.status}`}
+        >
+          <CheckboxIcon aria-hidden="true" focusable="false" />
+        </label>
+        <label
+          className={`label label_check-radio item__label item__label_${item.status}`}
+          htmlFor={`item-input-${item.id}`}
+        >
+          {item.itemName}
+          <span className="visually-hidden">
+            {/* text for screen readers only, based on item.status set in ShoppingList with getItemStatus function */}
+            {item.status === 'soon' && ' Need to buy soon'}
+            {item.status === 'kind-of-soon' && ' Need to buy kind of soon'}
+            {item.status === 'not-soon' && " Don't need to buy soon"}
+            {item.status === 'inactive' && ' Inactive'}
+          </span>
+        </label>
+        <button
+          type="button"
+          aria-label={`${item.itemName} details`}
+          className="item__details-button icon-only-button"
+        >
+          <DetailsIcon aria-hidden="true" focusable="false" />
+        </button>
+        <button
+          type="button"
+          onClick={() => handleModalOpen(item)}
+          aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
+          aria-label={`Delete ${item.itemName}`}
+          className="item__delete-button icon-only-button"
+        >
+          <DeleteIcon aria-hidden="true" focusable="false" />
+        </button>
+      </div>
+
+      {/* A space for item-related user feedback, which may be visual or for screen readers only */}
       <div
         aria-live={itemNotice?.type ? itemNotice.type : 'polite'}
-        className={`item__message ${
-          itemNotice?.screenReadOnly ? 'visually-hidden' : ''
-        } ${itemNotice?.error ? 'error' : ''}`}
+        className={`notice item__message ${
+          itemNotice?.type ? 'item__message_visible' : ''
+        } ${itemNotice?.screenReadOnly ? 'visually-hidden' : ''} ${
+          itemNotice?.error ? 'error' : ''
+        }`}
       >
         {itemNotice.message}
       </div>

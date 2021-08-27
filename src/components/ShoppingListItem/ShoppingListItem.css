@@ -90,10 +90,34 @@
   margin: 0.25rem 0 0.5rem calc(var(--icon-size-lg) + 1.25rem);
 }
 
+.item__details {
+  flex-basis: 100%;
+  /* account for icon size, icon padding, and margin between icon and item name */
+  margin: 0.625rem 0 0 calc(var(--icon-size-lg) + 0.25rem);
+  color: var(--text-a11y-gray);
+  font-size: 1rem;
+}
+
 .details {
   display: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 1.5;
 }
 
 .details_visible {
-  display: block;
+  display: flex;
+}
+
+.details__detail {
+  margin: 0 1rem;
+}
+
+.details__name {
+  margin: 0 0.375rem 0 0;
+}
+
+.details__value {
+  color: var(--charcoal);
+  font-weight: 500;
 }

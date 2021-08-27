@@ -24,6 +24,7 @@ import Modal from './components/Modal/Modal.js';
 import getToken from './lib/tokens';
 
 function App() {
+  const [token, setToken] = useState(null);
   const [listId, setListId] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState({});
@@ -50,13 +51,14 @@ function App() {
             // list successfully created in db, so update listId state and save token to localStorage
             setListId(newListId);
             localStorage.setItem('token', token);
+            setToken(token);
             return true;
           });
       }
     });
   }
 
-  // returns true if token matches a list in db, returns false if no list, throws error on connection problem
+  // returns listId if token matches a list in db, returns false if no list, throws error on connection problem
   function isTokenValid(token) {
     return db
       .collection('lists')
@@ -65,9 +67,7 @@ function App() {
       .then((querySnapshot) => {
         // if there are results and an id property exists
         if (!querySnapshot.empty && 'id' in querySnapshot.docs[0]) {
-          setListId(querySnapshot.docs[0].id);
-          return true;
-
+          return querySnapshot.docs[0].id; // return the listId if it exists
           // check metadata.fromCache to distinguish between no results (invalid token) and a connection issue
         } else if (!querySnapshot.metadata.fromCache) {
           return false;
@@ -78,11 +78,16 @@ function App() {
   }
 
   function joinList(shareToken) {
+    setToken(shareToken);
     return isTokenValid(shareToken).then((listExists) => {
       if (listExists) {
+        setListId(listExists);
         localStorage.setItem('token', shareToken);
         return true;
-      } else throw new Error('Invalid token');
+      } else {
+        setToken(null);
+        throw new Error('Invalid token');
+      }
     });
   }
 
@@ -110,11 +115,15 @@ function App() {
   // on component mounting, look for token in local storage and use it to retrieve the list id
   useEffect(() => {
     const token = localStorage.getItem('token');
-
+    setToken(token);
     if (token) {
       isTokenValid(token)
         .then((listExists) => {
-          if (!listExists) localStorage.removeItem('token');
+          if (listExists) setListId(listExists);
+          else {
+            localStorage.removeItem('token');
+            setToken(null);
+          }
         })
         .catch((error) => {
           console.error('Problem getting list: ', error.message);
@@ -140,7 +149,11 @@ function App() {
             {!listId ? (
               <Redirect exact to="/" />
             ) : (
-              <ListView listId={listId} handleModalOpen={handleModalOpen} />
+              <ListView
+                listId={listId}
+                handleModalOpen={handleModalOpen}
+                token={token}
+              />
             )}
           </Route>
           <Route path="/add">

@@ -3,6 +3,8 @@
   grid-template:
     'logo share-toggle'
     'share-token share-token';
+  align-items: start;
+  justify-content: space-between;
 }
 
 .header__share-toggle-button {
@@ -11,6 +13,7 @@
 
 .header__share-token {
   grid-area: share-token;
+  margin: 1.25rem 0 0.25rem 0;
 }
 
 .header__welcome {
@@ -28,5 +31,9 @@
   .header {
     display: grid;
     grid-template: 'logo share-token';
+  }
+
+  .header__share-token {
+    margin: 0;
   }
 }

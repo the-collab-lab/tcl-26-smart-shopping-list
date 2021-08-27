@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { ReactComponent as ShareIcon } from '../../images/icon-share.svg';
+import { ReactComponent as CopyIcon } from '../../images/icon-copy.svg';
 import './ShareToken.css';
 
 const ShareToken = ({ token }) => {
@@ -17,9 +19,10 @@ const ShareToken = ({ token }) => {
       <button
         type="button"
         onClick={() => setShowMobileShare(!showMobileShare)}
-        className="header__share-toggle-button share-toggle-button"
+        className="icon-only-button header__share-toggle-button share-toggle-button"
+        aria-label="Share list"
       >
-        Share
+        <ShareIcon aria-hidden="true" focusable="false" />
       </button>
 
       <div
@@ -30,20 +33,23 @@ const ShareToken = ({ token }) => {
         <label className="share-token__label" htmlFor="shareToken">
           Share your shopping list:
         </label>
-        <input
-          type="text"
-          id="shareToken"
-          name="shareToken"
-          value={token}
-          readOnly
-        />
-        <button
-          type="button"
-          className="share-token__copy-button"
-          onClick={copyToken}
-        >
-          Copy
-        </button>
+        <div className="form-group">
+          <input
+            className="share-token__token text-field form-group__text-field"
+            type="text"
+            id="shareToken"
+            name="shareToken"
+            value={token}
+            readOnly
+          />
+          <button
+            type="button"
+            className="share-token__copy-button icon-only-button form-group__field-button"
+            onClick={copyToken}
+          >
+            <CopyIcon aria-hidden="true" focusable="false" />
+          </button>
+        </div>
       </div>
     </>
   );

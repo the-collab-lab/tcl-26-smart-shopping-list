@@ -15,6 +15,10 @@ BEM conventions we are using:
 
 .block__element_modifier_option
 (ie. .block__element_color-scheme_dark)
+
+BEM Reference: https://en.bem.info/methodology/quick-start/
+
+CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 */
 
 :root {
@@ -32,7 +36,8 @@ BEM conventions we are using:
   --light-gray: #f3f2f7;
   --medium-gray: #dddce6;
   --text-a11y-gray: #76757c; /* a11y: passes AA at 16 pt */
-  --icon-a11y-gray: #8e8d96; /* a11y: passes AA at 18 pt or for icons */
+  --text-lg-a11y-gray: #8e8d96; /* a11y: passes AA at 18 pt or for icons */
+  --icon-a11y-gray: #91909b; /* a11y: passes AA at 18 pt or for icons */
   --charcoal: #171429;
 
   --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */
@@ -46,16 +51,17 @@ BEM conventions we are using:
   --input-border-color: var(--medium-gray);
 
   --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
-}
 
-.global {
-  font-size: 1.125rem;
   color: var(--charcoal);
   background: var(--medium-gray);
 }
 
+.body {
+  font-size: 1.125rem;
+}
+
 @media only screen and (min-width: 600px) {
-  .global {
+  .body {
     font-size: 1.25rem;
   }
 }

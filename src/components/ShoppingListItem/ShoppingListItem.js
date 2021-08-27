@@ -5,6 +5,9 @@ import {
   isPurchaseWithinUndoWindow,
 } from '../../utils/dateTimeUtils.js';
 
+import { ReactComponent as CheckboxIcon } from '../../images/icon-checkbox.svg';
+import { ReactComponent as DetailsIcon } from '../../images/icon-details.svg';
+import { ReactComponent as DeleteIcon } from '../../images/icon-delete.svg';
 import './ShoppingListItem.css';
 
 const ShoppingListItem = ({
@@ -90,13 +93,21 @@ const ShoppingListItem = ({
               '',
             ) /*remove message when no longer focused on checkbox */
         }
-        className={`checkbox item__checkbox ${
+        className={`checkbox item__checkbox visually-hidden ${
           recentlyPurchased ? 'checkbox_recently-purchased' : ''
         } item__checkbox_${item.status}`}
         onChange={(e) =>
           e.target.checked ? handleCheck(item) : handleUncheck(item)
         }
       />
+      <label
+        htmlFor={`item-input-${item.id}`}
+        className={`item__checkbox-target checkbox-target ${
+          recentlyPurchased ? 'checkbox-target_recently-purchased' : ''
+        } checkbox-target_status_${item.status}`}
+      >
+        <CheckboxIcon aria-hidden="true" focusable="false" />
+      </label>
       <label
         className={`label label_check-radio item__label item__label_${item.status}`}
         htmlFor={`item-input-${item.id}`}
@@ -110,15 +121,21 @@ const ShoppingListItem = ({
           {item.status === 'inactive' && ' Inactive'}
         </span>
       </label>
-
+      <button
+        type="button"
+        aria-label={`${item.itemName} details`}
+        className="item__details-button icon-only-button"
+      >
+        <DetailsIcon aria-hidden="true" focusable="false" />
+      </button>
       <button
         type="button"
         onClick={() => handleModalOpen(item)}
         aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
         aria-label={`Delete ${item.itemName}`}
-        className="item__delete"
+        className="item__delete-button icon-only-button"
       >
-        Delete
+        <DeleteIcon aria-hidden="true" focusable="false" />
       </button>
       <div
         aria-live={itemNotice?.type ? itemNotice.type : 'polite'}

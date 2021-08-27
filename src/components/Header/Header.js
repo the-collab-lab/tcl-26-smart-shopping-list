@@ -2,11 +2,11 @@ import ShareToken from '../ShareToken/ShareToken.js';
 
 import './Header.css';
 
-const Header = () => {
+const Header = ({ token }) => {
   return (
     <header className="container__header header">
       <h1 className="header__logo">Smart Shopping List</h1>
-      <ShareToken />
+      <ShareToken token={token} />
     </header>
   );
 };

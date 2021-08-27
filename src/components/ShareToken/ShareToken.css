@@ -1,0 +1,22 @@
+.share-token {
+  display: none;
+}
+
+.share-token_mobile_show {
+  display: block;
+}
+
+@media only screen and (min-width: 800px) {
+  .share-token {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .share-token__label {
+    grid-column: 1 / 3;
+  }
+
+  .share-toggle-button {
+    display: none;
+  }
+}

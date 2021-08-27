@@ -1,5 +1,16 @@
 .header {
-  text-align: center;
+  display: grid;
+  grid-template:
+    'logo share-toggle'
+    'share-token share-token';
+}
+
+.header__share-toggle-button {
+  grid-area: share-toggle;
+}
+
+.header__share-token {
+  grid-area: share-token;
 }
 
 .header__welcome {
@@ -8,6 +19,14 @@
 }
 
 .header__logo {
+  grid-area: logo;
   margin: 0;
   font-size: 30px;
+}
+
+@media only screen and (min-width: 800px) {
+  .header {
+    display: grid;
+    grid-template: 'logo share-token';
+  }
 }

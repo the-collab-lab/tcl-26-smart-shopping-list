@@ -18,7 +18,7 @@ BEM conventions we are using:
 */
 
 .container {
-  max-width: 500px;
+  max-width: 800px;
   margin: 0 auto;
   font-size: 20px;
   padding: 40px;

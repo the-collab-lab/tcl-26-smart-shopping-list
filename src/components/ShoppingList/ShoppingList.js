@@ -172,10 +172,7 @@ function ShoppingList({ listId, handleModalOpen }) {
       .collection(`lists/${listId}/items`)
       .doc(item.id)
       .update({
-        lastPurchaseDate: new firebase.firestore.Timestamp(
-          newPurchaseDate.toSeconds(),
-          0,
-        ),
+        lastPurchaseDate: firebase.firestore.FieldValue.serverTimestamp(),
         numberOfPurchases: firebase.firestore.FieldValue.increment(1),
         purchaseInterval: newPurchaseInterval,
         // back up some info in case user mistakenly checks item and wants to undo

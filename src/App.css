@@ -46,14 +46,17 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
   --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
 
-  font-size: 18px; /* base font size on html */
   color: var(--charcoal);
   background: var(--medium-gray);
 }
 
+.body {
+  font-size: 1.125rem;
+}
+
 @media only screen and (min-width: 600px) {
-  :root {
-    font-size: 20px; /* base font size on html */
+  .body {
+    font-size: 1.25rem;
   }
 }
 

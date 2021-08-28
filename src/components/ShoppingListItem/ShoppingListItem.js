@@ -131,6 +131,8 @@ const ShoppingListItem = ({
           onClick={() => setShowDetails(!showDetails)}
           aria-label={`${item.itemName} details`}
           className="item__details-button icon-only-button"
+          aria-controls={`item-details-${item.id}`}
+          aria-expanded={showDetails}
         >
           <DetailsIcon aria-hidden="true" focusable="false" />
         </button>
@@ -158,9 +160,12 @@ const ShoppingListItem = ({
       </div>
 
       <ul
+        role="region"
         className={`item__details details ${
           showDetails ? 'details_visible' : ''
         } list-reset`}
+        id={`item-details-${item.id}`}
+        aria-label={`${item.itemName} details`}
       >
         <li className="details__detail">
           <span className="details__name">Purchases: </span>

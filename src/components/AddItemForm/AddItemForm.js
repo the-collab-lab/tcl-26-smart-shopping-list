@@ -162,14 +162,14 @@ const AddItemForm = ({ listId }) => {
         <input
           type="radio"
           className="radio"
-          id="kindaSoonOption"
+          id="kindOfSoonOption"
           name="purchaseInterval"
           value="14"
           onChange={handleChange}
           checked={formValues.purchaseInterval === '14'}
         />
         <label
-          htmlFor="kindaSoonOption"
+          htmlFor="kindOfSoonOption"
           className="add-item-form__label add-item-form__label_type_radio label label_type_check-radio"
         >
           Kind of Soon

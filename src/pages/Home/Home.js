@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import './Home.css';
 
 import JoinListForm from '../../components/JoinListForm/JoinListForm.js';
@@ -50,22 +50,24 @@ function Home({ createList, joinList }) {
             {createListError}
           </div>
 
-          <button
-            type="button"
-            className="new-list__button button"
-            onClick={handleCreateList}
-          >
-            Create List
-          </button>
+          <div className="homepage__cta">
+            <button
+              type="button"
+              className="new-list__button button"
+              onClick={handleCreateList}
+            >
+              Create List
+            </button>
 
-          <button
-            type="button"
-            className={`button ${toggleJoinBtnClass}`}
-            onClick={handleJoinClick}
-          >
-            Join List
-          </button>
-          <JoinListForm showJoinForm={showJoinForm} joinList={joinList} />
+            <button
+              type="button"
+              className={`button ${toggleJoinBtnClass}`}
+              onClick={handleJoinClick}
+            >
+              Join List
+            </button>
+            <JoinListForm showJoinForm={showJoinForm} joinList={joinList} />
+          </div>
         </div>
       </main>
     </>

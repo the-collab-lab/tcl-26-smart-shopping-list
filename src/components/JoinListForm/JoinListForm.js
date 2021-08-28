@@ -52,6 +52,7 @@ const JoinListForm = ({ joinList, showJoinForm }) => {
       onSubmit={handleJoinList}
       className={`join-list-form ${toggleJoinClass}`}
     >
+      <h3>Want to join an existing list?</h3>
       <p>
         Enter your list's three-word token to join an existing shopping list.
       </p>

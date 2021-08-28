@@ -1,3 +1,8 @@
+.homepage__cta {
+  display: flex;
+  align-items: flex-end;
+}
+
 .join-btn-show {
   display: block;
 }

@@ -168,18 +168,34 @@ function ShoppingList({ listId, handleModalOpen }) {
       item.numberOfPurchases,
     );
 
-    db.collection(`lists/${listId}/items`)
+    return db
+      .collection(`lists/${listId}/items`)
       .doc(item.id)
       .update({
-        lastPurchaseDate: new firebase.firestore.Timestamp(
-          newPurchaseDate.toSeconds(),
-          0,
-        ),
+        lastPurchaseDate: firebase.firestore.FieldValue.serverTimestamp(),
         numberOfPurchases: firebase.firestore.FieldValue.increment(1),
         purchaseInterval: newPurchaseInterval,
-      })
-      .catch((err) => {
-        console.log(err);
+        // back up some info in case user mistakenly checks item and wants to undo
+        backupValues: {
+          lastPurchaseDate: item.lastPurchaseDate,
+          purchaseInterval: item.purchaseInterval,
+        },
+      });
+  };
+
+  // restores item's previous lastPurchaseDate, purchaseInterval and numberOfPurchases
+  // for use when a user accidentally checks an item off, and wants to undo
+  const uncheckAsPurchased = (item) => {
+    return db
+      .collection(`lists/${listId}/items`)
+      .doc(item.id)
+      .update({
+        // decrement total purchases by 1
+        numberOfPurchases: firebase.firestore.FieldValue.increment(-1),
+        // restore to stats saved in backupValues field
+        lastPurchaseDate: item.backupValues.lastPurchaseDate,
+        purchaseInterval: item.backupValues.purchaseInterval,
+        backupValues: {},
       });
   };
 
@@ -204,6 +220,7 @@ function ShoppingList({ listId, handleModalOpen }) {
                 key={item.id}
                 item={item}
                 checkAsPurchased={checkAsPurchased}
+                uncheckAsPurchased={uncheckAsPurchased}
                 handleModalOpen={handleModalOpen}
               />
             ))}

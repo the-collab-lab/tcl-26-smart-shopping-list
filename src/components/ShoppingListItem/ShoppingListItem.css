@@ -1,7 +1,3 @@
-.checkbox-icon__mark {
-  transition: all var(--transition-timing);
-}
-
 .checkbox-icon__border {
   fill: currentColor;
 }
@@ -13,15 +9,7 @@
 /* by default, checkbox icon unchecked */
 .checkbox-icon__mark {
   fill: none;
-}
-
-/* if checkbox input is checked, change the SVG color in the label.checkbox-target beside it */
-.checkbox:checked + .checkbox-target .checkbox-icon__mark {
-  fill: #fff;
-}
-
-.checkbox:focus-visible + .checkbox-target {
-  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+  transition: all var(--transition-timing);
 }
 
 .checkbox-target {
@@ -35,8 +23,24 @@
   border-radius: 3px; /* so a11y focus outline is not all pointy */
 }
 
+@media only screen and (min-width: 600px) {
+  .checkbox-target {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+}
+
 .checkbox-target:hover .checkbox-icon__mark {
   fill: rgba(255, 255, 255, 0.35);
+}
+
+/* if checkbox input is checked, change the SVG color in the label.checkbox-target beside it */
+.checkbox:checked + .checkbox-target .checkbox-icon__mark {
+  fill: #fff;
+}
+
+.checkbox:focus-visible + .checkbox-target {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
 }
 
 .checkbox-target_status_soon {
@@ -56,14 +60,17 @@
 }
 
 .item {
-  display: flex;
-  align-items: center;
   padding: 0.8125rem 0.375rem 0.75rem 0.375rem;
   border-top: var(--border-width) solid var(--light-gray);
 }
 
 .item:first-child {
   border-top: var(--border-width) solid transparent;
+}
+
+.item__primary {
+  display: flex;
+  align-items: center;
 }
 
 .item__label {
@@ -94,4 +101,13 @@
 .item__delete-button:hover,
 .item__delete-button:focus {
   color: var(--warning-color);
+}
+
+.item__message {
+  font-size: 1rem;
+}
+
+.item__message_visible {
+  /* account for icon size, icon padding, and margin between icon and item name */
+  margin: 0.25rem 0 0.5rem calc(var(--icon-size-lg) + 1.25rem);
 }

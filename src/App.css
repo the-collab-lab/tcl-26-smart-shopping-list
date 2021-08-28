@@ -192,8 +192,14 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   border-color: var(--warning-color-focus);
 }
 
+.notice {
+  font-style: italic;
+  color: var(--text-a11y-gray);
+}
+
 .error {
   margin: 0.625rem 0;
+  font-style: normal;
   color: var(--warning-color);
 }
 

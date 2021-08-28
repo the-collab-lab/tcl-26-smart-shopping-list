@@ -9,9 +9,11 @@
 /* by default, checkbox icon unchecked */
 .checkbox-icon__mark {
   fill: none;
+  transition: all var(--transition-timing);
 }
 
 .checkbox-target {
+  color: var(--item-soon-color);
   display: block;
   height: var(--icon-size-sm);
   width: var(--icon-size-sm);
@@ -28,6 +30,10 @@
   }
 }
 
+.checkbox-target:hover .checkbox-icon__mark {
+  fill: rgba(255, 255, 255, 0.35);
+}
+
 /* if checkbox input is checked, change the SVG color in the label.checkbox-target beside it */
 .checkbox:checked + .checkbox-target .checkbox-icon__mark {
   fill: #fff;
@@ -35,6 +41,22 @@
 
 .checkbox:focus-visible + .checkbox-target {
   box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
+.checkbox-target_status_soon {
+  color: var(--item-soon-color);
+}
+
+.checkbox-target_status_kind-of-soon {
+  color: var(--item-kind-of-soon-color);
+}
+
+.checkbox-target_status_not-soon {
+  color: var(--item-not-soon-color);
+}
+
+.checkbox-target_status_inactive {
+  color: var(--item-inactive-color);
 }
 
 .item {

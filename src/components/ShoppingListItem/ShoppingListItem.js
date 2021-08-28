@@ -79,7 +79,7 @@ const ShoppingListItem = ({
 
   // update whether item is recently purchased
   useEffect(() => {
-    // if last purchase date is null, make sure
+    // if last purchase date is null, make sure to set isRecentlyPurchased to false
     setIsRecentlyPurchased(
       item?.lastPurchaseDate?.seconds
         ? isRecentlyPurchased(item.lastPurchaseDate.seconds)
@@ -95,7 +95,7 @@ const ShoppingListItem = ({
           value={item.id}
           type="checkbox"
           checked={recentlyPurchased}
-          /*remove message when no longer focused on checkbox */
+          /* remove message when no longer focused on checkbox */
           onBlur={() => setItemNotice('')}
           className={`checkbox item__checkbox visually-hidden ${
             recentlyPurchased ? 'checkbox_recently-purchased' : ''
@@ -143,7 +143,10 @@ const ShoppingListItem = ({
         </button>
       </div>
 
-      {/* A space for item-related user feedback, which may be visual or for screen readers only */}
+      {/**
+       * A space for item-related user feedback, which may be visual or for screen readers only.
+       * Note: seems that showing the aria-live region conditionally doesn't work with screen readers tested,
+       * so that's why the div is always present even when it's empty. */}
       <div
         aria-live={itemNotice?.type ? itemNotice.type : 'polite'}
         className={`notice item__message ${
@@ -152,7 +155,7 @@ const ShoppingListItem = ({
           itemNotice?.error ? 'error' : ''
         }`}
       >
-        {itemNotice.message}
+        {itemNotice?.message && itemNotice.message}
       </div>
     </li>
   );

@@ -176,7 +176,7 @@ function ShoppingList({ listId, handleModalOpen }) {
         numberOfPurchases: firebase.firestore.FieldValue.increment(1),
         purchaseInterval: newPurchaseInterval,
         // back up some info in case user mistakenly checks item and wants to undo
-        undoRestore: {
+        backupValues: {
           lastPurchaseDate: item.lastPurchaseDate,
           purchaseInterval: item.purchaseInterval,
         },
@@ -192,10 +192,10 @@ function ShoppingList({ listId, handleModalOpen }) {
       .update({
         // decrement total purchases by 1
         numberOfPurchases: firebase.firestore.FieldValue.increment(-1),
-        // restore to stats saved in undoRestore field
-        lastPurchaseDate: item.undoRestore.lastPurchaseDate,
-        purchaseInterval: item.undoRestore.purchaseInterval,
-        undoRestore: {},
+        // restore to stats saved in backupValues field
+        lastPurchaseDate: item.backupValues.lastPurchaseDate,
+        purchaseInterval: item.backupValues.purchaseInterval,
+        backupValues: {},
       });
   };
 

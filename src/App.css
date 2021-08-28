@@ -22,10 +22,16 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 */
 
 :root {
-  --main-accent-color: #3fa448; /* sample accent color, a11y: passes AA for 18pt text */
+  --main-accent-color: #408a10; /* sample accent color, a11y: passes AA for 18pt text */
   --highlight-color: #ffc62e; /* sample highlight color, used for key nav focus outlines */
   --warning-color: #dd380a; /* a11y: passes AA at 16 pt for text or bg with white */
   --warning-color-focus: #a1381b; /* focus/hover alternative */
+
+  /* icons must have contrast of 3:1 according to WCAG */
+  --item-soon-color: #2e6907;
+  --item-kind-of-soon-color: #408a10;
+  --item-not-soon-color: #54a71d;
+  --item-inactive-color: #8e8d96;
 
   --light-gray: #f3f2f7;
   --medium-gray: #dddce6;
@@ -36,6 +42,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
   --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */
   --ui-border-radius: 7px; /* for buttons, text fields */
+  --container-border-radius: 16px; /* for modals, panels, etc. */
 
   --icon-size-sm: 28px;
   --icon-size-lg: 32px;
@@ -43,6 +50,8 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   /* text fields styles */
   --input-bg-color: var(--light-gray);
   --input-border-color: var(--light-gray);
+
+  --overlay-background: rgba(0, 0, 0, 0.3);
 
   --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
 
@@ -76,6 +85,56 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   margin: 40px 0;
   text-align: center;
 }
+
+/* removes default ul/ol styles */
+.list-reset {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* More info: https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/ */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* GLOBAL UI STYLES */
+
+/* SVG Icons */
+
+/* these are classes within the SVG styles, so we can reuse the same icons and swap icons easily */
+.icon {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+  color: currentColor;
+}
+
+@media only screen and (min-width: 600px) {
+  .icon {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+}
+
+.icon__border {
+  fill: currentColor;
+}
+
+.icon__bg {
+  fill: transparent;
+}
+
+.icon__mark {
+  fill: currentColor;
+}
+
+/* Buttons */
 
 .button {
   display: block;
@@ -128,6 +187,8 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   border-color: var(--warning-color-focus);
 }
 
+/* Buttons that only contain an icon */
+
 .icon-only-button {
   display: flex;
   align-items: center;
@@ -153,31 +214,38 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
 }
 
-/* these are classes within the SVG styles, so we can reuse the same icons and swap icons easily */
-.icon {
-  width: var(--icon-size-sm);
-  height: var(--icon-size-sm);
-  color: currentColor;
+/* User notices */
+
+.notice {
+  font-style: italic;
+  color: var(--text-a11y-gray);
+}
+
+.error {
+  margin: 0.625rem 0;
+  font-style: normal;
+  color: var(--warning-color);
+}
+
+/* for inline form errors */
+.error_type_field {
+  margin: 0 0 1.25rem 0;
+  font-size: 1rem;
 }
 
 @media only screen and (min-width: 600px) {
-  .icon {
-    width: var(--icon-size-lg);
-    height: var(--icon-size-lg);
+  .error_type_field {
+    font-size: 1.125rem;
   }
 }
 
-.icon__border {
-  fill: currentColor;
+@media only screen and (min-width: 1200px) {
+  .error_type_field {
+    font-size: 1.25rem;
+  }
 }
 
-.icon__bg {
-  fill: transparent;
-}
-
-.icon__mark {
-  fill: currentColor;
-}
+/* Form controls */
 
 .text-field {
   display: block;
@@ -207,29 +275,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   border: var(--border-width) solid var(--warning-color);
 }
 
-.error {
-  margin: 0.625rem 0;
-  color: var(--warning-color);
-}
-
-.error_type_field {
-  margin: 0 0 1.25rem 0;
-  font-size: 1rem;
-}
-
-@media only screen and (min-width: 600px) {
-  .error_type_field {
-    font-size: 1.125rem;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .error_type_field {
-    font-size: 1.25rem;
-  }
-}
-
-/* groups together elements to allow for buttons in text field */
+/* Form field plus inner button block */
 .form-group {
   position: relative;
 }
@@ -247,6 +293,8 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   color: var(--charcoal);
   border: none;
 }
+
+/* Radio buttons */
 
 .fieldset {
   padding: 0;
@@ -276,21 +324,4 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
 .label_type_check-radio {
   line-height: 1.25;
-}
-
-.list-reset {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-/* More info: https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/ */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
 }

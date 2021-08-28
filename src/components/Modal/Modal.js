@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import './Modal.css';
 
 const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
-  const toggleModalClassName = showModal ? 'dialog-open' : 'dialog-close';
+  const toggleModalClassName = showModal ? 'dialog_open' : '';
 
   const cancelRef = useRef();
   const deleteRef = useRef();
@@ -29,22 +29,39 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
         }
       }
     };
+
+    const closeOnClickOutside = (e) => {
+      if (e.target.classList.contains('dialog')) {
+        handleModalClose();
+      }
+    };
+
     if (showModal) {
       // when modal opens, add eventListeners and put initial focus on "No, Cancel"
       document.addEventListener('keydown', handleKeyEvents);
+      document.addEventListener('click', closeOnClickOutside);
       cancelRef.current.focus();
     }
-    return () => document.removeEventListener('keydown', handleKeyEvents);
+    return () => {
+      document.removeEventListener('keydown', handleKeyEvents);
+      document.removeEventListener('click', closeOnClickOutside);
+    };
   }, [handleModalClose, showModal]);
 
   return (
-    <div className={`dialog-backdrop ${toggleModalClassName}`}>
-      <div role="alertdialog" aria-modal="true" aria-labelledby="dialog_label">
-        <h3 id="dialog_label">
-          {`Are you sure you want to delete ${item.itemName}?`}
+    <div className={`dialog ${toggleModalClassName}`}>
+      <div
+        className="dialog__modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="dialog-label"
+      >
+        <h3 className="dialog__heading" id="dialog-label">
+          Are you sure you want to delete{' '}
+          <strong className="dialog__item-name">{item.itemName}</strong>?
         </h3>
         <button
-          className="button"
+          className="dialog__button button"
           type="button"
           onClick={handleModalClose}
           ref={cancelRef}
@@ -52,7 +69,7 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
           No, Cancel
         </button>
         <button
-          className="button button_type_delete"
+          className="dialog__button button button_type_delete"
           type="button"
           onClick={deleteItem}
           aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id

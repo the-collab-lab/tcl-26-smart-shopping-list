@@ -1,27 +1,68 @@
-.dialog-open {
-  display: block;
-}
-
-.dialog-close {
-  display: none;
-}
-
-.dialog-backdrop {
+.dialog {
   position: fixed;
-  overflow-y: auto;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  overflow-y: auto;
+  justify-content: center;
+  align-items: center;
+  background: var(--overlay-background);
+  /* smooth transition in */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-timing),
+    visibility var(--transition-timing);
 }
 
-[role='alertdialog'] {
-  position: absolute;
-  top: 2rem;
-  left: 35vw;
+.dialog_open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--transition-timing);
+}
 
+.dialog__modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 600px;
+  padding: 2rem 1rem;
+  margin: 1rem;
   box-sizing: border-box;
-  padding: 15px;
-  background-color: #fff;
+  background: #fff;
+  border-radius: var(--container-border-radius);
+}
+
+.dialog__heading {
+  flex-basis: 100%;
+  padding: 0;
+  margin: 0 1rem 1rem 1rem; /* side margins to allow for button gap only when room */
+  font-size: 1.25rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.dialog__item-name {
+  font-weight: 700;
+}
+
+.dialog__button {
+  flex-grow: 1;
+  margin: 1rem 1rem 0 1rem; /* side margins to allow for button gap only when room */
+}
+
+@media only screen and (min-width: 600px) {
+  .dialog__modal {
+    margin: 20vh 4rem 4rem 4rem;
+  }
+
+  .dialog {
+    align-items: flex-start;
+  }
+
+  .dialog__heading {
+    font-size: 1.5rem;
+  }
 }

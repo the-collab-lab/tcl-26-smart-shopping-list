@@ -1,6 +1,6 @@
-import ShareToken from '../ShareToken/ShareToken.js';
-
 import './Header.css';
+
+import ShareToken from '../ShareToken/ShareToken.js';
 
 const Header = ({ token }) => {
   return (

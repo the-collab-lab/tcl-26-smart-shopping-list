@@ -5,10 +5,11 @@ import {
   isPurchaseWithinUndoWindow,
 } from '../../utils/dateTimeUtils.js';
 
+import './ShoppingListItem.css';
+
 import { ReactComponent as CheckboxIcon } from '../../images/icon-checkbox.svg';
 import { ReactComponent as DetailsIcon } from '../../images/icon-details.svg';
 import { ReactComponent as DeleteIcon } from '../../images/icon-delete.svg';
-import './ShoppingListItem.css';
 
 const ShoppingListItem = ({
   item,

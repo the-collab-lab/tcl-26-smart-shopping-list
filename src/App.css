@@ -61,6 +61,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
 .body {
   font-size: 1.125rem;
+  min-width: 320px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -72,9 +73,15 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 .container {
   position: relative;
   max-width: 800px;
-  padding: 30px;
+  padding: 20px;
   margin: 0 auto;
   background: #fff;
+}
+
+@media only screen and (min-width: 400px) {
+  .container {
+    padding: 30px;
+  }
 }
 
 .container__header {

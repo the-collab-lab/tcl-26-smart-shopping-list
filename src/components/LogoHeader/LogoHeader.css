@@ -1,0 +1,33 @@
+/* relative em units important for sizing everything based on text size of logo */
+
+.logo {
+  position: relative;
+  left: -2.625em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 2.625em;
+  font-family: 'Calistoga', serif;
+  font-size: 2.75vh;
+}
+
+/* Modifier for bigger logo on home page */
+.logo_home {
+  font-size: 3.75vh;
+}
+
+.logo__text {
+  margin: 0.0625em 0 0 0;
+  text-transform: lowercase;
+  line-height: 1.5;
+  font-size: 2em;
+  font-weight: 400;
+}
+
+.logo__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2em !important;
+  height: 3.6em;
+}

@@ -1,6 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
+import LogoHeader from '../../components/LogoHeader/LogoHeader';
+
 function Home({ createList, joinList }) {
   let history = useHistory();
 
@@ -60,9 +62,7 @@ function Home({ createList, joinList }) {
 
   return (
     <>
-      <header className="container__header header">
-        <h1 className="header__welcome">Welcome To Your Smart Shopping List</h1>
-      </header>
+      <LogoHeader />
 
       <main>
         <div className="new-list">

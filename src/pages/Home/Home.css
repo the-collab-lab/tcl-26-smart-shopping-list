@@ -6,60 +6,92 @@
 .home-intro {
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-grow: 1;
-  padding: 0;
 }
 
 .home-intro__tagline {
-  margin: 0.5em 0 0.875em 0;
-  font-size: 2rem;
+  width: 12rem;
+  padding: 0 0 0.5em 5.875rem; /* line up with logo */
+  margin: 0;
+  font-size: 1.75rem;
   font-weight: 300;
-  line-height: 1.25;
+  line-height: 1.125;
 }
 
 .home-intro__tagline-keyword {
   /* smart */
-  font-size: 1.25em; /* sized relative to surrounding tagline text */
-  line-height: 1.0625;
   font-weight: 800;
   color: var(--main-accent-color);
 }
 
 .home-intro__form {
   padding-bottom: 2.5em;
+  margin: auto;
   font-size: 1rem;
 }
 
-/* limit viewport-relative sizing at a certain small point */
-@media only screen and (min-height: 600px) and (min-aspect-ratio: 1/1) {
+/* styles for larger devices, wider than tall */
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
   .home-intro {
-    min-width: 430px; /* prevents tagline from breaking at certain resolutions */
+    align-items: flex-start;
+    padding: 0;
   }
 
   .home-intro__tagline {
-    font-size: 5.5vh;
+    width: auto; /* undo lining up with logo */
+    padding: 0;
+    line-height: 1.25;
   }
 
-  @media only screen and (min-width: 800px) {
-    .home-intro {
-      min-width: 40vh; /* prevents tagline from breaking onto 4 lines */
-    }
-  }
-}
-
-@media only screen and (min-height: 800px) {
   .home-intro__tagline-keyword {
-    display: block; /* break smart onto it's own line once there's room */
-  }
-}
-
-@media only screen and (min-height: 1080px) {
-  .home-intro {
-    max-width: 480px;
+    font-size: 1.25em; /* sized relative to surrounding tagline text */
+    line-height: 1.0625;
   }
 
   .home-intro__form {
-    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  /* start viewport-relative sizing only at a certain minimum height */
+  @media only screen and (min-height: 600px) {
+    .home-intro {
+      min-width: 430px; /* prevents tagline from breaking at certain resolutions */
+    }
+
+    .home-intro__tagline {
+      margin: 0.5em 0 0.875em 0;
+      font-size: 5.5vh;
+    }
+
+    @media only screen and (min-width: 800px) {
+      .home-intro {
+        min-width: 40vh; /* prevents tagline from breaking onto 4 lines */
+      }
+    }
+  }
+
+  /* break smart onto it's own line once there's room */
+  @media only screen and (min-height: 800px) {
+    .home-intro__tagline-keyword {
+      display: block;
+    }
+  }
+
+  @media only screen and (min-height: 1080px) {
+    .home-intro {
+      max-width: 480px;
+    }
+
+    .home-intro__form {
+      font-size: 1.125rem;
+    }
+
+    /* bump the help link down a bit when there's room */
+    .help-link {
+      position: relative;
+      bottom: -1.5vh;
+    }
   }
 }
 
@@ -112,12 +144,4 @@
 /* for highlighting the button once a valid token is entered */
 .get-started-form__join-button_ready {
   transform: scale(1.03125);
-}
-
-/* on wider than tall screens, bump the help link down a bit when there's room */
-@media only screen and (min-height: 1080px) and (min-aspect-ratio: 1/1) {
-  .help-link {
-    position: relative;
-    bottom: -1.5vh;
-  }
 }

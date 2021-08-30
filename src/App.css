@@ -362,7 +362,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 }
 
 .page-view__main {
-  padding: 4rem 0 2rem;
+  padding: 0 8vw 3rem 8vw;
 }
 
 .page-view__footer {
@@ -395,11 +395,16 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
     padding: 2.625rem 5.25rem;
     margin: 0 0 0 18vw;
   }
+
   /* after minimum 800x600, scale the padding + margin taking into account available height and width */
   @media only screen and (min-height: 600px) {
     .page-view {
       padding: 7vh 14vh;
     }
+  }
+
+  .page-view__main {
+    padding: 4rem 0 2rem;
   }
 
   .page-view__footer {

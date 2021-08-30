@@ -4,7 +4,7 @@ import './LogoHeader.css';
 
 const LogoHeader = ({ isHome = false }) => {
   return (
-    <header className={`page-view__logo logo ${isHome ? 'logo_home' : ''}`}>
+    <header className={`logo ${isHome ? 'logo_home' : ''}`}>
       {isHome /* Make the logo the h1 on home page only */ ? (
         <h1 className="logo__text logo__text">Peasy</h1>
       ) : (

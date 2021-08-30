@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  min-width: 430px; /* prevents tagline from breaking at certain resolutions */
   padding: 0;
 }
 
@@ -33,6 +32,10 @@
 
 /* limit viewport-relative sizing at a certain small point */
 @media only screen and (min-height: 600px) and (min-aspect-ratio: 1/1) {
+  .home-intro {
+    min-width: 430px; /* prevents tagline from breaking at certain resolutions */
+  }
+
   .home-intro__tagline {
     font-size: 5.5vh;
   }

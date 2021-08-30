@@ -64,7 +64,6 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
 
   color: var(--charcoal);
-  background: var(--charcoal);
 }
 
 .body {
@@ -362,8 +361,35 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   background: var(--light-gray);
 }
 
+.page-view__main {
+  padding: 4rem 0 2rem;
+}
+
+.page-view__footer {
+  padding: 1em;
+  margin-top: auto;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  background: var(--main-accent-color);
+}
+
+.page-view__footer-link {
+  color: #fff;
+}
+
+@media only screen and (min-width: 600px) {
+  .page-view__footer {
+    font-size: 1.25rem;
+  }
+}
+
 /* larger devices that are wider than tall */
 @media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  :root {
+    background: var(--charcoal);
+  }
+
   .page-view {
     /* minimum padding + margin to start with */
     padding: 2.625rem 5.25rem;
@@ -375,25 +401,27 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
       padding: 7vh 14vh;
     }
   }
-}
 
-.page-view__main {
-  padding: 4rem 0 2rem;
-}
-
-.page-view__footer {
-  margin-top: auto;
-  font-size: 1.375rem;
-}
-
-@media only screen and (min-height: 800px) {
   .page-view__footer {
-    font-size: 1.5rem;
+    padding: 0;
+    text-align: left;
+    background: transparent;
+    color: var(--charcoal);
   }
-}
 
-@media only screen and (min-height: 1080px) {
-  .page-view__footer {
-    font-size: 1.625rem;
+  .page-view__footer-link {
+    color: inherit;
+  }
+
+  @media only screen and (min-height: 800px) {
+    .page-view__footer {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media only screen and (min-height: 1080px) {
+    .page-view__footer {
+      font-size: 1.625rem;
+    }
   }
 }

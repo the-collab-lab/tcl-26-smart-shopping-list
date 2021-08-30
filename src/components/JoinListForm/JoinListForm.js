@@ -2,16 +2,32 @@ import { useHistory } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import './JoinListForm.css';
 
-const JoinListForm = ({ joinList, showJoinForm }) => {
+const JoinListForm = ({ createList, joinList }) => {
   let history = useHistory();
+
+  const [showJoinForm, setShowJoinForm] = useState(false);
 
   const toggleJoinClass = showJoinForm ? 'join-list-open' : 'join-list-close';
 
+  const [createListError, setCreateListError] = useState(''); // error for the create list form
   const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
 
   const [shareToken, setShareToken] = useState(''); // value for the shareToken field
   const shareTokenRef = useRef(); // ref for the shareToken field
   const [shareTokenError, setShareTokenError] = useState(''); // error hint for the shareToken field
+
+  function handleCreateList() {
+    setCreateListError('');
+    createList()
+      .then((success) => {
+        history.push('/list');
+      })
+      .catch((err) => {
+        setCreateListError(
+          'Sorry, there was a problem creating your list. Please check your connection and try again.',
+        );
+      });
+  }
 
   const handleTokenChange = (event) => {
     setJoinListError('');
@@ -49,54 +65,92 @@ const JoinListForm = ({ joinList, showJoinForm }) => {
   return (
     <form
       name="joinListForm"
+      className="join-list-form"
       onSubmit={handleJoinList}
-      className={`join-list-form ${toggleJoinClass}`}
     >
-      <h3>Want to join an existing list?</h3>
-      <p>
-        Enter your list's three-word token to join an existing shopping list.
-      </p>
+      <div className={toggleJoinClass}>
+        <h3>Want to join an existing list?</h3>
+        <p>
+          Enter your list's three-word token to join an existing shopping list.
+        </p>
+        <label
+          className="label join-list-form__label join-list-form__label_type_text"
+          htmlFor="shareToken"
+        >
+          Your token:
+        </label>
+        <input
+          ref={shareTokenRef}
+          className={`join-list-form__text-field text-field ${
+            shareTokenError ? 'text-field_has-error' : ''
+          }`}
+          type="text"
+          id="shareToken"
+          name="shareToken"
+          value={shareToken}
+          onChange={handleTokenChange}
+          aria-describedby="shareTokenHint"
+          aria-invalid={Boolean(shareTokenError)}
+          maxLength="100"
+          required
+        />
+        <div
+          id="shareTokenHint"
+          className={`error error_type_field ${
+            shareTokenError ? 'error_on' : ''
+          }`}
+        >
+          {shareTokenError}
+        </div>
+      </div>
+
+      {/* error for overall form, role makes screenreader read this first */}
       <div
-        role="alert" // error for overall form, role makes screenreader read this first
+        role="alert"
+        className={`error error_type_summary ${
+          createListError ? 'error_on' : ''
+        }`}
+      >
+        {createListError}
+      </div>
+
+      <div
+        role="alert"
         className={`error error_type_summary ${
           joinListError ? 'error_on' : ''
         }`}
       >
         {joinListError}
       </div>
-      <label
-        className="join-list-form__label join-list-form__label_type_text label"
-        htmlFor="shareToken"
-      >
-        Your token:
-      </label>
-      <input
-        ref={shareTokenRef}
-        className={`join-list-form__text-field text-field ${
-          shareTokenError ? 'text-field_has-error' : ''
-        }`}
-        type="text"
-        id="shareToken"
-        name="shareToken"
-        value={shareToken}
-        onChange={handleTokenChange}
-        aria-describedby="shareTokenHint"
-        aria-invalid={Boolean(shareTokenError)}
-        maxLength="100"
-        required
-      />
-      <div
-        id="shareTokenHint"
-        className={`error error_type_field ${
-          shareTokenError ? 'error_on' : ''
-        }`}
-      >
-        {shareTokenError}
-      </div>
 
-      <button type="submit" className="join-list-form__submit button">
-        Join This List
-      </button>
+      <div className="join-list-form__cta">
+        {/* make Create primary if not showJoinForm */}
+        <button
+          type="button"
+          className={`button join-list-form__button ${
+            !showJoinForm ? 'button_type_primary' : ''
+          }`}
+          onClick={handleCreateList}
+        >
+          Create List
+        </button>
+
+        {/* make Join primary if showJoinForm */}
+        <button
+          type="submit"
+          className={`button join-list-form__submit ${
+            showJoinForm ? 'button_type_primary' : ''
+          }`}
+          onClick={(e) => {
+            if (!showJoinForm) {
+              e.preventDefault(); // stop form submission
+              setShowJoinForm(true); // change state to show token field
+            }
+          }}
+        >
+          {!showJoinForm ? 'Join List' : 'Join This List'}
+        </button>
+      </div>
     </form>
   );
 };

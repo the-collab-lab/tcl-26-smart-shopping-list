@@ -5,3 +5,11 @@
 .join-list-close {
   display: none;
 }
+
+.button_type_primary {
+  background-color: var(--main-accent-color);
+}
+
+.join-list-form__cta {
+  display: flex;
+}

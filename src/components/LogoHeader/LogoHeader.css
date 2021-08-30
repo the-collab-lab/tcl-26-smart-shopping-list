@@ -46,6 +46,19 @@
   height: 2.8em;
 }
 
+/* Make the logo bigger on mobile when there's room */
+@media only screen and (min-width: 600px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  .logo_home {
+    font-size: 1.875rem;
+  }
+  .logo__heading_home {
+    width: 13rem;
+  }
+}
+
 /* styles for larger devices, wider than tall */
 @media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
   .logo {

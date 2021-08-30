@@ -31,6 +31,14 @@
   font-size: 1rem;
 }
 
+@media only screen and (min-width: 600px) {
+  .home-intro__tagline {
+    width: 13rem;
+    padding: 0 0 0.5em 7.5rem; /* line up with logo */
+    font-size: 1.9375rem;
+  }
+}
+
 /* styles for larger devices, wider than tall */
 @media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
   .home-intro {

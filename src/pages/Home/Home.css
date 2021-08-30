@@ -104,18 +104,13 @@
     'create-errors'
     'create-button'
     'join-section'
-    'join-errors'
     'join-button';
 }
 
-.get-started-form__join-section,
-.get-started-form__join-errors {
-  display: block;
-}
 .get-started-form__join-section {
   grid-area: join-section;
-  padding: 2em 8vw 0 8vw;
-  margin: 2em -8vw 0 -8vw;
+  padding: 2em 8vw 3em 8vw;
+  margin: 2em -8vw -2.375em -8vw;
   background: var(--charcoal);
   color: #fff;
   text-align: center;
@@ -128,15 +123,20 @@
 
 .get-started-form__create-errors {
   grid-area: create-errors;
-  margin: 0;
+  padding: 0;
+}
+
+.get-started-form__create-errors.error_on {
+  padding: 0 0 1.5em 0;
 }
 
 .get-started-form__join-errors {
-  grid-area: join-errors;
-  padding: 0 8vw 3em 8vw;
-  margin: 0 -8vw -3em -8vw;
-  background: var(--charcoal);
+  padding: 0;
   color: var(--warning-color-dark-mode);
+}
+
+.get-started-form__join-errors.error_on {
+  padding: 0.75em 0 0 0;
 }
 
 .get-started-form__field-error {
@@ -182,12 +182,7 @@
     max-width: 480px;
   }
   .get-started-form__join-section {
-    border-radius: var(--container-border-radius) var(--container-border-radius)
-      0 0;
-  }
-  .get-started-form__join-errors {
-    border-radius: 0 0 var(--container-border-radius)
-      var(--container-border-radius);
+    border-radius: var(--container-border-radius);
   }
 }
 
@@ -197,9 +192,8 @@
     grid-template-columns: 50% 50%;
     grid-template-areas:
       'join-section join-section'
-      'create-button join-button'
       'create-errors create-errors'
-      'join-errors join-errors';
+      'create-button join-button';
     max-width: 480px;
   }
 
@@ -207,8 +201,7 @@
     font-size: 1.25em;
   }
 
-  .get-started-form__join-section,
-  .get-started-form__join-errors {
+  .get-started-form__join-section {
     display: block;
     margin: 0;
     padding: 0;
@@ -218,6 +211,11 @@
 
   .get-started-form__join-section {
     color: inherit;
+  }
+
+  .get-started-form__create-errors.error_on,
+  .get-started-form__join-errors.error_on {
+    padding: 0 0 1.5em 0;
   }
 
   .get-started-form__join-errors,

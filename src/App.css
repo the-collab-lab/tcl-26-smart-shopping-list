@@ -238,17 +238,32 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 }
 
 .error {
-  margin: 0.5em 0;
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  box-sizing: border-box;
   font-style: normal;
   font-weight: 600;
   color: var(--warning-color);
+  transition: opacity var(--transition-timing);
+}
+
+.error_on {
+  visibility: visible;
+  padding: 0.5em 0;
+  display: block;
+  opacity: 1;
 }
 
 /* for inline form errors */
 .error_type_field {
   height: 0.625rem;
-  margin: 0.25em 0 1.5em 0.75em;
+  margin: 0.375em 0 1.5em 0.75em;
   font-size: 1rem;
+}
+
+.error_type_field.error_on {
+  padding: 0;
 }
 
 .error_mode_dark {

@@ -76,23 +76,6 @@ function Home({ createList, joinList }) {
           onSubmit={handleJoinList}
           className="home-intro__form get-started-form"
         >
-          <div
-            role="alert"
-            className={`error error_type_summary get-started-form__create-errors ${
-              createListError ? 'error_on' : ''
-            }`}
-          >
-            {createListError}
-          </div>
-          <div
-            role="alert"
-            className={`error error_type_summary get-started-form__join-errors ${
-              joinListError ? 'error_on' : ''
-            }`}
-          >
-            {joinListError}
-          </div>
-
           <div className="get-started-form__join-section">
             <h3 className="get-started-form__heading">
               Want to join an existing list?
@@ -133,6 +116,24 @@ function Home({ createList, joinList }) {
             >
               {shareTokenError}
             </div>
+
+            <div
+              role="alert"
+              className={`error error_type_summary get-started-form__join-errors ${
+                joinListError ? 'error_on' : ''
+              }`}
+            >
+              {joinListError}
+            </div>
+          </div>
+
+          <div
+            role="alert"
+            className={`error error_type_summary get-started-form__create-errors ${
+              createListError ? 'error_on' : ''
+            }`}
+          >
+            {createListError}
           </div>
 
           <button

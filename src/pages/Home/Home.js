@@ -1,33 +1,32 @@
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
+import './Home.css';
 import LogoHeader from '../../components/LogoHeader/LogoHeader';
 
 function Home({ createList, joinList }) {
   let history = useHistory();
 
-  const [createListError, setCreateListError] = useState(''); // error for the create list form
-
-  const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
+  const [listError, setListError] = useState(''); // error for creating/joining list form
 
   const [shareToken, setShareToken] = useState(''); // value for the shareToken field
   const shareTokenRef = useRef(); // ref for the shareToken field
   const [shareTokenError, setShareTokenError] = useState(''); // error hint for the shareToken field
 
   const handleTokenChange = (event) => {
-    setJoinListError('');
+    setListError('');
     setShareTokenError('');
     setShareToken(event.target.value);
   };
 
   function handleCreateList() {
-    setCreateListError('');
+    setListError('');
     createList()
       .then((success) => {
         history.push('/list');
       })
       .catch((err) => {
-        setCreateListError(
+        setListError(
           'Sorry, there was a problem creating your list. Please check your connection and try again.',
         );
       });
@@ -37,7 +36,7 @@ function Home({ createList, joinList }) {
     event.preventDefault();
 
     // reset messages to ensure repeated error is read again by screen reader
-    setJoinListError('');
+    setListError('');
     setShareTokenError('');
 
     joinList(shareToken)
@@ -47,12 +46,12 @@ function Home({ createList, joinList }) {
       .catch((err) => {
         if (err.message === 'Invalid token') {
           setShareTokenError('Token is invalid.');
-          setJoinListError(
+          setListError(
             'Sorry, there was a problem with your token. Please try again or create a new list.',
           );
           shareTokenRef.current.focus();
         } else {
-          setJoinListError(
+          setListError(
             'Sorry, there was a problem connecting to the database. Please try again.',
           );
           shareTokenRef.current.focus();
@@ -61,80 +60,94 @@ function Home({ createList, joinList }) {
   }
 
   return (
-    <>
-      <LogoHeader />
+    <div className="page-view">
+      <LogoHeader isHome={true} />
 
-      <main>
-        <div className="new-list">
-          <div
-            role="alert"
-            className={`error error_type_summary ${
-              createListError ? 'error_on' : ''
-            }`}
-          >
-            {createListError}
-          </div>
-          <button
-            type="button"
-            className="new-list__button button"
-            onClick={handleCreateList}
-          >
-            Create a new list
-          </button>
-        </div>
-
-        <div className="container__separator">- or -</div>
+      <main className="page-view__main home-intro">
+        <h2 className="home-intro__tagline">
+          Your <strong className="home-intro__tagline-keyword">smart</strong>{' '}
+          shopping list.
+        </h2>
 
         <form
-          name="joinListForm"
+          name="getStartedForm"
           onSubmit={handleJoinList}
-          className="join-list-form"
+          className="home-intro__form get-started-form"
         >
-          <p>Join an existing shopping list by entering a three word token.</p>
-          <div
-            role="alert" // error for overall form, role makes screenreader read this first
-            className={`error error_type_summary ${
-              joinListError ? 'error_on' : ''
-            }`}
-          >
-            {joinListError}
-          </div>
-          <label
-            className="join-list-form__label join-list-form__label_type_text label"
-            htmlFor="shareToken"
-          >
-            Share Token:
-          </label>
-          <input
-            ref={shareTokenRef}
-            className={`join-list-form__text-field text-field ${
-              shareTokenError ? 'text-field_has-error' : ''
-            }`}
-            type="text"
-            id="shareToken"
-            name="shareToken"
-            value={shareToken}
-            onChange={handleTokenChange}
-            aria-describedby="shareTokenHint"
-            aria-invalid={Boolean(shareTokenError)}
-            maxLength="100"
-            required
-          />
-          <div
-            id="shareTokenHint"
-            className={`error error_type_field ${
-              shareTokenError ? 'error_on' : ''
-            }`}
-          >
-            {shareTokenError}
+          <div className="get-started-form__join-section">
+            <h3 className="get-started-form__heading">
+              Want to join an existing list?
+            </h3>
+            <p className="get-started-form__directions">
+              Enter the list’s three word token below and click the{' '}
+              <strong className="strong">Join List</strong> button.
+            </p>
+
+            <label
+              className="get-started-form__label visually-hidden"
+              htmlFor="shareToken"
+            >
+              Your Token:
+            </label>
+
+            <input
+              ref={shareTokenRef}
+              className={`get-started-form__text-field text-field ${
+                shareTokenError ? 'text-field_has-error' : ''
+              }`}
+              type="text"
+              id="shareToken"
+              name="shareToken"
+              value={shareToken}
+              onChange={handleTokenChange}
+              aria-describedby="shareTokenHint"
+              aria-invalid={Boolean(shareTokenError)}
+              maxLength="100"
+              required
+            />
+
+            <div
+              id="shareTokenHint"
+              className={`error error_type_field ${
+                shareTokenError ? 'error_on' : ''
+              }`}
+            >
+              {shareTokenError}
+            </div>
           </div>
 
-          <button type="submit" className="join-list-form__submit button">
-            Join an existing list
+          <button
+            type="button"
+            className="button button_type_primary get-started-form__button get-started-form__button_create"
+            onClick={handleCreateList}
+          >
+            Create List
           </button>
+
+          <button
+            type="submit"
+            className="button get-started-form__button get-started-form__button_join"
+          >
+            Join List
+          </button>
+
+          <div
+            role="alert"
+            className={`error error_type_summary get-started-form__errors ${
+              listError ? 'error_on' : ''
+            }`}
+          >
+            {listError}
+          </div>
         </form>
       </main>
-    </>
+
+      <footer className="page-view__footer">
+        <NavLink to="/" className="link help-link">
+          Learn how Peasy works &raquo;
+        </NavLink>
+      </footer>
+    </div>
   );
 }
 

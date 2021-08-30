@@ -34,6 +34,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --warning-color: #c3360b; /* a11y: passes AA at 16 px */
   --warning-color-focus: #a12d0a; /* focus/hover alternative */
   --warning-color-light: #f0dcd7;
+  --warning-color-dark-mode: #cc6242;
 
   /* icons must have contrast of 3:1 according to WCAG */
   --item-soon-color: #187b21;
@@ -46,11 +47,11 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --text-a11y-gray: #76757c; /* a11y: passes AA at 16px */
   --text-lg-a11y-gray: #8e8d96; /* a11y: passes AA at 18px or for icons */
   --icon-a11y-gray: #91909b; /* a11y: passes AA at 18px or for icons */
-  --charcoal: #171429;
+  --charcoal: #2a2933;
 
   --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */
   --ui-border-radius: 18px; /* for buttons, text fields */
-  --container-border-radius: 16px; /* for modals, panels, etc. */
+  --container-border-radius: 40px; /* for modals, panels, etc. */
 
   --icon-size-sm: 28px;
   --icon-size-lg: 32px;
@@ -163,7 +164,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   text-decoration: none;
   cursor: pointer;
 
-  background: transparent;
+  background: var(--light-gray);
   border: var(--border-width) solid var(--charcoal);
   border-radius: var(--ui-border-radius);
   outline: none;
@@ -250,6 +251,10 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   font-size: 1rem;
 }
 
+.error_mode_dark {
+  color: var(--warning-color-dark-mode);
+}
+
 /* Form controls */
 
 .text-field {
@@ -262,7 +267,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   font-family: inherit;
   font-size: inherit;
   line-height: 2.5;
-  color: inherit;
+  color: var(--charcoal);
 
   background: var(--input-bg-color);
   border: none;
@@ -270,6 +275,10 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   outline: none;
   box-shadow: none;
   transition: background var(--transition-timing);
+}
+
+.text-field_mode_dark {
+  background: var(--light-gray);
 }
 
 .text-field:focus {
@@ -371,7 +380,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   font-size: 1rem;
   color: #fff;
   text-align: center;
-  background: var(--main-accent-color);
+  background: var(--charcoal);
 }
 
 .page-view__footer-link {
@@ -415,7 +424,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   }
 
   .page-view__footer-link {
-    color: inherit;
+    color: var(--main-accent-color);
   }
 
   @media only screen and (min-height: 800px) {

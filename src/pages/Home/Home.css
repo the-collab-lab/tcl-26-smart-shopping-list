@@ -13,7 +13,7 @@
 .home-intro__tagline {
   width: 12rem;
   padding: 0 0 0.5em 5.875rem; /* line up with logo */
-  margin: 0;
+  margin: 0 0 1.5rem 0;
   font-size: 1.75rem;
   font-weight: 300;
   line-height: 1.125;
@@ -27,7 +27,7 @@
 
 .home-intro__form {
   padding-bottom: 2.5em;
-  margin: auto;
+  margin: auto 0;
   font-size: 1rem;
 }
 
@@ -99,26 +99,53 @@
 
 .get-started-form {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 100%;
   grid-template-areas:
-    'join-section join-section'
-    'create-button join-button'
-    'form-errors form-errors';
-  max-width: 480px;
+    'create-errors'
+    'create-button'
+    'join-section'
+    'join-errors'
+    'join-button';
 }
 
+.get-started-form__join-section,
+.get-started-form__join-errors {
+  display: block;
+}
 .get-started-form__join-section {
   grid-area: join-section;
+  padding: 2em 8vw 0 8vw;
+  margin: 2em -8vw 0 -8vw;
+  background: var(--charcoal);
+  color: #fff;
+  text-align: center;
 }
 
-.get-started-form__errors {
-  grid-area: form-errors;
-  margin: 2rem 0 0 0;
+.get-started-form__text-field {
+  background: var(--light-gray);
+  color: var(--charcoal);
+}
+
+.get-started-form__create-errors {
+  grid-area: create-errors;
+  margin: 0;
+}
+
+.get-started-form__join-errors {
+  grid-area: join-errors;
+  padding: 0 8vw 3em 8vw;
+  margin: 0 -8vw -3em -8vw;
+  background: var(--charcoal);
+  color: var(--warning-color-dark-mode);
+}
+
+.get-started-form__field-error {
+  color: var(--warning-color-dark-mode);
 }
 
 .get-started-form__heading {
   margin: 0 0 0.125em 0;
-  font-size: 1.25em;
+  font-size: 1.125em;
 }
 
 .get-started-form__directions {
@@ -127,21 +154,92 @@
 }
 
 .get-started-form__button {
-  font-size: 1.25em;
+  width: 10em;
+  margin: 0 auto;
+  font-size: 1.375em;
   transition: all var(--transition-timing);
 }
 
 .get-started-form__button_create {
   grid-area: create-button;
-  margin: 0 0.9375rem 0 0;
+  margin: 0 auto 0.75rem auto;
 }
 
 .get-started-form__button_join {
   grid-area: join-button;
-  margin: 0 0 0 0.9375rem;
+  margin: 0.75rem auto 0 auto;
 }
 
 /* for highlighting the button once a valid token is entered */
 .get-started-form__join-button_ready {
   transform: scale(1.03125);
+}
+
+/* make join section not be full width on tablet size */
+@media only screen and (min-width: 600px) {
+  .get-started-form {
+    width: 75vw;
+    max-width: 480px;
+  }
+  .get-started-form__join-section {
+    border-radius: var(--container-border-radius) var(--container-border-radius)
+      0 0;
+  }
+  .get-started-form__join-errors {
+    border-radius: 0 0 var(--container-border-radius)
+      var(--container-border-radius);
+  }
+}
+
+/* styles for larger devices that are wider than tall */
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  .get-started-form {
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+      'join-section join-section'
+      'create-button join-button'
+      'create-errors create-errors'
+      'join-errors join-errors';
+    max-width: 480px;
+  }
+
+  .get-started-form__heading {
+    font-size: 1.25em;
+  }
+
+  .get-started-form__join-section,
+  .get-started-form__join-errors {
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background: none;
+  }
+
+  .get-started-form__join-section {
+    color: inherit;
+  }
+
+  .get-started-form__join-errors,
+  .get-started-form__field-error {
+    color: var(--warning-color);
+  }
+
+  .get-started-form__text-field {
+    background: var(--input-bg-color);
+    color: var(--charcoal);
+  }
+
+  .get-started-form__button {
+    width: auto;
+    font-size: 1.25em;
+  }
+
+  .get-started-form__button_create {
+    margin: 0 0.9375rem 1.125em 0;
+  }
+
+  .get-started-form__button_join {
+    margin: 0 0 1.125em 0.9375rem;
+  }
 }

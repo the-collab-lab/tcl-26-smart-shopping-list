@@ -7,26 +7,28 @@ import LogoHeader from '../../components/LogoHeader/LogoHeader';
 function Home({ createList, joinList }) {
   let history = useHistory();
 
-  const [listError, setListError] = useState(''); // error for creating/joining list form
+  const [createListError, setCreateListError] = useState(''); // error for the create list form
+
+  const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
 
   const [shareToken, setShareToken] = useState(''); // value for the shareToken field
   const shareTokenRef = useRef(); // ref for the shareToken field
   const [shareTokenError, setShareTokenError] = useState(''); // error hint for the shareToken field
 
   const handleTokenChange = (event) => {
-    setListError('');
+    setJoinListError('');
     setShareTokenError('');
     setShareToken(event.target.value);
   };
 
   function handleCreateList() {
-    setListError('');
+    setCreateListError('');
     createList()
       .then((success) => {
         history.push('/list');
       })
       .catch((err) => {
-        setListError(
+        setCreateListError(
           'Sorry, there was a problem creating your list. Please check your connection and try again.',
         );
       });
@@ -36,7 +38,7 @@ function Home({ createList, joinList }) {
     event.preventDefault();
 
     // reset messages to ensure repeated error is read again by screen reader
-    setListError('');
+    setJoinListError('');
     setShareTokenError('');
 
     joinList(shareToken)
@@ -46,12 +48,12 @@ function Home({ createList, joinList }) {
       .catch((err) => {
         if (err.message === 'Invalid token') {
           setShareTokenError('Token is invalid.');
-          setListError(
+          setJoinListError(
             'Sorry, there was a problem with your token. Please try again or create a new list.',
           );
           shareTokenRef.current.focus();
         } else {
-          setListError(
+          setJoinListError(
             'Sorry, there was a problem connecting to the database. Please try again.',
           );
           shareTokenRef.current.focus();
@@ -74,6 +76,23 @@ function Home({ createList, joinList }) {
           onSubmit={handleJoinList}
           className="home-intro__form get-started-form"
         >
+          <div
+            role="alert"
+            className={`error error_type_summary get-started-form__create-errors ${
+              createListError ? 'error_on' : ''
+            }`}
+          >
+            {createListError}
+          </div>
+          <div
+            role="alert"
+            className={`error error_type_summary get-started-form__join-errors ${
+              joinListError ? 'error_on' : ''
+            }`}
+          >
+            {joinListError}
+          </div>
+
           <div className="get-started-form__join-section">
             <h3 className="get-started-form__heading">
               Want to join an existing list?
@@ -108,7 +127,7 @@ function Home({ createList, joinList }) {
 
             <div
               id="shareTokenHint"
-              className={`error error_type_field ${
+              className={`error error_type_field get-started-form__field-error ${
                 shareTokenError ? 'error_on' : ''
               }`}
             >
@@ -130,15 +149,6 @@ function Home({ createList, joinList }) {
           >
             Join List
           </button>
-
-          <div
-            role="alert"
-            className={`error error_type_summary get-started-form__errors ${
-              listError ? 'error_on' : ''
-            }`}
-          >
-            {listError}
-          </div>
         </form>
       </main>
 

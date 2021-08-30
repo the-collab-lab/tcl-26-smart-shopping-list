@@ -358,7 +358,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 /* Layout styles */
 
 /* will be replaced with .page-view and .list-view */
-.container {
+.list-view {
   position: relative;
   max-width: 800px;
   padding: 30px;
@@ -366,13 +366,8 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   background: #fff;
 }
 
-.container__header {
+.list-view__header {
   margin-bottom: 40px;
-}
-
-.container__separator {
-  margin: 40px 0;
-  text-align: center;
 }
 
 /* For home page, help page, 404 page */

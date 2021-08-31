@@ -14,6 +14,7 @@ const GetStartedForm = ({ createList, joinList }) => {
 
   const [createListError, setCreateListError] = useState(''); // error for the create list form
   const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
+  const joinSectionRef = useRef();
 
   const [shareToken, setShareToken] = useState(''); // value for the shareToken field
   const shareTokenRef = useRef(); // ref for the shareToken field
@@ -71,7 +72,10 @@ const GetStartedForm = ({ createList, joinList }) => {
       onSubmit={handleJoinList}
       className="home-intro__form get-started-form"
     >
-      <div className={`get-started-form__join-section ${toggleJoinClass}`}>
+      <div
+        ref={joinSectionRef}
+        className={`get-started-form__join-section ${toggleJoinClass}`}
+      >
         <h3 className="get-started-form__heading">
           Want to join an existing list?
         </h3>
@@ -154,6 +158,19 @@ const GetStartedForm = ({ createList, joinList }) => {
           if (!showJoinForm) {
             e.preventDefault(); // stop form submission
             setShowJoinForm(true); // change state to show token field
+
+            // function that makes sure the join-section is shown before focusing into it
+            function tryFocusTokenField() {
+              if (
+                !joinSectionRef.current.classList.contains(
+                  'get-started-form__join-section_show',
+                )
+              ) {
+                window.requestAnimationFrame(tryFocusTokenField);
+              } else shareTokenRef.current.focus();
+            }
+
+            tryFocusTokenField();
           }
         }}
       >

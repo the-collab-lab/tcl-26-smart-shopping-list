@@ -12,7 +12,7 @@
 
 .home-intro__tagline {
   width: 12rem;
-  padding: 0 0 0.5em 5.875rem; /* line up with logo */
+  padding: 0 0 0.5em 5.75rem; /* line up with logo */
   margin: 0 0 1.5rem 0;
   font-size: 1.75rem;
   font-weight: 300;
@@ -34,7 +34,7 @@
 @media only screen and (min-width: 600px) {
   .home-intro__tagline {
     width: 13rem;
-    padding: 0 0 0.5em 7.5rem; /* line up with logo */
+    padding: 0 0 0.5em 7.375rem; /* line up with logo */
     font-size: 1.9375rem;
   }
 }

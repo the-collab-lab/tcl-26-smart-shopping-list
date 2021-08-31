@@ -10,8 +10,11 @@ import {
 // Firestore
 import { db } from './lib/firebase.js';
 
-// External Files
+// Global CSS Files
 import './App.css';
+import './css/ui-elements.css';
+import './css/logo.css';
+import './css/page-view.css';
 
 // Components
 import ListView from './pages/ListView/ListView';

@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet';
 
+import './ListView.css';
+
 import ListHeader from '../../components/ListHeader/ListHeader';
 import NavMenu from '../../components/NavMenu/NavMenu';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';

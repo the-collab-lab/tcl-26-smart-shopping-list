@@ -1,0 +1,12 @@
+/* Layout styles */
+.list-view {
+  position: relative;
+  max-width: 1000px;
+  padding: 30px;
+  margin: 0 auto;
+  background: var(--light-gray);
+}
+
+.list-view__header {
+  margin-bottom: 40px;
+}

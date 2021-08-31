@@ -21,46 +21,55 @@ BEM Reference: https://en.bem.info/methodology/quick-start/
 CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 */
 
+/* import Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Calistoga&Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,400;1,600;&display=swap');
+
 :root {
-  --main-accent-color: #408a10; /* sample accent color, a11y: passes AA for 18pt text */
+  --logo-font: 'Calistoga', serif;
+  --main-font: 'Montserrat', sans-serif;
+
+  --main-accent-color: #3d9645; /* sample accent color, a11y: passes AA for 18px text */
+  --main-accent-color-light: #d2ecd4;
   --highlight-color: #ffc62e; /* sample highlight color, used for key nav focus outlines */
-  --warning-color: #dd380a; /* a11y: passes AA at 16 pt for text or bg with white */
-  --warning-color-focus: #a1381b; /* focus/hover alternative */
+  --warning-color: #c3360b; /* a11y: passes AA at 16 px */
+  --warning-color-focus: #a12d0a; /* focus/hover alternative */
+  --warning-color-light: #f0dcd7;
+  --warning-color-dark-mode: #cc6242;
 
   /* icons must have contrast of 3:1 according to WCAG */
-  --item-soon-color: #2e6907;
-  --item-kind-of-soon-color: #408a10;
-  --item-not-soon-color: #54a71d;
+  --item-soon-color: #187b21;
+  --item-kind-of-soon-color: #308b37; /* passes AA at 18px + bold */
+  --item-not-soon-color: #48ad51;
   --item-inactive-color: #8e8d96;
 
-  --light-gray: #f3f2f7;
+  --light-gray: #f5f3fa;
   --medium-gray: #dddce6;
-  --text-a11y-gray: #76757c; /* a11y: passes AA at 16 pt */
-  --text-lg-a11y-gray: #8e8d96; /* a11y: passes AA at 18 pt or for icons */
-  --icon-a11y-gray: #91909b; /* a11y: passes AA at 18 pt or for icons */
-  --charcoal: #171429;
+  --text-a11y-gray: #76757c; /* a11y: passes AA at 16px */
+  --icon-a11y-gray: #91909b; /* a11y: passes AA at 18px or for icons */
+  --charcoal: #2a2933;
 
   --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */
-  --ui-border-radius: 7px; /* for buttons, text fields */
-  --container-border-radius: 16px; /* for modals, panels, etc. */
+  --ui-border-radius: 18px; /* for buttons, text fields */
+  --container-border-radius: 40px; /* for modals, panels, etc. */
 
   --icon-size-sm: 28px;
   --icon-size-lg: 32px;
 
   /* text fields styles */
-  --input-bg-color: var(--light-gray);
-  --input-border-color: var(--light-gray);
+  --input-bg-color: var(--medium-gray);
+  --input-focus-color: var(--main-accent-color-light);
 
   --overlay-background: rgba(0, 0, 0, 0.3);
 
   --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
 
   color: var(--charcoal);
-  background: var(--medium-gray);
 }
 
 .body {
+  font-family: var(--main-font);
   font-size: 1.125rem;
+  line-height: 1.5;
 }
 
 @media only screen and (min-width: 600px) {
@@ -69,21 +78,45 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   }
 }
 
-.container {
-  position: relative;
-  max-width: 800px;
-  padding: 30px;
-  margin: 0 auto;
-  background: #fff;
+.link {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  color: var(--main-accent-color);
+  text-decoration: none;
+  text-align: inherit;
+  background: none;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  transition: color var(--transition-timing);
+  outline: none;
 }
 
-.container__header {
-  margin-bottom: 40px;
+.link:hover,
+.link:focus {
+  color: var(--charcoal);
 }
 
-.container__separator {
-  margin: 40px 0;
-  text-align: center;
+.link:focus-within {
+  border-radius: 3px;
+  box-shadow: 0 0 0 3px var(--highlight-color);
+}
+
+.link_delete {
+  color: var(--warning-color);
+}
+
+.link_delete:hover,
+.link_delete:focus {
+  color: var(--warning-color-focus);
+}
+
+.strong {
+  font-weight: 600;
 }
 
 /* removes default ul/ol styles */
@@ -138,40 +171,41 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
 .button {
   display: block;
-  padding: 0.75rem;
+  padding: 0.5em; /* relative to font size */
 
+  font-family: inherit;
   font-size: inherit;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.25;
   color: var(--charcoal);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
 
-  background: transparent;
+  background: var(--light-gray);
   border: var(--border-width) solid var(--charcoal);
   border-radius: var(--ui-border-radius);
   outline: none;
   transition: color var(--transition-timing),
-    border-color var(--transition-timing),
-    background-color var(--transition-timing);
+    border-color var(--transition-timing), background var(--transition-timing);
 }
 
 .button:hover,
 .button:focus {
-  background-color: var(--medium-gray);
+  background: var(--medium-gray);
 }
 
 .button_type_primary {
   color: #fff;
-  background: var(--charcoal);
+  background: var(--main-accent-color);
+  border-color: var(--main-accent-color);
 }
 
 .button_type_primary:hover,
 .button_type_primary:focus {
   color: #fff;
-  background: var(--main-accent-color);
-  border-color: var(--main-accent-color);
+  background: var(--charcoal);
+  border-color: var(--charcoal);
 }
 
 .button_type_delete {
@@ -222,27 +256,36 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 }
 
 .error {
-  margin: 0.625rem 0;
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  box-sizing: border-box;
   font-style: normal;
+  font-weight: 600;
   color: var(--warning-color);
+  transition: opacity var(--transition-timing);
+}
+
+.error_on {
+  visibility: visible;
+  padding: 0.5em 0;
+  display: block;
+  opacity: 1;
 }
 
 /* for inline form errors */
 .error_type_field {
-  margin: 0 0 1.25rem 0;
+  height: 0.625rem;
+  margin: 0.375em 0 1.5em 0.75em;
   font-size: 1rem;
 }
 
-@media only screen and (min-width: 600px) {
-  .error_type_field {
-    font-size: 1.125rem;
-  }
+.error_type_field.error_on {
+  padding: 0;
 }
 
-@media only screen and (min-width: 1200px) {
-  .error_type_field {
-    font-size: 1.25rem;
-  }
+.error_mode_dark {
+  color: var(--warning-color-dark-mode);
 }
 
 /* Form controls */
@@ -250,29 +293,33 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 .text-field {
   display: block;
   width: 100%;
-  height: 3rem; /* after switching to rems, need this or clear button slightly off */
-  padding: 0.25rem 0.75rem;
+  height: 3em; /* relative to font-size */
+  padding: 0.25rem 1.25rem;
   box-sizing: border-box;
 
   font-family: inherit;
   font-size: inherit;
-  line-height: 1.75;
-  color: inherit;
+  line-height: 2.5;
+  color: var(--charcoal);
 
   background: var(--input-bg-color);
-  border: var(--border-width) solid var(--input-border-color);
+  border: none;
   border-radius: var(--ui-border-radius);
   outline: none;
   box-shadow: none;
+  transition: background var(--transition-timing);
+}
+
+.text-field_mode_dark {
+  background: var(--light-gray);
 }
 
 .text-field:focus {
-  border-color: var(--charcoal);
+  background: var(--input-focus-color);
 }
 
-.text-field_has-error {
-  margin: 0 0 0.375rem;
-  border: var(--border-width) solid var(--warning-color);
+.text-field_has-error:focus {
+  background: var(--warning-color-light);
 }
 
 /* Form field plus inner button block */
@@ -324,4 +371,99 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
 .label_type_check-radio {
   line-height: 1.25;
+}
+
+/* Layout styles */
+
+/* will be replaced with .page-view and .list-view */
+.list-view {
+  position: relative;
+  max-width: 1000px;
+  padding: 30px;
+  margin: 0 auto;
+  background: var(--light-gray);
+}
+
+.list-view__header {
+  margin-bottom: 40px;
+}
+
+/* For home page, help page, 404 page */
+
+.page-view {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: var(--light-gray);
+}
+
+.page-view__main {
+  padding: 0 8vw 3rem 8vw;
+}
+
+.page-view__footer {
+  padding: 1em;
+  margin-top: auto;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  background: var(--charcoal);
+}
+
+.page-view__footer-link {
+  color: #fff;
+}
+
+@media only screen and (min-width: 600px) {
+  .page-view__footer {
+    font-size: 1.25rem;
+  }
+}
+
+/* larger devices that are wider than tall */
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  :root {
+    background: var(--charcoal);
+  }
+
+  .page-view {
+    /* minimum padding + margin to start with */
+    padding: 2.625rem 5.25rem;
+    margin: 0 0 0 18vw;
+  }
+
+  /* after minimum 800x600, scale the padding + margin taking into account available height and width */
+  @media only screen and (min-height: 600px) {
+    .page-view {
+      padding: 7vh 14vh;
+    }
+  }
+
+  .page-view__main {
+    padding: 4rem 0 2rem;
+  }
+
+  .page-view__footer {
+    padding: 0;
+    text-align: left;
+    background: transparent;
+    color: var(--charcoal);
+  }
+
+  .page-view__footer-link {
+    color: var(--main-accent-color);
+  }
+
+  @media only screen and (min-height: 800px) {
+    .page-view__footer {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media only screen and (min-height: 1080px) {
+    .page-view__footer {
+      font-size: 1.625rem;
+    }
+  }
 }

@@ -1,0 +1,251 @@
+/**
+ * Note: em units used within 'blocks' allow us to set relative font size, then we can change 
+ * only the block's font-size in media queries and all other proportions stay the same 
+ */
+
+.home-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.home-intro__tagline {
+  width: 12rem;
+  padding: 0 0 0.5em 5.875rem; /* line up with logo */
+  margin: 0 0 1.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1.125;
+}
+
+.home-intro__tagline-keyword {
+  /* smart */
+  font-weight: 800;
+  color: var(--main-accent-color);
+}
+
+.home-intro__form {
+  padding-bottom: 2.5em;
+  margin: auto 0;
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .home-intro__tagline {
+    width: 13rem;
+    padding: 0 0 0.5em 7.5rem; /* line up with logo */
+    font-size: 1.9375rem;
+  }
+}
+
+/* styles for larger devices, wider than tall */
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  .home-intro {
+    align-items: flex-start;
+    padding: 0;
+  }
+
+  .home-intro__tagline {
+    width: auto; /* undo lining up with logo */
+    padding: 0;
+    line-height: 1.25;
+  }
+
+  .home-intro__tagline-keyword {
+    font-size: 1.25em; /* sized relative to surrounding tagline text */
+    line-height: 1.0625;
+  }
+
+  .home-intro__form {
+    margin: 0;
+  }
+
+  /* start viewport-relative sizing only at a certain minimum height */
+  @media only screen and (min-height: 600px) {
+    .home-intro {
+      min-width: 430px; /* prevents tagline from breaking at certain resolutions */
+    }
+
+    .home-intro__tagline {
+      margin: 0.5em 0 0.875em 0;
+      font-size: 5.5vh;
+    }
+
+    @media only screen and (min-width: 800px) {
+      .home-intro {
+        min-width: 40vh; /* prevents tagline from breaking onto 4 lines */
+      }
+    }
+  }
+
+  /* break smart onto it's own line once there's room */
+  @media only screen and (min-height: 800px) {
+    .home-intro__tagline-keyword {
+      display: block;
+    }
+  }
+
+  @media only screen and (min-height: 1080px) {
+    .home-intro {
+      max-width: 480px;
+    }
+
+    .home-intro__form {
+      font-size: 1.125rem;
+    }
+
+    /* bump the help link down a bit when there's room */
+    .help-link {
+      position: relative;
+      bottom: -1.5vh;
+    }
+  }
+}
+
+/* this block could maybe go into it's own component? */
+
+.get-started-form {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    'create-errors'
+    'create-button'
+    'join-section'
+    'join-button';
+}
+
+.get-started-form__join-section {
+  grid-area: join-section;
+  padding: 2em 8vw 3em 8vw;
+  margin: 2em -8vw -2.375em -8vw;
+  background: var(--charcoal);
+  color: #fff;
+  text-align: center;
+}
+
+.get-started-form__text-field {
+  background: var(--light-gray);
+  color: var(--charcoal);
+}
+
+.get-started-form__create-errors {
+  grid-area: create-errors;
+  padding: 0;
+}
+
+.get-started-form__create-errors.error_on {
+  padding: 0 0 1.5em 0;
+}
+
+.get-started-form__join-errors {
+  padding: 0;
+  color: var(--warning-color-dark-mode);
+}
+
+.get-started-form__join-errors.error_on {
+  padding: 0.75em 0 0 0;
+}
+
+.get-started-form__field-error {
+  color: var(--warning-color-dark-mode);
+}
+
+.get-started-form__heading {
+  margin: 0 0 0.125em 0;
+  font-size: 1.125em;
+}
+
+.get-started-form__directions {
+  margin: 0 0 1.6875em 0;
+  font-size: 1em;
+}
+
+.get-started-form__button {
+  width: 10em;
+  margin: 0 auto;
+  font-size: 1.375em;
+  transition: all var(--transition-timing);
+}
+
+.get-started-form__button_create {
+  grid-area: create-button;
+  margin: 0 auto 0.75rem auto;
+}
+
+.get-started-form__button_join {
+  grid-area: join-button;
+  margin: 0.75rem auto 0 auto;
+}
+
+/* for highlighting the button once a valid token is entered */
+.get-started-form__join-button_ready {
+  transform: scale(1.03125);
+}
+
+/* make join section not be full width on tablet size */
+@media only screen and (min-width: 600px) {
+  .get-started-form {
+    width: 75vw;
+    max-width: 480px;
+  }
+  .get-started-form__join-section {
+    border-radius: var(--container-border-radius);
+  }
+}
+
+/* styles for larger devices that are wider than tall */
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  .get-started-form {
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+      'join-section join-section'
+      'create-errors create-errors'
+      'create-button join-button';
+    max-width: 480px;
+  }
+
+  .get-started-form__heading {
+    font-size: 1.25em;
+  }
+
+  .get-started-form__join-section {
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background: none;
+  }
+
+  .get-started-form__join-section {
+    color: inherit;
+  }
+
+  .get-started-form__create-errors.error_on,
+  .get-started-form__join-errors.error_on {
+    padding: 0 0 1.5em 0;
+  }
+
+  .get-started-form__join-errors,
+  .get-started-form__field-error {
+    color: var(--warning-color);
+  }
+
+  .get-started-form__text-field {
+    background: var(--input-bg-color);
+    color: var(--charcoal);
+  }
+
+  .get-started-form__button {
+    width: auto;
+    font-size: 1.25em;
+  }
+
+  .get-started-form__button_create {
+    margin: 0 0.9375rem 1.125em 0;
+  }
+
+  .get-started-form__button_join {
+    margin: 0 0 1.125em 0.9375rem;
+  }
+}

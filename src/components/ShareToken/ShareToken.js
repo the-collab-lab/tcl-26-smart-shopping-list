@@ -28,7 +28,7 @@ const ShareToken = ({ token }) => {
       <button
         type="button"
         onClick={() => setShowMobileShare(!showMobileShare)}
-        className="icon-only-button header__share-toggle-button share-toggle-button"
+        className="icon-only-button list-header__share-toggle-button share-toggle-button"
         aria-label="Share list"
         aria-expanded={showMobileShare}
         aria-controls="share-token"
@@ -37,7 +37,7 @@ const ShareToken = ({ token }) => {
       </button>
 
       <div
-        className={`share-token header__share-token ${
+        className={`share-token list-header__share-token ${
           showMobileShare ? 'share-token_mobile_show' : ''
         }`}
         id="share-token"

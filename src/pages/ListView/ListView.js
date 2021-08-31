@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 
-import Header from '../../components/Header/Header';
+import ListHeader from '../../components/ListHeader/ListHeader';
 import NavMenu from '../../components/NavMenu/NavMenu';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
 
@@ -8,11 +8,11 @@ const ListView = ({ listId, handleModalOpen, token }) => {
   return (
     <div className="list-view">
       <Helmet>
-        <title>Your List - Smart Shopping List</title>
+        <title>Your List - Peasy</title>
       </Helmet>
-      <Header token={token} />
+      <ListHeader token={token} />
 
-      <main className="container__main">
+      <main className="list-view__main">
         <ShoppingList listId={listId} handleModalOpen={handleModalOpen} />
       </main>
 

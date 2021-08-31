@@ -149,7 +149,13 @@
   color: var(--warning-color-dark-mode);
 }
 
-/* Form controls */
+/* Form elements */
+
+.label {
+  font-weight: 600;
+  font-style: 1rem;
+  margin-left: var(--ui-border-radius);
+}
 
 .text-field {
   display: block;
@@ -163,7 +169,7 @@
   line-height: 2.5;
   color: var(--charcoal);
 
-  background: var(--input-bg-color);
+  background-color: var(--input-bg-color);
   border: none;
   border-radius: var(--ui-border-radius);
   outline: none;
@@ -172,15 +178,15 @@
 }
 
 .text-field_mode_dark {
-  background: var(--light-gray);
+  background-color: var(--light-gray);
 }
 
 .text-field:focus {
-  background: var(--input-focus-color);
+  background-color: var(--input-focus-color);
 }
 
 .text-field_has-error:focus {
-  background: var(--warning-color-light);
+  background-color: var(--warning-color-light);
 }
 
 /* Form field plus inner button block */
@@ -196,8 +202,8 @@
   position: absolute;
   bottom: var(--border-width);
   right: var(--border-width);
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 4em;
+  height: 4em;
   color: var(--charcoal);
   border: none;
 }

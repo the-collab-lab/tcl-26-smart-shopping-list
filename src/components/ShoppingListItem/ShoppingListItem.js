@@ -114,7 +114,7 @@ const ShoppingListItem = ({
           <CheckboxIcon aria-hidden="true" focusable="false" />
         </label>
         <label
-          className={`label label_check-radio item__label item__label_${item.status}`}
+          className={`item__label item__label_${item.status}`}
           htmlFor={`item-input-${item.id}`}
         >
           {item.itemName}

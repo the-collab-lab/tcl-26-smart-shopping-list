@@ -1,5 +1,12 @@
 .filter {
-  margin: 20px 0;
+  margin: 2rem 130px 2rem 0;
+}
+
+.filter__text-field {
+  padding-left: 4rem;
+  background: var(--input-bg-color) url(../../images/icon-filter.svg) 1rem 50%
+    no-repeat;
+  background-size: 2rem 2rem;
 }
 
 /* some slight BEM defiance here to avoid tons of classes on SVGs we may change */

@@ -6,7 +6,7 @@ import ShoppingList from '../../components/ShoppingList/ShoppingList';
 
 const ListView = ({ listId, handleModalOpen, token }) => {
   return (
-    <>
+    <div className="list-view">
       <Helmet>
         <title>Your List - Smart Shopping List</title>
       </Helmet>
@@ -17,7 +17,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
       </main>
 
       <NavMenu />
-    </>
+    </div>
   );
 };
 

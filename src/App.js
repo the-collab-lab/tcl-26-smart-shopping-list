@@ -134,7 +134,7 @@ function App() {
   return (
     <Router>
       <div
-        className="App container"
+        className="App"
         aria-hidden={showModal} // if showModal is true, hide the rest of the app
       >
         <Switch>

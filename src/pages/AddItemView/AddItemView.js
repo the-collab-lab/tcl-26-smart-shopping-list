@@ -6,7 +6,7 @@ import AddItemForm from '../../components/AddItemForm/AddItemForm';
 
 const AddItemView = ({ listId }) => {
   return (
-    <>
+    <div className="list-view">
       <Helmet>
         <title>Add Item - Smart Shopping List</title>
       </Helmet>
@@ -17,7 +17,7 @@ const AddItemView = ({ listId }) => {
       </main>
 
       <NavMenu />
-    </>
+    </div>
   );
 };
 

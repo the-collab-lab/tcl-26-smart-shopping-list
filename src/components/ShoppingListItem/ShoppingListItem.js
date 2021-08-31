@@ -8,7 +8,7 @@ import {
 import './ShoppingListItem.css';
 
 import { ReactComponent as CheckboxIcon } from '../../images/icon-checkbox.svg';
-import { ReactComponent as DetailsIcon } from '../../images/icon-details.svg';
+import { ReactComponent as DetailsIcon } from '../../images/icon-arrow.svg';
 import { ReactComponent as DeleteIcon } from '../../images/icon-delete.svg';
 
 const ShoppingListItem = ({

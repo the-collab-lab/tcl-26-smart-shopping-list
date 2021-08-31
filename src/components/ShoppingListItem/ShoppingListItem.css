@@ -91,11 +91,16 @@
 }
 
 .item__details-button {
-  margin: 0 1rem;
+  margin: 0 0 0 auto;
+  transition: transform 0.3s linear;
+}
+
+.item__details-button_expanded {
+  transform: rotate(-180deg);
 }
 
 .item__delete-button {
-  margin: 0 0 0 auto;
+  margin: 0 0 0 0.875em;
 }
 
 .item__delete-button:hover,

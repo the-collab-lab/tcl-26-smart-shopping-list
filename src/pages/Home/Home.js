@@ -1,5 +1,8 @@
-import { useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useState, useRef } from 'react';
+
+import './Home.css';
+import LogoHeader from '../../components/LogoHeader/LogoHeader';
 
 function Home({ createList, joinList }) {
   let history = useHistory();
@@ -59,82 +62,103 @@ function Home({ createList, joinList }) {
   }
 
   return (
-    <>
-      <header className="container__header header">
-        <h1 className="header__welcome">Welcome To Your Smart Shopping List</h1>
-      </header>
+    <div className="page-view">
+      <LogoHeader isHome={true} />
 
-      <main>
-        <div className="new-list">
+      <main className="page-view__main home-intro">
+        <h2 className="home-intro__tagline">
+          Your <strong className="home-intro__tagline-keyword">smart</strong>{' '}
+          shopping list.
+        </h2>
+
+        <form
+          name="getStartedForm"
+          onSubmit={handleJoinList}
+          className="home-intro__form get-started-form"
+        >
+          <div className="get-started-form__join-section">
+            <h3 className="get-started-form__heading">
+              Want to join an existing list?
+            </h3>
+            <p className="get-started-form__directions">
+              Enter the list’s three word token below and click the{' '}
+              <strong className="strong">Join List</strong> button.
+            </p>
+
+            <label
+              className="get-started-form__label visually-hidden"
+              htmlFor="shareToken"
+            >
+              Your Token:
+            </label>
+
+            <input
+              ref={shareTokenRef}
+              className={`get-started-form__text-field text-field ${
+                shareTokenError ? 'text-field_has-error' : ''
+              }`}
+              type="text"
+              id="shareToken"
+              name="shareToken"
+              value={shareToken}
+              onChange={handleTokenChange}
+              aria-describedby="shareTokenHint"
+              aria-invalid={Boolean(shareTokenError)}
+              maxLength="100"
+              required
+            />
+
+            <div
+              id="shareTokenHint"
+              className={`error error_type_field get-started-form__field-error ${
+                shareTokenError ? 'error_on' : ''
+              }`}
+            >
+              {shareTokenError}
+            </div>
+
+            <div
+              role="alert"
+              className={`error error_type_summary get-started-form__join-errors ${
+                joinListError ? 'error_on' : ''
+              }`}
+            >
+              {joinListError}
+            </div>
+          </div>
+
           <div
             role="alert"
-            className={`error error_type_summary ${
+            className={`error error_type_summary get-started-form__create-errors ${
               createListError ? 'error_on' : ''
             }`}
           >
             {createListError}
           </div>
+
           <button
             type="button"
-            className="new-list__button button"
+            className="button button_type_primary get-started-form__button get-started-form__button_create"
             onClick={handleCreateList}
           >
-            Create a new list
+            Create List
           </button>
-        </div>
 
-        <div className="container__separator">- or -</div>
-
-        <form
-          name="joinListForm"
-          onSubmit={handleJoinList}
-          className="join-list-form"
-        >
-          <p>Join an existing shopping list by entering a three word token.</p>
-          <div
-            role="alert" // error for overall form, role makes screenreader read this first
-            className={`error error_type_summary ${
-              joinListError ? 'error_on' : ''
-            }`}
+          <button
+            type="submit"
+            className="button get-started-form__button get-started-form__button_join"
           >
-            {joinListError}
-          </div>
-          <label
-            className="join-list-form__label join-list-form__label_type_text label"
-            htmlFor="shareToken"
-          >
-            Share Token:
-          </label>
-          <input
-            ref={shareTokenRef}
-            className={`join-list-form__text-field text-field ${
-              shareTokenError ? 'text-field_has-error' : ''
-            }`}
-            type="text"
-            id="shareToken"
-            name="shareToken"
-            value={shareToken}
-            onChange={handleTokenChange}
-            aria-describedby="shareTokenHint"
-            aria-invalid={Boolean(shareTokenError)}
-            maxLength="100"
-            required
-          />
-          <div
-            id="shareTokenHint"
-            className={`error error_type_field ${
-              shareTokenError ? 'error_on' : ''
-            }`}
-          >
-            {shareTokenError}
-          </div>
-
-          <button type="submit" className="join-list-form__submit button">
-            Join an existing list
+            Join List
           </button>
         </form>
       </main>
-    </>
+
+      <footer className="page-view__footer">
+        <NavLink to="/" className="link help-link page-view__footer-link">
+          Learn how Peasy works &raquo;
+        </NavLink>
+      </footer>
+    </div>
   );
 }
 

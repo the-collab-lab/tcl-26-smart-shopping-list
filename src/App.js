@@ -10,8 +10,11 @@ import {
 // Firestore
 import { db } from './lib/firebase.js';
 
-// External Files
+// Global CSS Files
 import './App.css';
+import './css/ui-elements.css';
+import './css/logo.css';
+import './css/page-view.css';
 
 // Components
 import ListView from './pages/ListView/ListView';
@@ -134,7 +137,7 @@ function App() {
   return (
     <Router>
       <div
-        className="App container"
+        className="App"
         aria-hidden={showModal} // if showModal is true, hide the rest of the app
       >
         <Switch>

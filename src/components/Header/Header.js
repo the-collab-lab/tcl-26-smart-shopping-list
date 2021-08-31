@@ -9,7 +9,13 @@ const Header = ({ listItems, token }) => {
       {listItems?.docs.length === 0 ? (
         ''
       ) : (
-        <h4>{`You have ${listItems?.docs.length} items on your shopping list.`}</h4>
+        <p className="header__count">
+          {[
+            'You have ',
+            <strong className="strong">{listItems?.docs.length}</strong>,
+            ' items on your shopping list.',
+          ]}
+        </p>
       )}
       <ShareToken token={token} />
     </header>

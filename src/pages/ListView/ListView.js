@@ -10,8 +10,10 @@ const ListView = ({ listId, handleModalOpen, token }) => {
   return (
     <div className="list-view">
       <Helmet>
-        <title>Your List - Peasy</title>
+        <title>Your Shopping List - Peasy</title>
+        <style>{':root { background-color: var(--light-gray); }'}</style>
       </Helmet>
+
       <ListHeader token={token} />
 
       <main className="list-view__main">

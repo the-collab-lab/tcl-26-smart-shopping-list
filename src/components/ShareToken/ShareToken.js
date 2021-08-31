@@ -40,7 +40,7 @@ const ShareToken = ({ token }) => {
         <strong className="share-toggle-button__strong" htmlFor="shareToken">
           Share your list
         </strong>
-        <span class="share-toggle-button__hint">
+        <span className="share-toggle-button__hint">
           Reveal your token and copy to clipboard.
         </span>
       </button>

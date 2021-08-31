@@ -45,7 +45,6 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --light-gray: #f5f3fa;
   --medium-gray: #dddce6;
   --text-a11y-gray: #76757c; /* a11y: passes AA at 16px */
-  --text-lg-a11y-gray: #8e8d96; /* a11y: passes AA at 18px or for icons */
   --icon-a11y-gray: #91909b; /* a11y: passes AA at 18px or for icons */
   --charcoal: #2a2933;
 
@@ -80,9 +79,19 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 }
 
 .link {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
   font-weight: 600;
+  line-height: inherit;
   color: var(--main-accent-color);
   text-decoration: none;
+  text-align: inherit;
+  background: none;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
   transition: color var(--transition-timing);
   outline: none;
 }
@@ -95,6 +104,15 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 .link:focus-within {
   border-radius: 3px;
   box-shadow: 0 0 0 3px var(--highlight-color);
+}
+
+.link_delete {
+  color: var(--warning-color);
+}
+
+.link_delete:hover,
+.link_delete:focus {
+  color: var(--warning-color-focus);
 }
 
 .strong {
@@ -360,10 +378,10 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 /* will be replaced with .page-view and .list-view */
 .list-view {
   position: relative;
-  max-width: 800px;
+  max-width: 1000px;
   padding: 30px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--light-gray);
 }
 
 .list-view__header {

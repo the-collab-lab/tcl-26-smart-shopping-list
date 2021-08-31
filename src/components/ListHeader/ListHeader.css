@@ -30,7 +30,9 @@
 @media only screen and (min-width: 800px) {
   .list-header {
     display: grid;
-    grid-template: 'logo share-token';
+    grid-template:
+      'logo share-toggle'
+      'logo share-token';
   }
 
   .list-header__share-token {

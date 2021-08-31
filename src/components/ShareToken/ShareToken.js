@@ -28,12 +28,21 @@ const ShareToken = ({ token }) => {
       <button
         type="button"
         onClick={() => setShowMobileShare(!showMobileShare)}
-        className="icon-only-button list-header__share-toggle-button share-toggle-button"
-        aria-label="Share list"
+        className="button list-header__share-toggle-button share-toggle-button"
         aria-expanded={showMobileShare}
         aria-controls="share-token"
       >
-        <ShareIcon aria-hidden="true" focusable="false" />
+        <ShareIcon
+          aria-hidden="true"
+          focusable="false"
+          className="share-toggle-button__icon icon share-icon"
+        />
+        <strong className="share-toggle-button__strong" htmlFor="shareToken">
+          Share your list
+        </strong>
+        <span class="share-toggle-button__hint">
+          Reveal your token and copy to clipboard.
+        </span>
       </button>
 
       <div
@@ -43,11 +52,8 @@ const ShareToken = ({ token }) => {
         id="share-token"
         role="region"
       >
-        <h4 className="share-token__heading" htmlFor="shareToken">
-          Share your shopping list
-        </h4>
         <label className="share-token__label" htmlFor="shareToken">
-          Your list token:
+          Your unique token:
         </label>
         <div className="form-group clipboard-copy clipboard-copy">
           <input

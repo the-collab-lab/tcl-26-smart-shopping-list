@@ -11,6 +11,7 @@
 }
 
 .share-toggle-button {
+  align-self: center;
   display: grid;
   grid-template-columns: auto auto;
   justify-items: center;

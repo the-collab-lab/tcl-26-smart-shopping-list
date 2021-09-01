@@ -3,7 +3,7 @@ import peasyLogoMark from '../../images/peasy-logomark.svg';
 
 import ShareToken from '../ShareToken/ShareToken.js';
 
-const ListHeader = ({ listItems, token }) => {
+const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
   return (
     <header className="list-view__header list-header">
       <div className="list-header__main">
@@ -31,7 +31,12 @@ const ListHeader = ({ listItems, token }) => {
                 '.',
               ]}
             </h2>
-            {/* actions go here with class .link and .list-summary__action */}
+            <button type="button" className="link" onClick={toggleDetailView}>
+              {/* when showAllDetails is false (they're all collapsed), 'Show all item details') */}
+              {!showAllDetails
+                ? 'Show all item details'
+                : 'Hide all item details'}
+            </button>
           </div>
         )}
       </div>

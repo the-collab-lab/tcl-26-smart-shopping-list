@@ -16,7 +16,6 @@ function ShoppingList({
   error,
   listId,
   showAllDetails,
-  toggleDetailView,
   handleModalOpen,
 }) {
   const [filter, setFilter] = useState('');

@@ -17,14 +17,19 @@ const ListHeader = ({ listItems, token }) => {
         {listItems?.docs.length === 0 ? (
           ''
         ) : (
-          <div class="list-summary">
+          <div class="list-summary list-header__count">
             <h2 className="list-summary__heading">
               {[
                 'You have ',
                 <strong className="strong list-summary__strong">
                   {listItems?.docs.length}
                 </strong>,
-                ' items on your shopping list.',
+                ' items',
+                <span className="list-summary__extra">
+                  {' '}
+                  on your shopping list
+                </span>,
+                '.',
               ]}
             </h2>
             {/* actions go here with class .link and .list-summary__action */}

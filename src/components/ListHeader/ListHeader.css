@@ -1,10 +1,11 @@
 .list-header {
+  position: relative;
   display: grid;
   grid-template:
-    'main share-toggle'
-    'share-token share-token';
+    'main'
+    'share-token';
   align-items: start;
-  justify-content: space-between;
+  font-size: 1.25rem;
 }
 
 .list-header__main {
@@ -12,12 +13,19 @@
 }
 
 .list-header__logo {
+  left: 0;
   margin: 0;
-  font-size: 1.75rem;
+  font-size: 1em;
+}
+
+.list-header__count {
+  padding-left: 2.625em;
 }
 
 .list-header__share-toggle-button {
-  grid-area: share-toggle;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .list-header__share-token {
@@ -36,5 +44,11 @@
 
   .list-header__share-token {
     margin: 0;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .list-header {
+    font-size: 1.5rem;
   }
 }

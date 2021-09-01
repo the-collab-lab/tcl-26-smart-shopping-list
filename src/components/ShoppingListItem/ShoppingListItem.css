@@ -151,6 +151,17 @@
   font-weight: 500;
 }
 
+.details__value-soon {
+  margin-left: 0.5rem;
+  color: var(--item-soon-color);
+  font-weight: bold;
+}
+
+.details__break {
+  flex-basis: 100%;
+  height: 0;
+}
+
 @media only screen and (min-width: 400px) {
   .details {
     flex-direction: row;

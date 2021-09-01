@@ -3,7 +3,7 @@ import peasyLogoMark from '../../images/peasy-logomark.svg';
 
 import ShareToken from '../ShareToken/ShareToken.js';
 
-const ListHeader = ({ listItems, token }) => {
+const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
   return (
     <header className="list-view__header list-header">
       <div className="list-header__main">
@@ -19,19 +19,23 @@ const ListHeader = ({ listItems, token }) => {
         ) : (
           <div className="list-summary list-header__count">
             <h2 className="list-summary__heading">
-              {[
-                'You have ',
-                <strong className="strong list-summary__strong">
-                  {listItems?.docs.length} items
-                </strong>,
-                <span className="list-summary__extra">
-                  {' '}
-                  on your shopping list
-                </span>,
-                '.',
-              ]}
+              You have&nbsp;
+              <strong className="strong list-summary__strong">
+                {listItems?.docs.length} items
+              </strong>
+              &nbsp;
+              <span className="list-summary__extra">on your shopping list</span>
             </h2>
-            {/* actions go here with class .link and .list-summary__action */}
+            <button
+              type="button"
+              className="link list-summary__action"
+              onClick={toggleDetailView}
+            >
+              {/* when showAllDetails is false (they're all collapsed), 'Show all item details') */}
+              {!showAllDetails
+                ? 'Show all item details'
+                : 'Hide all item details'}
+            </button>
           </div>
         )}
       </div>

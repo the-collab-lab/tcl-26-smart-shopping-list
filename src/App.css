@@ -71,6 +71,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 .body {
   font-family: var(--main-font);
   font-size: 1.125rem;
+  min-width: 320px;
   line-height: 1.5;
 }
 

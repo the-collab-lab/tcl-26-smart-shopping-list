@@ -152,7 +152,9 @@ const ShoppingListItem = ({
           type="button"
           onClick={() => setShowSingleDetail(!showSingleDetail)}
           aria-label={`${item.itemName} details`}
-          className="item__details-button icon-only-button"
+          className={`item__details-button ${
+            showSingleDetail ? 'item__details-button_expanded' : ''
+          } icon-only-button`}
           aria-controls={`item-details-${item.id}`}
           aria-expanded={showSingleDetail}
         >
@@ -200,16 +202,16 @@ const ShoppingListItem = ({
           <span className="details__name">Last purchase:</span>
           <span className="details__value">
             {currentYear !== purchasedYear
-              ? purchasedDate.toFormat('MMMM dd, yyyy')
-              : purchasedDate.toFormat('MMMM dd')}
+              ? purchasedDate.toFormat('MMM dd, yyyy')
+              : purchasedDate.toFormat('MMM dd')}
           </span>
         </li>
         <li className="details__detail">
           <span className="details__name">Next purchase: </span>
           <span className="details__value">
             {currentYear !== purchasedYear
-              ? item.nextPurchaseDate.toFormat('MMMM dd, yyyy')
-              : item.nextPurchaseDate.toFormat('MMMM dd')}
+              ? item.nextPurchaseDate.toFormat('MMM dd, yyyy')
+              : item.nextPurchaseDate.toFormat('MMM dd')}
           </span>
         </li>
       </ul>

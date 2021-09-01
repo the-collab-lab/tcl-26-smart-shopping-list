@@ -227,7 +227,6 @@ function ShoppingList({
                 checkAsPurchased={checkAsPurchased}
                 uncheckAsPurchased={uncheckAsPurchased}
                 showDetails={showDetails}
-                toggleDetailView={toggleDetailView}
                 handleModalOpen={handleModalOpen}
               />
             ))}

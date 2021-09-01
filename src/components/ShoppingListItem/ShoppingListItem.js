@@ -16,11 +16,12 @@ const ShoppingListItem = ({
   checkAsPurchased,
   uncheckAsPurchased,
   showDetails,
-  toggleDetailView,
   handleModalOpen,
 }) => {
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
+
+  const [showSingleDetail, setShowSingleDetail] = useState(showDetails);
 
   const itemUncheckWarningMessage =
     'You already purchased this in the last 24 hours';
@@ -130,7 +131,7 @@ const ShoppingListItem = ({
         </label>
         <button
           type="button"
-          // onClick={toggleDetailView}
+          onClick={() => setShowSingleDetail(!showSingleDetail)}
           aria-label={`${item.itemName} details`}
           className="item__details-button icon-only-button"
           aria-controls={`item-details-${item.id}`}

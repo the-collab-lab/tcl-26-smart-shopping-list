@@ -39,7 +39,6 @@ const ListView = ({ listId, handleModalOpen, token }) => {
           error={error}
           listId={listId}
           showDetails={showDetails}
-          toggleDetailView={toggleDetailView}
           handleModalOpen={handleModalOpen}
         />
       </main>

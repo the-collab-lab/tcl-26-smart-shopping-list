@@ -19,7 +19,7 @@ const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
         ) : (
           <div className="list-summary list-header__count">
             <h2 className="list-summary__heading">
-              You have
+              {'You have '}
               <strong className="strong list-summary__strong">
                 {listItems?.docs.length} items
               </strong>{' '}

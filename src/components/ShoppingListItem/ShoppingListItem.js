@@ -18,12 +18,9 @@ const ShoppingListItem = ({
   uncheckAsPurchased,
   handleModalOpen,
 }) => {
-  console.log(item);
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
   const [showDetails, setShowDetails] = useState(false);
-
-  //Get next purchase date
 
   //Date variables for details view
 
@@ -34,8 +31,6 @@ const ShoppingListItem = ({
   } else {
     purchasedDate = DateTime.fromSeconds(item.createdAt?.seconds);
   }
-
-  //Next Purchase
 
   const currentYear = DateTime.now().toFormat('yyyy');
   const purchasedYear = purchasedDate.toFormat('yyyy');
@@ -204,7 +199,11 @@ const ShoppingListItem = ({
         </li>
         <li className="details__detail">
           <span className="details__name">Next purchase: </span>
-          <span className="details__value">~ Aug 29</span>
+          <span className="details__value">
+            {currentYear !== purchasedYear
+              ? item.nextPurchaseDate.toFormat('MMMM dd, yyyy')
+              : item.nextPurchaseDate.toFormat('MMMM dd')}
+          </span>
         </li>
       </ul>
     </li>

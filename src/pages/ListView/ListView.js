@@ -6,8 +6,8 @@ import './ListView.css';
 
 import Loader from '../../components/Loader/Loader';
 import ListHeader from '../../components/ListHeader/ListHeader';
-import NavMenu from '../../components/NavMenu/NavMenu';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
+import AddItemForm from '../../components/AddItemForm/AddItemForm';
 
 const ListView = ({ listId, handleModalOpen, token }) => {
   const [listItems, loading, error] = useCollection(
@@ -41,7 +41,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
             />
           </main>
 
-          <NavMenu />
+          <AddItemForm listId={listId} />
         </>
       )}
     </div>

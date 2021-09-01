@@ -17,10 +17,9 @@ import './css/logo.css';
 import './css/page-view.css';
 
 // Components
-import ListView from './pages/ListView/ListView';
-import AddItemView from './pages/AddItemView/AddItemView';
-import NotFound from './pages/NotFound/NotFound';
 import Home from './pages/Home/Home';
+import ListView from './pages/ListView/ListView';
+import NotFound from './pages/NotFound/NotFound';
 import Modal from './components/Modal/Modal.js';
 
 // Functions
@@ -157,13 +156,6 @@ function App() {
                 handleModalOpen={handleModalOpen}
                 token={token}
               />
-            )}
-          </Route>
-          <Route path="/add">
-            {!listId ? (
-              <Redirect exact to="/" />
-            ) : (
-              <AddItemView listId={listId} />
             )}
           </Route>
           <Route component={NotFound} />

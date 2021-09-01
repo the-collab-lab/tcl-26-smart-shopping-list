@@ -17,7 +17,7 @@ const ListHeader = ({ listItems, token }) => {
         {listItems?.docs.length === 0 ? (
           ''
         ) : (
-          <div class="list-summary list-header__count">
+          <div className="list-summary list-header__count">
             <h2 className="list-summary__heading">
               {[
                 'You have ',

@@ -1,0 +1,163 @@
+.get-started-form {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    'create-errors'
+    'create-button'
+    'join-section'
+    'join-button';
+}
+
+.get-started-form__join-section {
+  display: none;
+  grid-area: join-section;
+  padding: 2em 8vw 3em 8vw;
+  margin: 2em -8vw -2.375em -8vw;
+  background: var(--charcoal);
+  color: #fff;
+  text-align: center;
+}
+
+.get-started-form__join-section_show {
+  display: grid;
+}
+
+.get-started-form__text-field {
+  background: var(--light-gray);
+  color: var(--charcoal);
+}
+
+.get-started-form__create-errors {
+  grid-area: create-errors;
+  padding: 0;
+}
+
+.get-started-form__create-errors.error_on {
+  padding: 0 0 1.5em 0;
+}
+
+.get-started-form__join-errors {
+  padding: 0;
+  color: var(--warning-color-dark-mode);
+}
+
+.get-started-form__join-errors.error_on {
+  padding: 0.75em 0 0 0;
+}
+
+.get-started-form__field-error {
+  color: var(--warning-color-dark-mode);
+}
+
+.get-started-form__heading {
+  margin: 0 0 0.125em 0;
+  font-size: 1.125em;
+}
+
+.get-started-form__directions {
+  margin: 0 0 1.6875em 0;
+  font-size: 1em;
+}
+
+.get-started-form__button {
+  width: 10em;
+  margin: 0 auto;
+  font-size: 1.375em;
+  transition: all var(--transition-timing);
+}
+
+.get-started-form__button_create {
+  grid-area: create-button;
+  margin: 0 auto 0.75rem auto;
+}
+
+.get-started-form__button_join {
+  grid-area: join-button;
+  margin: 0.75rem auto 0 auto;
+}
+
+/* Join button shouldn't change to black on focus when over black form */
+.get-started-form__button_join.button_type_primary:hover,
+.get-started-form__button_join.button_type_primary:focus {
+  background: var(--main-accent-color-dark);
+  border-color: var(--main-accent-color-dark);
+}
+
+/* for highlighting the button once a valid token is entered */
+.get-started-form__join-button_ready {
+  transform: scale(1.03125);
+}
+
+/* make join section not be full width on tablet size */
+@media only screen and (min-width: 600px) {
+  .get-started-form {
+    width: 75vw;
+    max-width: 480px;
+  }
+  .get-started-form__join-section {
+    border-radius: var(--container-border-radius);
+  }
+}
+
+/* styles for larger devices that are wider than tall */
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  .get-started-form {
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+      'join-section join-section'
+      'create-errors create-errors'
+      'create-button join-button';
+    max-width: 480px;
+  }
+
+  .get-started-form__heading {
+    font-size: 1.25em;
+  }
+
+  .get-started-form__join-section {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background: none;
+    color: inherit;
+  }
+
+  .get-started-form__join-section_show {
+    display: block;
+  }
+
+  .get-started-form__create-errors.error_on,
+  .get-started-form__join-errors.error_on {
+    padding: 0 0 1.5em 0;
+  }
+
+  .get-started-form__join-errors,
+  .get-started-form__field-error {
+    color: var(--warning-color);
+  }
+
+  .get-started-form__text-field {
+    background: var(--input-bg-color);
+    color: var(--charcoal);
+  }
+
+  .get-started-form__button {
+    width: auto;
+    font-size: 1.25em;
+  }
+
+  .get-started-form__button_create {
+    margin: 0 0.9375rem 1.125em 0;
+  }
+
+  .get-started-form__button_join {
+    margin: 0 0 1.125em 0.9375rem;
+  }
+
+  /* Reset join button hover/focus when not on mobile */
+  .get-started-form__button_join.button_type_primary:hover,
+  .get-started-form__button_join.button_type_primary:focus {
+    background: var(--charcoal);
+    border-color: var(--charcoal);
+  }
+}

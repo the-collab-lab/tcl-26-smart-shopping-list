@@ -16,11 +16,13 @@ const ShoppingListItem = ({
   item,
   checkAsPurchased,
   uncheckAsPurchased,
+  showDetails,
   handleModalOpen,
 }) => {
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
-  const [showDetails, setShowDetails] = useState(false);
+
+  const [showSingleDetail, setShowSingleDetail] = useState(showDetails);
 
   //Date variables for details view
 
@@ -143,7 +145,7 @@ const ShoppingListItem = ({
         </label>
         <button
           type="button"
-          onClick={() => setShowDetails(!showDetails)}
+          onClick={() => setShowSingleDetail(!showSingleDetail)}
           aria-label={`${item.itemName} details`}
           className="item__details-button icon-only-button"
           aria-controls={`item-details-${item.id}`}

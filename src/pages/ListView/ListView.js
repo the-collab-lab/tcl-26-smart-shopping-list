@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -13,6 +14,12 @@ const ListView = ({ listId, handleModalOpen, token }) => {
     db.collection(`lists/${listId}/items`),
   );
 
+  const [showDetails, setShowDetails] = useState(false);
+
+  const toggleDetailView = () => {
+    setShowDetails(!showDetails);
+  };
+
   return (
     <div className="list-view">
       <Helmet>
@@ -20,7 +27,11 @@ const ListView = ({ listId, handleModalOpen, token }) => {
         <style>{':root { background-color: var(--light-gray); }'}</style>
       </Helmet>
 
-      <ListHeader listItems={listItems} token={token} />
+      <ListHeader
+        listItems={listItems}
+        toggleDetailView={toggleDetailView}
+        token={token}
+      />
 
       <main className="list-view__main">
         <ShoppingList
@@ -28,6 +39,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
           loading={loading}
           error={error}
           listId={listId}
+          showDetails={showDetails}
           handleModalOpen={handleModalOpen}
         />
       </main>

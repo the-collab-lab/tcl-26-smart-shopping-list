@@ -10,7 +10,15 @@ import { DateTime } from 'luxon';
 import ItemFilter from '../ItemFilter/ItemFilter.js';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
-function ShoppingList({ listItems, loading, error, listId, handleModalOpen }) {
+function ShoppingList({
+  listItems,
+  loading,
+  error,
+  listId,
+  showDetails,
+  toggleDetailView,
+  handleModalOpen,
+}) {
   const [filter, setFilter] = useState('');
 
   const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
@@ -234,6 +242,7 @@ function ShoppingList({ listItems, loading, error, listId, handleModalOpen }) {
                 item={item}
                 checkAsPurchased={checkAsPurchased}
                 uncheckAsPurchased={uncheckAsPurchased}
+                showDetails={showDetails}
                 handleModalOpen={handleModalOpen}
               />
             ))}

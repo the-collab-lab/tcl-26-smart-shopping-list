@@ -60,10 +60,7 @@
 }
 
 .item {
-  padding: 1rem 0.75rem 0.9375rem 0.75rem;
-  padding: 1em 0.75em 0.9375em 0.75em;
-  padding: 1rem 0.75rem 0.9375rem 0.75rem;
-  padding: 0.8125em 0.625em 0.75em 0.625em;
+  padding: 0.8125em 0.625em 0.8125em 0.625em;
   border-top: var(--border-width) solid var(--medium-gray);
 }
 
@@ -135,7 +132,7 @@
 }
 
 .details__detail {
-  margin: 0 0 0.125rem 0;
+  margin: 0.25rem 0 0 0;
 }
 
 .details_visible {
@@ -162,11 +159,6 @@
   color: var(--text-a11y-gray);
 }
 
-.details__break {
-  flex-basis: 100%;
-  height: 0;
-}
-
 @media only screen and (min-width: 400px) {
   .details {
     flex-direction: row;
@@ -174,14 +166,14 @@
   }
 
   .details__detail {
-    margin: 0 1rem 0.125rem 1rem;
+    margin: 0.25rem 1rem 0 1rem;
   }
 }
 
 @media only screen and (min-width: 600px) {
   .item__details {
     /* account for icon size, icon padding, and margin between icon and item name */
-    margin: 0.625rem 0 0 calc(var(--icon-size-lg) + 0.25rem);
+    margin: 0.75rem 0 0 calc(var(--icon-size-lg) + 0.25rem);
   }
 
   .details {
@@ -190,6 +182,6 @@
   }
 
   .details__detail {
-    margin: 0 1rem;
+    margin: 0.25rem 1rem 0 1rem;
   }
 }

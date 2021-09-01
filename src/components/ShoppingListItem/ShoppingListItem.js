@@ -40,10 +40,7 @@ const ShoppingListItem = ({
       return (
         <>
           {purchaseDate.toFormat('MMM d')}
-          <span className="details__year">
-            {' '}
-            / {purchaseDate.toFormat('yy')}
-          </span>
+          <span className="details__year"> '{purchaseDate.toFormat('yy')}</span>
         </>
       );
     } else return purchaseDate.toFormat('MMM d');
@@ -207,22 +204,6 @@ const ShoppingListItem = ({
         aria-label={`${item.itemName} details`}
       >
         <li className="details__detail">
-          <span className="details__value ">
-            {item.status === 'inactive'
-              ? [
-                  "You don't seem to be buying this. ",
-                  <button
-                    className="link_delete link"
-                    onClick={() => handleModalOpen(item)}
-                  >
-                    Delete?
-                  </button>,
-                ]
-              : ''}
-          </span>{' '}
-        </li>
-        <li className="details__break"></li>
-        <li className="details__detail">
           <span className="details__name">Purchases: </span>
           <span className="details__value">{item.numberOfPurchases}</span>
         </li>
@@ -236,16 +217,28 @@ const ShoppingListItem = ({
             </>
           )}
         </li>
-        <li className="details__detail">
-          <span className="details__name">Next purchase: </span>
-          <span className="details__value">
-            {formatDate(item.nextPurchaseDate)}
-            {console.log(item.nextPurchaseDate)}
-          </span>
-          <span className="details__value details__value-soon">
-            {item.status === 'kind-of-soon' ? 'soon!' : ''}
-          </span>
-        </li>
+        {item.status === 'inactive' ? (
+          <li className="details__detail details__detail_inactive">
+            You don't seem to be buying this.&nbsp;
+            <button
+              className="link_delete link"
+              onClick={() => handleModalOpen(item)}
+            >
+              Delete?
+            </button>
+          </li>
+        ) : (
+          // only show the next purchase date for active items
+          <li className="details__detail">
+            <span className="details__name">Next purchase: </span>
+            <span className="details__value">
+              {formatDate(item.nextPurchaseDate)}
+            </span>
+            <span className="details__value details__value-soon">
+              {item.status === 'kind-of-soon' ? 'soon!' : ''}
+            </span>
+          </li>
+        )}
       </ul>
     </li>
   );

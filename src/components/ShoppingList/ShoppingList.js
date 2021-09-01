@@ -30,6 +30,7 @@ function ShoppingList({ listId, handleModalOpen }) {
       item.id = doc.id;
       item.daysToPurchase = getDaysToPurchase(item);
       item.status = getItemStatus(item);
+      item.nextPurchaseDate = getNextPurchase(item);
       return item;
     })
     .sort(sortListItems);
@@ -43,6 +44,20 @@ function ShoppingList({ listId, handleModalOpen }) {
    *
    * @return {Number} Number of days remaining until the estimated next purchase date
    */
+  function getNextPurchase(item) {
+    if (item.lastPurchaseDate?.seconds) {
+      // if the item has been purchased before, next purchase date is `purchaseInterval` days from the lastPurchaseDate
+      return DateTime.fromSeconds(item.lastPurchaseDate.seconds).plus({
+        days: item.purchaseInterval,
+      });
+    } else if (item.createdAt?.seconds) {
+      // if there's no purchase history, estimate it will be bought `purchaseInterval` days from when item was created
+      // (user provides this info at item creation)
+      return DateTime.fromSeconds(item.createdAt.seconds).plus({
+        days: item.purchaseInterval,
+      });
+    } else return null;
+  }
   function getDaysToPurchase(item) {
     let nextPurchaseDate;
     if (item.lastPurchaseDate?.seconds) {

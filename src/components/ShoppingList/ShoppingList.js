@@ -197,12 +197,14 @@ function ShoppingList({ listItems, loading, error, listId, handleModalOpen }) {
   const createListElement = () => {
     if (listItems.empty) {
       return (
-        <>
-          <p>Your shopping list is currently empty.</p>
-          <NavLink to="/add" className="button">
-            Add Item
+        <div className="list-summary">
+          <h2 className="list-summary__heading">
+            Your shopping list is currently empty.
+          </h2>
+          <NavLink to="/add" className="link list-summary__action">
+            Add your first item
           </NavLink>
-        </>
+        </div>
       );
     } else {
       return (

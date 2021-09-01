@@ -31,6 +31,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --main-accent-color: #3d9645; /* sample accent color, a11y: passes AA for 18px text */
   --main-accent-color-light: #d2ecd4;
   --main-accent-a11y-text: #2a8032; /* passes AA for 16pt text */
+  --main-accent-color-dark: #187b21;
   --highlight-color: #ffc62e; /* sample highlight color, used for key nav focus outlines */
   --warning-color: #c3360b; /* a11y: passes AA at 16 px */
   --warning-color-focus: #a12d0a; /* focus/hover alternative */
@@ -38,7 +39,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --warning-color-dark-mode: #cc6242;
 
   /* icons must have contrast of 3:1 according to WCAG */
-  --item-soon-color: #187b21;
+  --item-soon-color: var(--main-accent-color-dark);
   --item-kind-of-soon-color: #308b37; /* passes AA at 18px + bold */
   --item-not-soon-color: #48ad51;
   --item-inactive-color: #8e8d96;

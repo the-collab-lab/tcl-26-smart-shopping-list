@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import firebase from 'firebase/app';
 import { db } from '../../lib/firebase.js';
-import { useCollection } from 'react-firebase-hooks/firestore';
 
 import calculateEstimate from '../../lib/estimates.js';
 import { DateTime } from 'luxon';
@@ -11,11 +10,7 @@ import { DateTime } from 'luxon';
 import ItemFilter from '../ItemFilter/ItemFilter.js';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
-function ShoppingList({ listId, handleModalOpen }) {
-  const [listItems, loading, error] = useCollection(
-    db.collection(`lists/${listId}/items`),
-  );
-
+function ShoppingList({ listItems, loading, error, listId, handleModalOpen }) {
   const [filter, setFilter] = useState('');
 
   const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
@@ -58,6 +53,7 @@ function ShoppingList({ listId, handleModalOpen }) {
       });
     } else return null;
   }
+
   function getDaysToPurchase(item) {
     let nextPurchaseDate;
     if (item.lastPurchaseDate?.seconds) {
@@ -217,7 +213,7 @@ function ShoppingList({ listId, handleModalOpen }) {
   const createListElement = () => {
     if (listItems.empty) {
       return (
-        <div className="list-summary">
+        <div className="list-summary list-summary_empty">
           <h2 className="list-summary__heading">
             Your shopping list is currently empty.
           </h2>

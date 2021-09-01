@@ -1,14 +1,17 @@
 .list-header {
   display: grid;
   grid-template:
-    'logo share-toggle'
+    'main share-toggle'
     'share-token share-token';
   align-items: start;
   justify-content: space-between;
 }
 
+.list-header__main {
+  grid-area: main;
+}
+
 .list-header__logo {
-  grid-area: logo;
   margin: 0;
   font-size: 1.75rem;
 }
@@ -26,8 +29,8 @@
   .list-header {
     display: grid;
     grid-template:
-      'logo share-toggle'
-      'logo share-token';
+      'main share-toggle'
+      'main share-token';
     grid-template-columns: max-content min-content;
   }
 

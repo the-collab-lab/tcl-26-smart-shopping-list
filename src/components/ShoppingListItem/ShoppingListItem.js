@@ -235,7 +235,7 @@ const ShoppingListItem = ({
               {formatDate(item.nextPurchaseDate)}
             </span>
             <span className="details__value details__value-soon">
-              {item.status === 'kind-of-soon' ? 'soon!' : ''}
+              {item.status === 'soon' ? 'soon!' : ''}
             </span>
           </li>
         )}

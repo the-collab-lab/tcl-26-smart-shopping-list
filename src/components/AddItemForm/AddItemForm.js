@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
 
 import firebase from 'firebase/app';
-import { db } from '../../lib/firebase.js';
 
-const AddItemForm = ({ listId }) => {
+import './AddItemForm.css';
+
+const AddItemForm = ({ db, listId }) => {
   /** Default Values **/
   const defaultFormValues = {
     itemName: '',

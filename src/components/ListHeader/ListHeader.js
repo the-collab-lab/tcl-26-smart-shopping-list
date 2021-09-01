@@ -31,7 +31,11 @@ const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
                 '.',
               ]}
             </h2>
-            <button type="button" className="link" onClick={toggleDetailView}>
+            <button
+              type="button"
+              className="link list-summary__action"
+              onClick={toggleDetailView}
+            >
               {/* when showAllDetails is false (they're all collapsed), 'Show all item details') */}
               {!showAllDetails
                 ? 'Show all item details'

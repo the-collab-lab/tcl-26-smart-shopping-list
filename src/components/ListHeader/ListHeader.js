@@ -19,17 +19,11 @@ const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
         ) : (
           <div className="list-summary list-header__count">
             <h2 className="list-summary__heading">
-              {[
-                'You have ',
-                <strong className="strong list-summary__strong">
-                  {listItems?.docs.length} items
-                </strong>,
-                <span className="list-summary__extra">
-                  {' '}
-                  on your shopping list
-                </span>,
-                '.',
-              ]}
+              You have
+              <strong className="strong list-summary__strong">
+                {listItems?.docs.length} items
+              </strong>{' '}
+              <span className="list-summary__extra">on your shopping list</span>
             </h2>
             <button type="button" className="link" onClick={toggleDetailView}>
               {/* when showAllDetails is false (they're all collapsed), 'Show all item details') */}

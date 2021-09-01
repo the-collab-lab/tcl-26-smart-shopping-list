@@ -3,7 +3,7 @@ import './ItemFilter.css';
 
 const ItemFilter = ({ filter, setFilter }) => {
   return (
-    <div className="filter form-group">
+    <div className="list-view__filter filter form-group">
       <label htmlFor="filterInput" className="form-group__label label">
         Filter items
       </label>

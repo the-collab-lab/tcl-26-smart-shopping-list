@@ -22,9 +22,8 @@ const ListHeader = ({ listItems, token }) => {
               {[
                 'You have ',
                 <strong className="strong list-summary__strong">
-                  {listItems?.docs.length}
+                  {listItems?.docs.length} items
                 </strong>,
-                ' items',
                 <span className="list-summary__extra">
                   {' '}
                   on your shopping list

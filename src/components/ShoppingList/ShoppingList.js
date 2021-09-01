@@ -213,7 +213,7 @@ function ShoppingList({ listItems, loading, error, listId, handleModalOpen }) {
   const createListElement = () => {
     if (listItems.empty) {
       return (
-        <div className="list-summary list-summary_empty">
+        <div className="list-view__empty list-summary">
           <h2 className="list-summary__heading">
             Your shopping list is currently empty.
           </h2>

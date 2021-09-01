@@ -15,7 +15,7 @@ function ShoppingList({
   loading,
   error,
   listId,
-  showDetails,
+  showAllDetails,
   toggleDetailView,
   handleModalOpen,
 }) {
@@ -242,7 +242,7 @@ function ShoppingList({
                 item={item}
                 checkAsPurchased={checkAsPurchased}
                 uncheckAsPurchased={uncheckAsPurchased}
-                showDetails={showDetails}
+                showAllDetails={showAllDetails}
                 handleModalOpen={handleModalOpen}
               />
             ))}

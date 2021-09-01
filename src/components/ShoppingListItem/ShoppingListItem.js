@@ -16,13 +16,13 @@ const ShoppingListItem = ({
   item,
   checkAsPurchased,
   uncheckAsPurchased,
-  showDetails,
+  showAllDetails,
   handleModalOpen,
 }) => {
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
 
-  const [showSingleDetail, setShowSingleDetail] = useState(showDetails);
+  const [showSingleDetail, setShowSingleDetail] = useState(false);
 
   //Date variables for details view
 
@@ -105,6 +105,11 @@ const ShoppingListItem = ({
     );
   }, [item]);
 
+  // change whether the item details are shown if showAllDetails is changed
+  useEffect(() => {
+    setShowSingleDetail(showAllDetails);
+  }, [showAllDetails]);
+
   return (
     <li className="shopping-list__item item" id={`item-${item.id}`}>
       <div className="item__primary">
@@ -149,7 +154,7 @@ const ShoppingListItem = ({
           aria-label={`${item.itemName} details`}
           className="item__details-button icon-only-button"
           aria-controls={`item-details-${item.id}`}
-          aria-expanded={showDetails}
+          aria-expanded={showSingleDetail}
         >
           <DetailsIcon aria-hidden="true" focusable="false" />
         </button>
@@ -182,7 +187,7 @@ const ShoppingListItem = ({
       <ul
         role="region"
         className={`item__details details ${
-          showDetails ? 'details_visible' : ''
+          showSingleDetail ? 'details_visible' : ''
         } list-reset`}
         id={`item-details-${item.id}`}
         aria-label={`${item.itemName} details`}

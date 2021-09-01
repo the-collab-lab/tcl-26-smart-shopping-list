@@ -14,10 +14,10 @@ const ListView = ({ listId, handleModalOpen, token }) => {
     db.collection(`lists/${listId}/items`),
   );
 
-  const [showDetails, setShowDetails] = useState(false);
+  const [showAllDetails, setShowAllDetails] = useState(false);
 
   const toggleDetailView = () => {
-    setShowDetails(!showDetails);
+    setShowAllDetails(!showAllDetails);
   };
 
   return (
@@ -39,7 +39,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
           loading={loading}
           error={error}
           listId={listId}
-          showDetails={showDetails}
+          showAllDetails={showAllDetails}
           handleModalOpen={handleModalOpen}
         />
       </main>

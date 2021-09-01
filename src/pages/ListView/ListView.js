@@ -11,6 +11,7 @@ import Loader from '../../components/Loader/Loader';
 import ListHeader from '../../components/ListHeader/ListHeader';
 import ItemFilter from '../../components/ItemFilter/ItemFilter.js';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
+import ShoppingListEmpty from '../../components/ShoppingListEmpty/ShoppingListEmpty';
 import AddItemForm from '../../components/AddItemForm/AddItemForm';
 
 const ListView = ({ listId, handleModalOpen, token }) => {
@@ -165,14 +166,9 @@ const ListView = ({ listId, handleModalOpen, token }) => {
 
           <main className="list-view__main">
             {listItems.empty ? (
-              <div className="list-view__empty list-summary">
-                <h2 className="list-summary__heading">
-                  Your shopping list is currently empty.
-                </h2>
-                <button className="link list-summary__action">
-                  Add your first item
-                </button>
-              </div>
+              <ShoppingListEmpty
+                openAddPanel={() => console.log('open add panel')}
+              />
             ) : (
               <>
                 <ItemFilter filter={filter} setFilter={setFilter} />

@@ -2,7 +2,9 @@ import { Helmet } from 'react-helmet';
 import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
-import Header from '../../components/Header/Header';
+import './ListView.css';
+
+import ListHeader from '../../components/ListHeader/ListHeader';
 import NavMenu from '../../components/NavMenu/NavMenu';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
 
@@ -14,9 +16,10 @@ const ListView = ({ listId, handleModalOpen, token }) => {
   return (
     <div className="list-view">
       <Helmet>
-        <title>Your List - Smart Shopping List</title>
+        <title>Your Shopping List - Peasy</title>
+        <style>{':root { background-color: var(--light-gray); }'}</style>
       </Helmet>
-      <Header listItems={listItems} token={token} />
+      <ListHeader listItems={listItems} token={token} />
 
       <main className="container__main">
         <ShoppingList

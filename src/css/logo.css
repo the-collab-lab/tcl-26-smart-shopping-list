@@ -1,12 +1,10 @@
+/* Global logo styles */
 /* relative em units important for sizing everything based on text size of logo */
 
 .logo {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-left: 2.125em;
-  margin-top: 1rem;
+  padding: 0 1em 0 2.625em; /* balance logo padding when centered */
+  margin: 1rem auto 0 auto; /* center on vertical screens */
   font-family: var(--logo-font);
   font-size: 1.25rem;
 }
@@ -30,8 +28,12 @@
 
 /* Modifier for bigger logo on home page */
 .logo_home {
-  padding-left: 4em;
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 3.875em;
+  padding: 0 0 0 3.875em; /* balance logo padding when centered */
+  margin: 2rem 0 0 0;
   font-size: 1.5rem;
 }
 
@@ -62,12 +64,13 @@
 /* styles for larger devices, wider than tall */
 @media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
   .logo {
-    display: block;
-    padding-left: 2.625em;
-    margin-top: 0;
+    left: -2.625em;
+    padding: 0 0 0 2.625em;
+    margin: 0; /* undo centering */
   }
 
   .logo_home {
+    display: block;
     font-size: 1.375rem;
   }
 
@@ -79,7 +82,8 @@
     width: auto;
   }
 
-  .logo__image {
+  .logo__image,
+  .logo__image_home {
     top: 0;
     left: 0;
     width: 1em;
@@ -88,11 +92,6 @@
 
   /* size logo relative to viewport after minimum 600px */
   @media only screen and (min-height: 600px) {
-    .logo {
-      left: -2.625em;
-      font-size: 2.75vh;
-    }
-
     .logo_home {
       font-size: 3.75vh;
     }

@@ -10,29 +10,62 @@
 }
 
 .share-toggle-button {
-  width: calc(var(--icon-size-lg) + 0.5rem);
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  padding: 0 0.5rem 0.5rem 0.5rem; /* expands clickable area */
+  margin: 0 0 0 auto;
+}
+
+.share-toggle-button,
+.share-toggle-button:hover,
+.share-toggle-button:focus {
+  background: none;
+  border: none;
+}
+
+.share-toggle-button:hover,
+.share-toggle-button:focus {
+  color: var(--main-accent-color);
 }
 
 .share-icon {
-  width: var(--icon-size-lg);
-  height: var(--icon-size-lg);
+  fill: currentColor;
 }
 
-.share-token__heading {
+.share-toggle-button__icon {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+  margin: 0 1rem -0.1875rem auto;
+  justify-self: center;
+}
+
+.share-toggle-button__strong {
+  margin: 0;
+  font-family: var(--logo-font);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.625;
+}
+
+.share-toggle-button__hint {
   grid-column: 1 / 3;
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1.5;
-  margin: 0 0 0.25rem 0;
-  display: block;
+  max-width: 10rem;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--charcoal);
+  text-align: center;
+}
+
+.share-token {
+  text-align: center;
 }
 
 .share-token__token {
   padding-left: 2rem;
   font-size: 1.125rem;
-  font-style: italic;
   text-align: center;
-  background: #fff;
+  background-color: var(--main-accent-color-light) !important;
 }
 
 .copy-icon {
@@ -84,21 +117,8 @@
 @media only screen and (min-width: 800px) {
   .share-token {
     display: block;
-    width: 13.75rem;
     padding: 0;
     background: none;
-  }
-
-  .share-toggle-button {
-    display: none;
-  }
-
-  .share-token__heading {
-    grid-column: 1 / 3;
-    margin: 0 0 0.25rem 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 1.5;
   }
 
   .share-token__token {

@@ -4,16 +4,54 @@
   max-width: 1000px;
   padding: 1.25rem;
   margin: 0 auto;
+  font-size: 1.25rem;
   background: var(--light-gray);
 }
 
-.list-summary_empty {
+.list-view__main {
+  margin: 2rem 0 0 0;
+}
+
+.list-view__filter {
+  margin: 0 0 2rem 0;
+}
+
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  .list-view__filter {
+    margin: 0 130px 2rem 0;
+  }
+}
+
+.list-view__empty {
+  max-width: 20rem; /* so it doesn't break weirdly on amaller mobile */
+  margin: 3rem auto 0 auto;
   text-align: center;
 }
 
+@media only screen and (min-width: 500px) {
+  .list-view__empty {
+    max-width: none;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .list-view__empty {
+    margin: 6rem 0 0 2.625em;
+    text-align: left;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .list-view__header,
+  .list-view__empty {
+    font-size: 1.5rem;
+  }
+}
+
+/* Reusable block for heading plus action links (used in empty list and item count) */
 .list-summary__heading {
   padding: 0;
-  margin: 0 0 0.25em 0;
+  margin: 0;
   font-size: 1.125em;
   font-weight: 300;
   line-height: 1.125;
@@ -30,7 +68,21 @@
 
 .list-summary__action {
   font-size: 1rem;
+  line-height: 1;
+  height: auto;
   color: var(--main-accent-a11y-text);
+}
+
+.list-summary__action:before {
+  content: '|';
+  display: inline-block;
+  margin: 0 0.75em;
+  font-weight: 400;
+  color: var(--icon-a11y-gray);
+}
+
+.list-summary__action:nth-child(2):before {
+  display: none;
 }
 
 @media only screen and (min-width: 650px) {
@@ -40,17 +92,6 @@
 }
 
 @media only screen and (min-width: 800px) {
-  .list-summary {
-    text-align: left;
-  }
-
-  .list-summary__heading {
-    padding: 0;
-    margin: 0 0 0.25em 0;
-    font-weight: 300;
-    line-height: 1.125;
-  }
-
   .list-summary__action {
     font-size: 1.125rem;
     color: var(--main-accent-color);

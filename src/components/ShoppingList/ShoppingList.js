@@ -13,6 +13,12 @@ import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 function ShoppingList({ listItems, loading, error, listId, handleModalOpen }) {
   const [filter, setFilter] = useState('');
 
+  const [showDetails, setShowDetails] = useState(false);
+
+  const toggleDetailView = () => {
+    setShowDetails(!showDetails);
+  };
+
   const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
 
   // format the data from firestore into a sorted, filtered array of items
@@ -218,6 +224,8 @@ function ShoppingList({ listItems, loading, error, listId, handleModalOpen }) {
                 item={item}
                 checkAsPurchased={checkAsPurchased}
                 uncheckAsPurchased={uncheckAsPurchased}
+                showDetails={showDetails}
+                toggleDetailView={toggleDetailView}
                 handleModalOpen={handleModalOpen}
               />
             ))}

@@ -4,6 +4,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 import './ListView.css';
 
+import Loader from '../../components/Loader/Loader';
 import ListHeader from '../../components/ListHeader/ListHeader';
 import NavMenu from '../../components/NavMenu/NavMenu';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
@@ -19,11 +20,8 @@ const ListView = ({ listId, handleModalOpen, token }) => {
         <title>Your Shopping List - Peasy</title>
         <style>{':root { background-color: var(--light-gray); }'}</style>
       </Helmet>
-      {loading && (
-        <div className="shopping-list__notice notice notice_type_loading">
-          Loading...
-        </div>
-      )}
+
+      {loading && <Loader />}
 
       {error && (
         <div className="shopping-list__notice notice notice_type_error">

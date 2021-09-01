@@ -5,7 +5,6 @@
     'main'
     'share-token';
   align-items: start;
-  font-size: 1.25rem;
 }
 
 .list-header__main {
@@ -44,11 +43,5 @@
 
   .list-header__share-token {
     margin: 0;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .list-header {
-    font-size: 1.5rem;
   }
 }

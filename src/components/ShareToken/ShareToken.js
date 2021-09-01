@@ -9,6 +9,7 @@ import { ReactComponent as CheckIcon } from '../../images/icon-checkbox.svg';
 const ShareToken = ({ token }) => {
   const [showMobileShare, setShowMobileShare] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [showDesktopShare, setDesktopShare] = useState(false);
 
   function copyToken() {
     navigator.clipboard
@@ -22,6 +23,10 @@ const ShareToken = ({ token }) => {
         console.log(err);
       });
   }
+
+  const showTokenDesktop = () => {
+    setDesktopShare(showDesktopShare ? false : true);
+  };
 
   return (
     <>
@@ -47,7 +52,7 @@ const ShareToken = ({ token }) => {
       </button>
 
       <div
-        className={`share-token list-header__share-token ${
+        className={`share-token list-header__share-token, share-token_desktop_show ${
           showMobileShare ? 'share-token_mobile_show' : ''
         }`}
         id="share-token"

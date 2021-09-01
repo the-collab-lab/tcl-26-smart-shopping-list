@@ -5,15 +5,16 @@
   background: var(--light-gray);
 }
 
-.share-token_mobile_show {
+.share-token_mobile_show,
+.share-token_desktop_show {
   display: block;
 }
 
 .share-toggle-button {
+  align-self: center;
   display: grid;
   grid-template-columns: auto auto;
   justify-items: center;
-  padding: 0 0.5rem 0.5rem 0.5rem; /* expands clickable area */
   margin: 0 0 0 auto;
 }
 
@@ -24,9 +25,13 @@
   border: none;
 }
 
-.share-toggle-button:hover,
-.share-toggle-button:focus {
+.share-toggle-button:hover {
   color: var(--main-accent-color);
+}
+
+.share-toggle-button:focus-visible {
+  border-radius: 3px;
+  box-shadow: 0 0 0 3px var(--highlight-color);
 }
 
 .share-icon {
@@ -34,27 +39,40 @@
 }
 
 .share-toggle-button__icon {
+  justify-self: center;
   width: var(--icon-size-lg);
   height: var(--icon-size-lg);
-  margin: 0 1rem -0.1875rem auto;
-  justify-self: center;
+  margin: 0 0 -0.1875rem auto;
 }
 
 .share-toggle-button__strong {
-  margin: 0;
+  display: none;
+  margin: 0.5rem 0 0.125rem 0;
   font-family: var(--logo-font);
   font-size: 1.5rem;
   font-weight: 400;
-  line-height: 1.625;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .share-toggle-button__hint {
   grid-column: 1 / 3;
   max-width: 10rem;
+  margin: 0.5rem 0 0 0;
   font-weight: 400;
   font-size: 0.875rem;
   color: var(--charcoal);
   text-align: center;
+  /* make visually hidden on smaller screens */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.share-toggle-button_desktop_expanded .share-toggle-button__hint {
+  display: none;
 }
 
 .share-token {
@@ -115,10 +133,31 @@
 }
 
 @media only screen and (min-width: 800px) {
-  .share-token {
+  .share-toggle-button__icon {
+    margin: 0 1rem -0.1875rem auto;
+  }
+
+  .share-toggle-button__strong {
     display: block;
+  }
+
+  .share-toggle-button__hint {
+    /* undo visually hidden for larger screens */
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .share-token {
     padding: 0;
+    margin: 0.5rem 0 0 0;
     background: none;
+  }
+
+  .share-token_mobile_show {
+    display: none;
   }
 
   .share-token__token {

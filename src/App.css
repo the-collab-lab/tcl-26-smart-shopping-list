@@ -103,7 +103,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   color: var(--charcoal);
 }
 
-.link:focus-within {
+.link:focus-visible {
   border-radius: 3px;
   box-shadow: 0 0 0 3px var(--highlight-color);
 }

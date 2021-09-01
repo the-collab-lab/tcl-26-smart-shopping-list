@@ -7,6 +7,12 @@
   justify-content: space-between;
 }
 
+.list-header__logo {
+  grid-area: logo;
+  margin: 0;
+  font-size: 1.75rem;
+}
+
 .list-header__share-toggle-button {
   grid-area: share-toggle;
 }
@@ -16,23 +22,13 @@
   margin: 1.25rem 0 0.25rem 0;
 }
 
-.list-header__welcome {
-  margin: 0;
-  font-size: 36px;
-}
-
-.list-header__logo {
-  grid-area: logo;
-  margin: 0;
-  font-size: 1.75rem;
-}
-
 @media only screen and (min-width: 800px) {
   .list-header {
     display: grid;
     grid-template:
       'logo share-toggle'
       'logo share-token';
+    grid-template-columns: max-content min-content;
   }
 
   .list-header__share-token {

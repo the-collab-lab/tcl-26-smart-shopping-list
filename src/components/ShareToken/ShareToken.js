@@ -31,6 +31,7 @@ const ShareToken = ({ token }) => {
         className="button list-header__share-toggle-button share-toggle-button"
         aria-expanded={showMobileShare}
         aria-controls="share-token"
+        aria-label="Share list"
       >
         <ShareIcon
           aria-hidden="true"

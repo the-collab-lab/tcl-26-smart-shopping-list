@@ -24,18 +24,30 @@ const ShoppingListItem = ({
 
   const [showSingleDetail, setShowSingleDetail] = useState(false);
 
-  //Date variables for details view
-
-  //Last Purchase
-  let purchasedDate;
-  if (item.lastPurchaseDate?.seconds) {
-    purchasedDate = DateTime.fromSeconds(item.lastPurchaseDate?.seconds);
-  } else {
-    purchasedDate = DateTime.fromSeconds(item.createdAt?.seconds);
-  }
-
   const currentYear = DateTime.now().toFormat('yyyy');
-  const purchasedYear = purchasedDate.toFormat('yyyy');
+
+  const formatDate = (unformattedDate) => {
+    let purchaseDate;
+    if (unformattedDate instanceof DateTime)
+      // if it's a Luxon date already, we're good to go
+      purchaseDate = unformattedDate;
+    else if (unformattedDate?.seconds) {
+      // if it's from Firestore, make it a Luxon date
+      purchaseDate = DateTime.fromSeconds(unformattedDate?.seconds);
+    } else return ''; // otherwise, just return an empty string
+
+    if (currentYear !== purchaseDate.toFormat('yyyy')) {
+      return (
+        <>
+          {purchaseDate.toFormat('MMM d')}
+          <span className="details__year">
+            {' '}
+            / {purchaseDate.toFormat('yy')}
+          </span>
+        </>
+      );
+    } else return purchaseDate.toFormat('MMM d');
+  };
 
   const itemUncheckWarningMessage =
     'You already purchased this in the last 24 hours';
@@ -215,19 +227,20 @@ const ShoppingListItem = ({
           <span className="details__value">{item.numberOfPurchases}</span>
         </li>
         <li className="details__detail">
-          <span className="details__name">Last purchase:</span>
-          <span className="details__value">
-            {currentYear !== purchasedYear
-              ? purchasedDate.toFormat('MMM dd, yyyy')
-              : purchasedDate.toFormat('MMM dd')}
-          </span>
+          {item.lastPurchaseDate && ( // if the item has been purchased before
+            <>
+              <span className="details__name">Last purchase:</span>
+              <span className="details__value">
+                {formatDate(item.lastPurchaseDate)}
+              </span>
+            </>
+          )}
         </li>
         <li className="details__detail">
           <span className="details__name">Next purchase: </span>
           <span className="details__value">
-            {currentYear !== purchasedYear
-              ? item.nextPurchaseDate.toFormat('MMM dd, yyyy')
-              : item.nextPurchaseDate.toFormat('MMM dd')}
+            {formatDate(item.nextPurchaseDate)}
+            {console.log(item.nextPurchaseDate)}
           </span>
           <span className="details__value details__value-soon">
             {item.status === 'kind-of-soon' ? 'soon!' : ''}

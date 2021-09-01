@@ -30,6 +30,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
       <ListHeader
         listItems={listItems}
         toggleDetailView={toggleDetailView}
+        showAllDetails={showAllDetails}
         token={token}
       />
 

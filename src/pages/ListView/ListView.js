@@ -19,20 +19,33 @@ const ListView = ({ listId, handleModalOpen, token }) => {
         <title>Your Shopping List - Peasy</title>
         <style>{':root { background-color: var(--light-gray); }'}</style>
       </Helmet>
+      {loading && (
+        <div className="shopping-list__notice notice notice_type_loading">
+          Loading...
+        </div>
+      )}
 
-      <ListHeader listItems={listItems} token={token} />
+      {error && (
+        <div className="shopping-list__notice notice notice_type_error">
+          Sorry, something went wrong!
+        </div>
+      )}
 
-      <main className="list-view__main">
-        <ShoppingList
-          listItems={listItems}
-          loading={loading}
-          error={error}
-          listId={listId}
-          handleModalOpen={handleModalOpen}
-        />
-      </main>
+      {!loading && (
+        <>
+          <ListHeader listItems={listItems} token={token} />
 
-      <NavMenu />
+          <main className="list-view__main">
+            <ShoppingList
+              listItems={listItems}
+              listId={listId}
+              handleModalOpen={handleModalOpen}
+            />
+          </main>
+
+          <NavMenu />
+        </>
+      )}
     </div>
   );
 };

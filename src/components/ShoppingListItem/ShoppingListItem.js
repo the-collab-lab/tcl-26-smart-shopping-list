@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { DateTime } from 'luxon';
 
 import {
   isRecentlyPurchased,
@@ -17,9 +18,27 @@ const ShoppingListItem = ({
   uncheckAsPurchased,
   handleModalOpen,
 }) => {
+  console.log(item);
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
   const [showDetails, setShowDetails] = useState(false);
+
+  //Get next purchase date
+
+  //Date variables for details view
+
+  //Last Purchase
+  let purchasedDate;
+  if (item.lastPurchaseDate?.seconds) {
+    purchasedDate = DateTime.fromSeconds(item.lastPurchaseDate?.seconds);
+  } else {
+    purchasedDate = DateTime.fromSeconds(item.createdAt?.seconds);
+  }
+
+  //Next Purchase
+
+  const currentYear = DateTime.now().toFormat('yyyy');
+  const purchasedYear = purchasedDate.toFormat('yyyy');
 
   const itemUncheckWarningMessage =
     'You already purchased this in the last 24 hours';
@@ -176,8 +195,12 @@ const ShoppingListItem = ({
           <span className="details__value">{item.numberOfPurchases}</span>
         </li>
         <li className="details__detail">
-          <span className="details__name">Last purchase: </span>
-          <span className="details__value">Aug 11</span>
+          <span className="details__name">Last purchase:</span>
+          <span className="details__value">
+            {currentYear !== purchasedYear
+              ? purchasedDate.toFormat('MMMM dd, yyyy')
+              : purchasedDate.toFormat('MMMM dd')}
+          </span>
         </li>
         <li className="details__detail">
           <span className="details__name">Next purchase: </span>

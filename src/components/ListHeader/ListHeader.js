@@ -3,11 +3,7 @@ import peasyLogoMark from '../../images/peasy-logomark.svg';
 
 import ShareToken from '../ShareToken/ShareToken.js';
 
-const ListHeader = ({ token }) => {
-  const showAllItemDetails = () => {
-    console.log('clicked!');
-  };
-
+const ListHeader = ({ toggleDetailView, token }) => {
   return (
     <header className="list-view__header list-header">
       <div className="list-header__logo logo">
@@ -17,7 +13,7 @@ const ListHeader = ({ token }) => {
         </h1>
       </div>
 
-      <button type="button" className="link" onClick={showAllItemDetails}>
+      <button type="button" className="link" onClick={toggleDetailView}>
         Show all item details
       </button>
 

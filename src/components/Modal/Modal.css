@@ -24,21 +24,21 @@
 
 .dialog__modal {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   flex-wrap: wrap;
-  max-width: 600px;
-  padding: 2rem 1rem;
+  max-width: 500px;
+  padding: 1.25rem 1rem 2rem 1rem;
   margin: 1rem;
   box-sizing: border-box;
   background: #fff;
-  border-radius: var(--container-border-radius);
+  border-radius: var(--ui-border-radius);
 }
 
 .dialog__heading {
   flex-basis: 100%;
   padding: 0;
-  margin: 0 1rem 1rem 1rem; /* side margins to allow for button gap only when room */
+  margin: 0.5em 0.5em 1em 0.5em; /* side margins to allow for button gap only when room */
   font-size: 1.25rem;
   font-weight: 400;
   text-align: center;
@@ -53,15 +53,28 @@
   margin: 1rem 1rem 0 1rem; /* side margins to allow for button gap only when room */
 }
 
+/* put the buttons side-by-side when there's room */
+@media only screen and (min-width: 480px) {
+  .dialog__modal {
+    flex-direction: row;
+  }
+}
+
 @media only screen and (min-width: 600px) {
   .dialog__modal {
+    padding: 1.75rem 1.5rem 2.5rem 1.5rem;
     margin: 20vh 4rem 4rem 4rem;
   }
 
   .dialog {
     align-items: flex-start;
   }
+}
 
+@media only screen and (min-width: 1600px) {
+  .dialog__modal {
+    max-width: 600px;
+  }
   .dialog__heading {
     font-size: 1.5rem;
   }

@@ -30,7 +30,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
   --main-accent-color: #3d9645; /* sample accent color, a11y: passes AA for 18px text */
   --main-accent-color-light: #d2ecd4;
-  --main-accent-color-dark: #187b21;
+  --main-accent-a11y-text: #2a8032; /* passes AA for 16pt text */
   --highlight-color: #ffc62e; /* sample highlight color, used for key nav focus outlines */
   --warning-color: #c3360b; /* a11y: passes AA at 16 px */
   --warning-color-focus: #a12d0a; /* focus/hover alternative */
@@ -51,7 +51,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
   --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */
   --ui-border-radius: 18px; /* for buttons, text fields */
-  --container-border-radius: 40px; /* for modals, panels, etc. */
+  --container-border-radius: 18px; /* for panels, etc. */
 
   --icon-size-sm: 28px;
   --icon-size-lg: 32px;
@@ -60,7 +60,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --input-bg-color: var(--medium-gray);
   --input-focus-color: var(--main-accent-color-light);
 
-  --overlay-background: rgba(0, 0, 0, 0.3);
+  --overlay-background: rgba(42, 41, 51, 0.5);
 
   --transition-timing: 0.25s ease-in-out; /* consistent transitions on UI elements */
 

@@ -23,7 +23,7 @@
 
 .list-header__share-toggle-button {
   position: absolute;
-  top: 0;
+  top: 0.5rem;
   right: 0;
 }
 
@@ -51,6 +51,11 @@
   }
 
   .list-header__share-token {
+    grid-area: share-token;
+    margin: 0 0.375rem 0.25rem 1rem;
+  }
+
+  .list-header__share-token-hint {
     grid-area: share-token;
   }
 }

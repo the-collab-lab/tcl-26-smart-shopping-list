@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { DateTime } from 'luxon';
 
 import {
   isRecentlyPurchased,
@@ -15,10 +16,35 @@ const ShoppingListItem = ({
   item,
   checkAsPurchased,
   uncheckAsPurchased,
+  showAllDetails,
   handleModalOpen,
 }) => {
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
   const [itemNotice, setItemNotice] = useState({});
+
+  const [showSingleDetail, setShowSingleDetail] = useState(false);
+
+  const currentYear = DateTime.now().toFormat('yyyy');
+
+  const formatDate = (unformattedDate) => {
+    let purchaseDate;
+    if (unformattedDate instanceof DateTime)
+      // if it's a Luxon date already, we're good to go
+      purchaseDate = unformattedDate;
+    else if (unformattedDate?.seconds) {
+      // if it's from Firestore, make it a Luxon date
+      purchaseDate = DateTime.fromSeconds(unformattedDate?.seconds);
+    } else return ''; // otherwise, just return an empty string
+
+    if (currentYear !== purchaseDate.toFormat('yyyy')) {
+      return (
+        <>
+          {purchaseDate.toFormat('MMM d')}
+          <span className="details__year"> '{purchaseDate.toFormat('yy')}</span>
+        </>
+      );
+    } else return purchaseDate.toFormat('MMM d');
+  };
 
   const itemUncheckWarningMessage =
     'You already purchased this in the last 24 hours';
@@ -88,6 +114,11 @@ const ShoppingListItem = ({
     );
   }, [item]);
 
+  // change whether the item details are shown if showAllDetails is changed
+  useEffect(() => {
+    setShowSingleDetail(showAllDetails);
+  }, [showAllDetails]);
+
   return (
     <li className="shopping-list__item item" id={`item-${item.id}`}>
       <div className="item__primary">
@@ -128,8 +159,13 @@ const ShoppingListItem = ({
         </label>
         <button
           type="button"
+          onClick={() => setShowSingleDetail(!showSingleDetail)}
           aria-label={`${item.itemName} details`}
-          className="item__details-button icon-only-button"
+          className={`item__details-button ${
+            showSingleDetail ? 'item__details-button_expanded' : ''
+          } icon-only-button`}
+          aria-controls={`item-details-${item.id}`}
+          aria-expanded={showSingleDetail}
         >
           <DetailsIcon aria-hidden="true" focusable="false" />
         </button>
@@ -158,6 +194,52 @@ const ShoppingListItem = ({
       >
         {itemNotice?.message && itemNotice.message}
       </div>
+
+      <ul
+        role="region"
+        className={`item__details details ${
+          showSingleDetail ? 'details_visible' : ''
+        } list-reset`}
+        id={`item-details-${item.id}`}
+        aria-label={`${item.itemName} details`}
+      >
+        <li className="details__detail">
+          <span className="details__name">Purchases: </span>
+          <span className="details__value">{item.numberOfPurchases}</span>
+        </li>
+        <li className="details__detail">
+          {item.lastPurchaseDate && ( // if the item has been purchased before
+            <>
+              <span className="details__name">Last purchase:</span>
+              <span className="details__value">
+                {formatDate(item.lastPurchaseDate)}
+              </span>
+            </>
+          )}
+        </li>
+        {item.status === 'inactive' ? (
+          <li className="details__detail details__detail_inactive">
+            You don't seem to be buying this.&nbsp;
+            <button
+              className="link_delete link"
+              onClick={() => handleModalOpen(item)}
+            >
+              Delete?
+            </button>
+          </li>
+        ) : (
+          // only show the next purchase date for active items
+          <li className="details__detail">
+            <span className="details__name">Next purchase: </span>
+            <span className="details__value">
+              {formatDate(item.nextPurchaseDate)}
+            </span>
+            <span className="details__value details__value-soon">
+              {item.status === 'soon' ? 'soon!' : ''}
+            </span>
+          </li>
+        )}
+      </ul>
     </li>
   );
 };

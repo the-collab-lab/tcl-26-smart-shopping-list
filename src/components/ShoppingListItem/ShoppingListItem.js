@@ -174,6 +174,7 @@ const ShoppingListItem = ({
           onClick={() => handleModalOpen(item)}
           aria-controls={`item-${item.id}`} // destructive delete controls shopping list item id
           aria-label={`Delete ${item.itemName}`}
+          aria-haspopup="true"
           className="item__delete-button icon-only-button"
         >
           <DeleteIcon aria-hidden="true" focusable="false" />
@@ -223,6 +224,7 @@ const ShoppingListItem = ({
             <button
               className="link_delete link"
               onClick={() => handleModalOpen(item)}
+              aria-haspopup="true"
             >
               Delete?
             </button>

@@ -5,6 +5,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 import './ListView.css';
 
+import Loader from '../../components/Loader/Loader';
 import ListHeader from '../../components/ListHeader/ListHeader';
 import NavMenu from '../../components/NavMenu/NavMenu';
 import ShoppingList from '../../components/ShoppingList/ShoppingList';
@@ -27,25 +28,35 @@ const ListView = ({ listId, handleModalOpen, token }) => {
         <style>{':root { background-color: var(--light-gray); }'}</style>
       </Helmet>
 
-      <ListHeader
-        listItems={listItems}
-        toggleDetailView={toggleDetailView}
-        showAllDetails={showAllDetails}
-        token={token}
-      />
+      {loading && <Loader />}
 
-      <main className="list-view__main">
-        <ShoppingList
-          listItems={listItems}
-          loading={loading}
-          error={error}
-          listId={listId}
-          showAllDetails={showAllDetails}
-          handleModalOpen={handleModalOpen}
-        />
-      </main>
+      {error && (
+        <div className="shopping-list__notice notice notice_type_error">
+          Sorry, something went wrong!
+        </div>
+      )}
 
-      <NavMenu />
+      {!loading && (
+        <>
+          <ListHeader
+            listItems={listItems}
+            toggleDetailView={toggleDetailView}
+            showAllDetails={showAllDetails}
+            token={token}
+          />
+
+          <main className="list-view__main">
+            <ShoppingList
+              listItems={listItems}
+              listId={listId}
+              showAllDetails={showAllDetails}
+              handleModalOpen={handleModalOpen}
+            />
+          </main>
+
+          <NavMenu />
+        </>
+      )}
     </div>
   );
 };

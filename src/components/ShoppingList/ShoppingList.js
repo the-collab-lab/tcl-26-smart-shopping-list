@@ -10,14 +10,7 @@ import { DateTime } from 'luxon';
 import ItemFilter from '../ItemFilter/ItemFilter.js';
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
-function ShoppingList({
-  listItems,
-  loading,
-  error,
-  listId,
-  showAllDetails,
-  handleModalOpen,
-}) {
+function ShoppingList({ listItems, listId, showAllDetails, handleModalOpen }) {
   const [filter, setFilter] = useState('');
 
   const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
@@ -251,24 +244,7 @@ function ShoppingList({
     }
   };
 
-  return (
-    <div className="shopping-list">
-      {loading && (
-        <div className="shopping-list__notice notice notice_type_loading">
-          Loading...
-        </div>
-      )}
-
-      {error && (
-        <div className="shopping-list__notice notice notice_type_error">
-          Error
-        </div>
-      )}
-
-      {/* !loading is required or else listItems is undefined */}
-      {!loading && createListElement()}
-    </div>
-  );
+  return <div className="shopping-list">{createListElement()}</div>;
 }
 
 export default ShoppingList;

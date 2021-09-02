@@ -142,14 +142,14 @@ function App() {
       >
         <Switch>
           <Route exact path="/">
-            {listId ? (
+            {token ? (
               <Redirect to="/list" />
             ) : (
               <Home createList={createList} joinList={joinList} />
             )}
           </Route>
           <Route path="/list">
-            {!listId ? (
+            {!token ? (
               <Redirect exact to="/" />
             ) : (
               <ListView

@@ -6,13 +6,7 @@ import { DateTime } from 'luxon';
 
 import ShoppingListItem from '../ShoppingListItem/ShoppingListItem.js';
 
-function ShoppingList({
-  filter,
-  setFilter,
-  listItems,
-  listId,
-  handleModalOpen,
-}) {
+function ShoppingList({ listItems, listId, showAllDetails, handleModalOpen }) {
   // Helper function to get the latest interval between purchases (expects Luxon date objects)
   const getLatestInterval = ({ lastPurchaseDate, newPurchaseDate }) => {
     const duration = newPurchaseDate.diff(lastPurchaseDate, ['days']);
@@ -79,6 +73,7 @@ function ShoppingList({
             item={item}
             checkAsPurchased={checkAsPurchased}
             uncheckAsPurchased={uncheckAsPurchased}
+            showAllDetails={showAllDetails}
             handleModalOpen={handleModalOpen}
           />
         ))}

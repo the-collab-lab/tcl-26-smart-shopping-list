@@ -21,6 +21,8 @@ const ListView = ({ listId, handleModalOpen, token }) => {
 
   const [filter, setFilter] = useState('');
 
+  const [showAllDetails, setShowAllDetails] = useState(false);
+
   const currentDate = DateTime.fromSeconds(Math.floor(Date.now() / 1000));
 
   // format the data from firestore into a sorted, filtered array of items
@@ -162,7 +164,12 @@ const ListView = ({ listId, handleModalOpen, token }) => {
 
       {!loading && (
         <>
-          <ListHeader listItems={listItems} token={token} />
+          <ListHeader
+            listItems={listItems}
+            toggleDetailView={() => setShowAllDetails(!showAllDetails)}
+            showAllDetails={showAllDetails}
+            token={token}
+          />
 
           <main className="list-view__main">
             {listItems.empty ? (
@@ -174,10 +181,9 @@ const ListView = ({ listId, handleModalOpen, token }) => {
                 <ItemFilter filter={filter} setFilter={setFilter} />
 
                 <ShoppingList
-                  filter={filter}
-                  setFilter={setFilter}
                   listId={listId}
                   listItems={itemsToDisplay}
+                  showAllDetails={showAllDetails}
                   handleModalOpen={handleModalOpen}
                 />
               </>

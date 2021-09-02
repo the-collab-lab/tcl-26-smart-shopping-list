@@ -2,7 +2,7 @@
 
 .share-toggle-button {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: min-content max-content;
 }
 
 .share-toggle-button,
@@ -52,7 +52,7 @@
   transition: opacity var(--transition-timing);
 }
 
-.share-token_mobile_show {
+.share-token_show {
   display: block;
 }
 
@@ -90,6 +90,7 @@
   .share-toggle-button {
     display: grid;
     padding: 0.375rem;
+    width: 13.5rem;
   }
 
   .share-toggle-button__icon {
@@ -117,14 +118,14 @@
     transition: 0.1s opacity var(--transition-timing);
   }
 
-  .share-token,
-  .share-token_mobile_show {
+  .share-token {
     display: block;
     padding: 0;
     opacity: 0;
   }
 
-  .share-token_desktop_show {
+  .share-token_show {
+    display: block;
     opacity: 1;
     transition: 0.1s opacity var(--transition-timing);
   }

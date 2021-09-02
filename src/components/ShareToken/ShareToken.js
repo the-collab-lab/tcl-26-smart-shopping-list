@@ -5,8 +5,7 @@ import './ShareToken.css';
 import { ReactComponent as ShareIcon } from '../../images/icon-share.svg';
 
 const ShareToken = ({ token }) => {
-  const [showMobileShare, setShowMobileShare] = useState(false);
-  const [showDesktopShare, setShowDesktopShare] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const shareTokenRef = useRef();
 
   function copyToken() {
@@ -17,37 +16,13 @@ const ShareToken = ({ token }) => {
 
   const handleTokenShare = () => {
     copyToken();
-
-    // toggle mobile token visibility
-    setShowMobileShare(!showMobileShare);
-
-    // show token on desktop and direct focus to field
-    setShowDesktopShare(true);
+    setShowShare(!showShare);
   };
 
-  // when share area is shown, direct focus to field (important for screen readers to follow along)
+  // when share area is shown, direct focus to field (helps screen readers follow along)
   useEffect(() => {
-    if (showMobileShare) shareTokenRef.current.focus();
-  }, [showMobileShare]);
-
-  /* this extra listener ensures the token is still hidden on click away if it's opened on a narrower/mobile 
-    view, then the user changes screen orientation or browser size to wider view. Otherwise it can get stuck 
-    open if the onBlur event on the text field has already happened.  */
-  useEffect(() => {
-    const handleTokenHide = (e) => {
-      if (!shareTokenRef.current.contains(e.target)) setShowDesktopShare(false);
-    };
-
-    if (showDesktopShare) {
-      // when share area is shown, direct focus to field (important for screen readers to follow along)
-      shareTokenRef.current.focus();
-      document.addEventListener('click', handleTokenHide);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleTokenHide);
-    };
-  }, [showDesktopShare]);
+    if (showShare) shareTokenRef.current.focus();
+  }, [showShare]);
 
   return (
     <>
@@ -55,10 +30,10 @@ const ShareToken = ({ token }) => {
         type="button"
         onClick={handleTokenShare}
         className="button list-header__share-toggle-button share-toggle-button"
-        aria-label={`${
-          showDesktopShare ? 'Copied to clipboard' : 'Share list'
-        }`}
-        aria-describedby="share-toke-hint"
+        aria-label={`${showShare ? 'Hide List' : 'Share list'}`}
+        aria-expanded={showShare}
+        aria-controls="share-token"
+        aria-describedby="share-token-hint"
       >
         <ShareIcon
           aria-hidden="true"
@@ -66,24 +41,25 @@ const ShareToken = ({ token }) => {
           className="share-toggle-button__icon icon share-icon"
         />
         <strong className="share-toggle-button__strong" htmlFor="shareToken">
-          Share your list
+          {showShare ? 'Hide list token' : 'Share your list'}
         </strong>
       </button>
 
       <span
         className={`share-token-hint list-header__share-token-hint ${
-          !showDesktopShare ? 'share-token-hint_show' : ''
+          !showShare ? 'share-token-hint_show' : ''
         }`}
-        id="share-toke-hint"
+        id="share-token-hint"
       >
         Reveal your token and copy to clipboard.
       </span>
 
       <div
         className={`share-token list-header__share-token ${
-          showMobileShare ? 'share-token_mobile_show' : ''
-        } ${showDesktopShare ? 'share-token_desktop_show' : ''}`}
+          showShare ? 'share-token_show' : ''
+        }`}
         id="share-token"
+        aria-hidden={!showShare}
       >
         <label className="share-token__label" htmlFor="shareToken">
           Your unique token:
@@ -95,8 +71,8 @@ const ShareToken = ({ token }) => {
           name="shareToken"
           value={token}
           ref={shareTokenRef}
-          onBlur={() => setShowDesktopShare(false)}
           aria-describedby="token-copied"
+          focusable={showShare}
           readOnly
         />
         <span className="share-token__copied" id="token-copied">

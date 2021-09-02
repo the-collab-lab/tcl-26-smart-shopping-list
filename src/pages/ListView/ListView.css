@@ -70,7 +70,6 @@
   font-size: 1rem;
   line-height: 1;
   height: auto;
-  color: var(--main-accent-a11y-text);
 }
 
 .list-summary__action:before {
@@ -94,6 +93,5 @@
 @media only screen and (min-width: 800px) {
   .list-summary__action {
     font-size: 1.125rem;
-    color: var(--main-accent-color);
   }
 }

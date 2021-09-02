@@ -24,6 +24,11 @@
   color: #fff;
 }
 
+.page-view__footer-link:hover,
+.page-view__footer-link:focus {
+  color: var(--main-accent-color-light);
+}
+
 @media only screen and (min-width: 600px) {
   .page-view__footer {
     font-size: 1.25rem;
@@ -61,6 +66,10 @@
   }
 
   .page-view__footer-link {
+    color: var(--charcoal);
+  }
+  .page-view__footer-link:hover,
+  .page-view__footer-link:focus {
     color: var(--main-accent-color);
   }
 

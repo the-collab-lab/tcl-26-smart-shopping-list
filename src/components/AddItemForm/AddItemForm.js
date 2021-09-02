@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 
 import './AddItemForm.css';
 
-const AddItemForm = ({ db, listId }) => {
+const AddItemForm = ({ db, listId, listItems }) => {
   /** Default Values **/
   const defaultFormValues = {
     itemName: '',
@@ -38,39 +38,17 @@ const AddItemForm = ({ db, listId }) => {
     setItemErrorMessage('');
 
     // check if itemName already exists in Firestore
-    try {
-      // get array of listItems from Firestore
-      await db
-        .collection(`lists/${listId}/items`)
-        .get()
-        .then(async (querySnapshot) => {
-          if (!querySnapshot.empty) {
-            // create array of normalized item names from Firestore response (querySnapshot)
-            const dbItemArray = querySnapshot.docs.map((doc) =>
-              normalizeInput(doc.data().itemName),
-            );
+    const itemNames = listItems.docs.map((doc) =>
+      normalizeInput(doc.data().itemName),
+    );
 
-            // if item exists, show error message and put focus on field
-            // otherwise, continue with adding to database
-            if (dbItemArray.includes(normalizeInput(formValues.itemName))) {
-              setItemErrorMessage('Item already exists in Shopping List.');
-              itemNameRef.current.focus();
-            } else {
-              addItemToDatabase();
-            }
-          } else if (!querySnapshot.metadata.fromCache) {
-            // if empty results and data is NOT cached, just add the item
-            addItemToDatabase();
-          } else {
-            // empty results and querySnapshot.metadata.fromCache indicates a connection issue
-            throw new Error('Connection problem');
-          }
-        });
-    } catch (err) {
-      console.error(err.message);
-      setAddItemFormError(
-        'Sorry, there was a problem adding your item. Please check your connection and try again.',
-      );
+    // if item exists, show error message and put focus on field
+    // otherwise, continue with adding to database
+    if (itemNames.includes(normalizeInput(formValues.itemName))) {
+      setItemErrorMessage('Item already exists in Shopping List.');
+      itemNameRef.current.focus();
+    } else {
+      addItemToDatabase();
     }
   };
 

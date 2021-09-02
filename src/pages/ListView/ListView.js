@@ -206,7 +206,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
             )}
           </main>
 
-          <AddItemForm db={db} listId={listId} />
+          <AddItemForm db={db} listId={listId} listItems={listItems} />
         </>
       )}
     </div>

@@ -1,38 +1,30 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import './ShareToken.css';
 
 import { ReactComponent as ShareIcon } from '../../images/icon-share.svg';
-import { ReactComponent as CopyIcon } from '../../images/icon-copy.svg';
-import { ReactComponent as CheckIcon } from '../../images/icon-checkbox.svg';
 
 const ShareToken = ({ token }) => {
   const [showMobileShare, setShowMobileShare] = useState(false);
-  const [copySuccess, setCopySuccess] = useState(false);
-  const [showDesktopShare, setDesktopShare] = useState(false);
+  const shareTokenRef = useRef();
 
   function copyToken() {
-    navigator.clipboard
-      .writeText(token)
-      .then(() => {
-        setCopySuccess(true);
-        setTimeout(() => setCopySuccess(false), 5000);
-      })
-      .catch((err) => {
-        document.execCommand(token); // possible fallback for older browsers
-        console.log(err);
-      });
+    navigator.clipboard.writeText(token).catch((err) => {
+      document.execCommand(token); // possible fallback for older browsers
+    });
   }
 
-  const showTokenDesktop = () => {
-    setDesktopShare(showDesktopShare ? false : true);
+  const handleTokenShare = () => {
+    copyToken();
+    setShowMobileShare(!showMobileShare);
+    shareTokenRef.current.focus();
   };
 
   return (
     <>
       <button
         type="button"
-        onClick={() => setShowMobileShare(!showMobileShare)}
+        onClick={handleTokenShare}
         className="button list-header__share-toggle-button share-toggle-button"
         aria-expanded={showMobileShare}
         aria-controls="share-token"
@@ -52,11 +44,13 @@ const ShareToken = ({ token }) => {
       </button>
 
       <div
-        className={`share-token list-header__share-token, share-token_desktop_show ${
+        className={`share-token list-header__share-token ${
           showMobileShare ? 'share-token_mobile_show' : ''
         }`}
         id="share-token"
         role="region"
+        tabIndex="-1"
+        ref={shareTokenRef}
       >
         <label className="share-token__label" htmlFor="shareToken">
           Your unique token:
@@ -70,26 +64,6 @@ const ShareToken = ({ token }) => {
             value={token}
             readOnly
           />
-          <button
-            type="button"
-            className={`share-token__copy-button ${
-              copySuccess ? 'share-token__copy-button_copied' : ''
-            } icon-only-button form-group__field-button`}
-            onClick={(e) => {
-              copySuccess ? e.preventDefault() : copyToken();
-            }}
-            aria-label={copySuccess ? 'Copied!' : 'Copy  to clipboard'}
-          >
-            {copySuccess ? (
-              <CheckIcon
-                aria-hidden="true"
-                focusable="false"
-                className="icon copied-icon"
-              />
-            ) : (
-              <CopyIcon aria-hidden="true" focusable="false" />
-            )}
-          </button>
         </div>
       </div>
     </>

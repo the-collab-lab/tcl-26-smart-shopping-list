@@ -32,16 +32,25 @@
   margin: 1.25rem 0 0.25rem 0;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 900px) {
   .list-header {
     display: grid;
     grid-template:
       'main share-toggle'
       'main share-token';
-    grid-template-columns: max-content min-content;
+    grid-template-columns: 1fr min-content;
+  }
+
+  .list-header__main {
+    grid-row: 1 / 3;
+  }
+
+  .list-header__share-toggle-button {
+    position: static;
+    grid-area: share-toggle;
   }
 
   .list-header__share-token {
-    margin: 0;
+    grid-area: share-token;
   }
 }

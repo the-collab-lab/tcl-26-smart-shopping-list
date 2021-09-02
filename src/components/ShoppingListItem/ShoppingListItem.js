@@ -207,16 +207,16 @@ const ShoppingListItem = ({
           <span className="details__name">Purchases: </span>
           <span className="details__value">{item.numberOfPurchases}</span>
         </li>
-        <li className="details__detail">
-          {item.lastPurchaseDate && ( // if the item has been purchased before
-            <>
-              <span className="details__name">Last purchase:</span>
-              <span className="details__value">
-                {formatDate(item.lastPurchaseDate)}
-              </span>
-            </>
-          )}
-        </li>
+
+        {item.lastPurchaseDate && ( // if the item has been purchased before
+          <li className="details__detail">
+            <span className="details__name">Last purchase:</span>
+            <span className="details__value">
+              {formatDate(item.lastPurchaseDate)}
+            </span>
+          </li>
+        )}
+
         {item.status === 'inactive' ? (
           <li className="details__detail details__detail_inactive">
             You don't seem to be buying this.&nbsp;
@@ -232,7 +232,7 @@ const ShoppingListItem = ({
           <li className="details__detail">
             <span className="details__name">Next purchase: </span>
             <span className="details__value">
-              {formatDate(item.nextPurchaseDate)}
+              {`~ ${formatDate(item.nextPurchaseDate)}`}
             </span>
             <span className="details__value details__value-soon">
               {item.status === 'soon' ? 'soon!' : ''}

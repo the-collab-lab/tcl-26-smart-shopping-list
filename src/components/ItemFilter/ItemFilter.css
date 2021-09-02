@@ -1,12 +1,23 @@
 .filter {
+  position: relative;
   font-size: 1rem;
 }
 
 .filter__text-field {
-  padding-left: 3.25em;
+  padding: 0 3em 0 3.25em;
   background: var(--input-bg-color) url(../../images/icon-filter.svg) 1.0625rem
     50% no-repeat;
   background-size: 1.625em 1.625em;
+}
+
+.filter__clear {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 3rem;
+  height: 3rem;
+  color: var(--charcoal);
+  border: none;
 }
 
 /* some slight BEM defiance here to avoid tons of classes on SVGs we may change */
@@ -33,5 +44,9 @@
     background: var(--input-bg-color) url(../../images/icon-filter.svg) 1.125rem
       50% no-repeat;
     background-size: 1.625em 1.625em;
+  }
+  .filter__clear {
+    width: 3.375rem;
+    height: 3.375rem;
   }
 }

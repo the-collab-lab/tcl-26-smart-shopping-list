@@ -1,7 +1,7 @@
 /* Layout styles */
 .list-view {
   position: relative;
-  max-width: 1000px;
+  max-width: 900px;
   padding: 1.25rem;
   margin: 0 auto;
   font-size: 1.25rem;
@@ -16,7 +16,23 @@
   margin: 0 0 2rem 0;
 }
 
+@media only screen and (min-width: 700px) {
+  .list-view {
+    padding: 1.25rem 3rem;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .list-view__main {
+    margin: 0;
+  }
+}
+
 @media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  .list-view__main {
+    margin: 1rem 0 0 0;
+  }
+
   .list-view__filter {
     margin: 0 130px 2rem 0;
   }
@@ -48,6 +64,12 @@
   }
 }
 
+@media only screen and (min-width: 1600px) {
+  .list-view__header {
+    margin-left: -2.9375rem;
+  }
+}
+
 /* Reusable block for heading plus action links (used in empty list and item count) */
 .list-summary__heading {
   padding: 0;
@@ -67,10 +89,12 @@
 }
 
 .list-summary__action {
+  position: relative;
+  top: -0.125em;
+  display: inline-block;
   font-size: 1rem;
   line-height: 1;
   height: auto;
-  color: var(--main-accent-a11y-text);
 }
 
 .list-summary__action:before {
@@ -91,9 +115,8 @@
   }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 1200px) {
   .list-summary__action {
-    font-size: 1.125rem;
-    color: var(--main-accent-color);
+    top: -0.25em;
   }
 }

@@ -189,25 +189,6 @@
   background-color: var(--warning-color-light);
 }
 
-/* Form field plus inner button block */
-.form-group {
-  position: relative;
-}
-
-.form-group__text-field {
-  padding-right: 3rem; /* room for the button */
-}
-
-.form-group__field-button {
-  position: absolute;
-  bottom: var(--border-width);
-  right: var(--border-width);
-  width: 4em;
-  height: 4em;
-  color: var(--charcoal);
-  border: none;
-}
-
 /* Radio buttons */
 
 .fieldset {

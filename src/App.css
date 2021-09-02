@@ -89,7 +89,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   font-size: inherit;
   font-weight: 600;
   line-height: inherit;
-  color: var(--main-accent-color);
+  color: var(--charcoal);
   text-decoration: none;
   text-align: inherit;
   background: none;
@@ -102,7 +102,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
 .link:hover,
 .link:focus {
-  color: var(--charcoal);
+  color: var(--main-accent-color);
 }
 
 .link:focus-visible {

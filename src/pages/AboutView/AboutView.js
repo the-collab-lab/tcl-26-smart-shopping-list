@@ -48,21 +48,28 @@ const AboutView = ({ listId }) => {
             Share your list's three-word token with friends and family.
           </p>
         </section>
-        {listId ? (
-          <NavLink to="/" className="about-button">
-            Back To List
-          </NavLink>
-        ) : (
-          <NavLink to="/" className="about-button">
-            Get Started
-          </NavLink>
-        )}
-        <p className=".page-view__footer about-footer">
-          {[
-            'Made with love <3 by Ander, Connie, Nick, & Sheila in partnership with ',
-            <a href="https://the-collab-lab.codes/">The Collab Lab</a>,
-          ]}
-        </p>
+        <footer className=".page-view__footer">
+          {listId ? (
+            <NavLink to="/" className="about-button">
+              Back To List
+            </NavLink>
+          ) : (
+            <NavLink to="/" className="about-button">
+              Get Started
+            </NavLink>
+          )}
+          <p className=".page-view__footer about-footer">
+            {[
+              'Made with love <3 by Ander, Connie, Nick, & Sheila in partnership with ',
+              <a
+                className=".about-footer__attribution"
+                href="https://the-collab-lab.codes/"
+              >
+                The Collab Lab
+              </a>,
+            ]}
+          </p>
+        </footer>
       </main>
     </div>
   );

@@ -19,7 +19,7 @@ function Home({ createList, joinList }) {
       </main>
 
       <footer className="page-view__footer">
-        <NavLink to="/" className="link help-link page-view__footer-link">
+        <NavLink to="/about" className="link help-link page-view__footer-link">
           Learn how Peasy works &raquo;
         </NavLink>
       </footer>

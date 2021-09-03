@@ -81,11 +81,11 @@ function App() {
   }
 
   function joinList(shareToken) {
-    setToken(shareToken);
     return isTokenValid(shareToken).then((listExists) => {
       if (listExists) {
         setListId(listExists);
         localStorage.setItem('token', shareToken);
+        setToken(shareToken);
         return true;
       } else {
         setToken(null);

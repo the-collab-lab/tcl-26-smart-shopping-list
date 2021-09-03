@@ -60,7 +60,7 @@ const AboutView = ({ listId }) => {
           )}
           <p className=".page-view__footer about-footer">
             {[
-              'Made with love <3 by Ander, Connie, Nick, & Sheila in partnership with ',
+              'Made with 💚 by Ander, Connie, Nick, & Sheila in partnership with ',
               <a
                 className=".about-footer__attribution"
                 href="https://the-collab-lab.codes/"

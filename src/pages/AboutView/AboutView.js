@@ -99,7 +99,7 @@ const AboutView = ({ listId }) => {
             to="/"
             className="button button_type_primary about-text__button"
           >
-            &laquo; Back To List
+            Back To List
           </NavLink>
         ) : (
           <NavLink

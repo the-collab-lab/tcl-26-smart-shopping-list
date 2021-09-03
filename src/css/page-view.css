@@ -12,7 +12,7 @@
 }
 
 .page-view__footer {
-  padding: 1em;
+  padding: 1em 2rem;
   margin-top: auto;
   font-size: 1rem;
   color: #fff;
@@ -32,6 +32,7 @@
 @media only screen and (min-width: 600px) {
   .page-view__footer {
     font-size: 1.25rem;
+    padding: 1em 3rem;
   }
 }
 

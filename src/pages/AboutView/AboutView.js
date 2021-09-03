@@ -34,8 +34,8 @@ const AboutView = ({ listId }) => {
             Predict when you'll buy next
           </h2>
           <p className="about-section__paragraph">
-            Your list gets smarter with time. The app predicts when you'll buy
-            different items next.
+            Your list gets smarter with time! Peasy uses your buying history to predict what you'll need to buy next and 
+            sort your list automatically.
           </p>
           <p className="about-section__paragraph">
             Items you are likely to need soon will rise to the top of your list, while items you probably won't need for a 

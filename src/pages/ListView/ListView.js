@@ -166,65 +166,69 @@ const ListView = ({ listId, handleModalOpen, token }) => {
   }
 
   return (
-    <div className="list-view">
-      <Helmet>
-        <title>Your Shopping List - Peasy</title>
-        <style>{':root { background-color: var(--light-gray); }'}</style>
-      </Helmet>
+    <>
+      <div className="list-view">
+        <Helmet>
+          <title>Your Shopping List - Peasy</title>
+          <style>{':root { background-color: var(--light-gray); }'}</style>
+        </Helmet>
 
-      {loading && <Loader />}
+        {loading && <Loader />}
 
-      {error && (
-        <div className="shopping-list__notice notice notice_type_error">
-          Sorry, something went wrong!
-        </div>
-      )}
+        {error && (
+          <div className="shopping-list__notice notice notice_type_error">
+            Sorry, something went wrong!
+          </div>
+        )}
 
-      {!loading && (
-        <>
-          <ListHeader
-            listItems={listItems}
-            toggleDetailView={() => setShowAllDetails(!showAllDetails)}
-            showAllDetails={showAllDetails}
-            token={token}
-          />
+        {!loading && (
+          <>
+            <ListHeader
+              listItems={listItems}
+              toggleDetailView={() => setShowAllDetails(!showAllDetails)}
+              showAllDetails={showAllDetails}
+              token={token}
+            />
 
-          <main className="list-view__main">
-            <button
-              className="list-view__add-button"
-              onClick={() => setShowAddItem(!showAddItem)}
-              aria-label="Open Add Item Form"
-              aria-expanded={showAddItem}
-            >
-              +
-            </button>
-            {listItems.empty ? (
-              <ShoppingListEmpty
-                openAddPanel={() => setShowAddItem(!showAddItem)}
-              />
-            ) : (
-              <>
-                <ItemFilter filter={filter} setFilter={setFilter} />
-
-                <ShoppingList
-                  listId={listId}
-                  listItems={itemsToDisplay}
-                  showAllDetails={showAllDetails}
-                  handleModalOpen={handleModalOpen}
+            <main className="list-view__main">
+              <button
+                className={`list-view__add-button ${
+                  showAddItem ? 'list-view__add-button_close' : ''
+                }`}
+                onClick={() => setShowAddItem(!showAddItem)}
+                aria-label="Open Add Item Form"
+                aria-expanded={showAddItem}
+              >
+                +
+              </button>
+              {listItems.empty ? (
+                <ShoppingListEmpty
+                  openAddPanel={() => setShowAddItem(!showAddItem)}
                 />
-              </>
-            )}
-          </main>
+              ) : (
+                <>
+                  <ItemFilter filter={filter} setFilter={setFilter} />
 
-          <AddItemForm
-            db={db}
-            listId={listId}
-            listItems={listItems}
-            showAddItem={showAddItem}
-          />
-        </>
-      )}
-    </div>
+                  <ShoppingList
+                    listId={listId}
+                    listItems={itemsToDisplay}
+                    showAllDetails={showAllDetails}
+                    handleModalOpen={handleModalOpen}
+                  />
+                </>
+              )}
+            </main>
+          </>
+        )}
+      </div>
+      <AddItemForm
+        db={db}
+        listId={listId}
+        listItems={listItems}
+        showAddItem={showAddItem}
+        setShowAddItem={setShowAddItem}
+      />
+    </>
   );
 };
 

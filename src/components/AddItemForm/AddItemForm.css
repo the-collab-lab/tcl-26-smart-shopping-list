@@ -1,0 +1,140 @@
+/* .add-item-form {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 800px;
+  overflow-y: auto;
+  padding: 3rem;
+  box-sizing: border-box;
+  color: #fff;
+  background: var(--charcoal);
+  z-index: 99;
+  will-change: transform;
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+} */
+
+.add-item-form {
+  font-size: 1rem;
+}
+
+.add-item-form_open {
+  transform: translateY(0);
+}
+
+.add-item-form__heading {
+  font-family: var(--logo-font);
+  font-weight: 400;
+  font-size: 1.75em;
+  margin: 0 0 0.5em 0;
+}
+
+.add-item-form__label {
+  margin: 0 0 0.125em 0;
+  font-size: 1em;
+}
+
+.add-item-form__text-field {
+  font-size: 1.125em;
+  margin: 0;
+}
+
+.add-item-form {
+}
+
+.add-item-form__option-legend {
+  text-align: center;
+}
+
+.add-item-form__submit {
+  font-size: 1.375rem;
+  padding: 0.875rem 1rem;
+  margin-top: 2rem;
+}
+
+@media only screen and (min-width: 800px) {
+  .add-item-form {
+    position: absolute;
+    left: auto;
+    right: 0;
+    top: 7.9375rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(50% - (375px + 2.5rem));
+    padding: 3rem;
+    box-sizing: border-box;
+    color: #fff;
+    z-index: 99;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.35s ease-in-out;
+  }
+
+  .add-item-form_open {
+    opacity: 1;
+    visibility: visible;
+    transition: 0.5s opacity 0.35s ease-in-out;
+  }
+
+  .add-item-background {
+    position: fixed;
+    right: 0;
+    top: 0;
+    /* must use % here (not vw) to account for scrollbar */
+    width: calc(50% - (375px + 2.5rem));
+    height: 100vh;
+    background: var(--charcoal);
+    /* must use vw here (not %) to position off screen */
+    transform: translateX(calc(50vw - (375px + 2.5rem)));
+    will-change: transform;
+    transition: 0.35s transform 0.5s ease-in-out;
+  }
+
+  .add-item-background_open {
+    transform: translateY(0);
+    transition: transform 0.5s ease-in-out;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .add-item-form {
+    top: 12rem;
+  }
+
+  .add-item-form__text-field,
+  .add-item-form__options,
+  .add-item-form__submit {
+    max-width: 18rem;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .add-item-form {
+    top: 7.9375rem;
+    /* must use % here (not vw) to account for scrollbar */
+    width: calc(50% - (450px + 3.5vw));
+    font-size: 1.125rem;
+  }
+
+  .add-item-form__heading {
+    font-size: 2.25rem;
+  }
+
+  .add-item-background {
+    /* must use % here (not vw) to account for scrollbar */
+    width: calc(50% - (450px + 3.5vw));
+    /* must use vw here (not %) to position off screen */
+    transform: translateX(calc(50vw - (450px + 3.5vw)));
+  }
+
+  .add-item-background_open {
+    transform: translateY(0);
+  }
+}

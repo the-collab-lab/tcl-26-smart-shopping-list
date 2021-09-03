@@ -1,7 +1,7 @@
 /* Layout styles */
 .list-view {
   position: relative;
-  max-width: 900px;
+  max-width: 750px;
   padding: 1.25rem;
   margin: 0 auto;
   font-size: 1.25rem;
@@ -9,6 +9,7 @@
 }
 
 .list-view__main {
+  position: relative;
   margin: 2rem 0 0 0;
 }
 
@@ -16,26 +17,24 @@
   margin: 0 0 2rem 0;
 }
 
-@media only screen and (min-width: 700px) {
-  .list-view {
-    padding: 1.25rem 3rem;
-  }
+.list-view__add-button {
+  position: absolute;
+  right: calc(-16px);
+  top: 0.125em;
+  width: 94px;
+  height: 94px;
+  background: var(--main-accent-color);
+  border: none;
+  border-radius: 94px;
+  font-size: 3rem;
+  transition: 0.25s right var(--transition-timing), transform 0.5s ease-in-out;
+  z-index: 100;
 }
 
-@media only screen and (min-width: 900px) {
-  .list-view__main {
-    margin: 0;
-  }
-}
-
-@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
-  .list-view__main {
-    margin: 1rem 0 0 0;
-  }
-
-  .list-view__filter {
-    margin: 0 130px 2rem 0;
-  }
+.list-view__add-button_close {
+  /* accounts for half icon, li padding and container padding */
+  right: calc(-2.5rem - 0.625em - 16px);
+  transform: rotate(135deg);
 }
 
 .list-view__empty {
@@ -50,7 +49,18 @@
   }
 }
 
+/* add some extra padding at the sides of list when there's room */
+@media only screen and (min-width: 700px) {
+  .list-view {
+    padding: 1.25rem 2.5rem;
+  }
+}
+
 @media only screen and (min-width: 900px) {
+  .list-view__main {
+    margin: 0;
+  }
+
   .list-view__empty {
     margin: 6rem 0 0 2.625em;
     text-align: left;
@@ -60,17 +70,35 @@
 @media only screen and (min-width: 1200px) {
   .list-view__header,
   .list-view__empty {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
+  }
+
+  /* move the logo, count left into the gutter when there's room */
+  .list-view__header {
+    margin-left: -2.9375rem;
+  }
+
+  /* make room for add button on right */
+  .list-view__filter {
+    margin: 0 130px 2rem 0;
   }
 }
 
-@media only screen and (min-width: 1600px) {
-  .list-view__header {
-    margin-left: -2.9375rem;
+@media only screen and (min-width: 1920px) {
+  .list-view {
+    max-width: 900px;
+    padding: 1.25rem 3.5vw;
+  }
+
+  .list-view__add-button_close {
+    /* accounts for half icon, li padding and container padding */
+    right: calc(-3.5vw - 0.625em - 16px);
+    transform: rotate(135deg);
   }
 }
 
 /* Reusable block for heading plus action links (used in empty list and item count) */
+
 .list-summary__heading {
   padding: 0;
   margin: 0;

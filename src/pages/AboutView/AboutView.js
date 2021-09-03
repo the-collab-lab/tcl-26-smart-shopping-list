@@ -38,8 +38,8 @@ const AboutView = ({ listId }) => {
             different items next.
           </p>
           <p className="about-section__paragraph">
-            If an item is likely to be bought soon, it rises to the top of your
-            grocery list.
+            Items you are likely to need soon will rise to the top of your list, while items you probably won't need for a 
+            while will appear lower on the list. 
           </p>
         </section>
         <section className="about-section">

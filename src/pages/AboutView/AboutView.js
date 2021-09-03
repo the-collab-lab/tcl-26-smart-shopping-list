@@ -117,7 +117,16 @@ const AboutView = ({ listId }) => {
           <span role="img" aria-label="heart">
             💚
           </span>{' '}
-          by Ander, Connie, Nick, & Sheila in partnership with&nbsp;
+          by&nbsp;
+          <a
+            className="link link_footer"
+            href="https://github.com/anderswift/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Ander
+          </a>
+          , Connie, Nick, & Sheila in partnership with&nbsp;
           <a
             className="link link_footer"
             href="https://the-collab-lab.codes/"

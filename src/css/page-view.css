@@ -20,12 +20,12 @@
   background: var(--charcoal);
 }
 
-.page-view__footer-link {
+.link_footer {
   color: #fff;
 }
 
-.page-view__footer-link:hover,
-.page-view__footer-link:focus {
+.link_footer:hover,
+.link_footer:focus {
   color: var(--main-accent-color-light);
 }
 
@@ -65,11 +65,11 @@
     color: var(--charcoal);
   }
 
-  .page-view__footer-link {
+  .link_footer {
     color: var(--charcoal);
   }
-  .page-view__footer-link:hover,
-  .page-view__footer-link:focus {
+  .link_footer:hover,
+  .link_footer:focus {
     color: var(--main-accent-color);
   }
 

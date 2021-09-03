@@ -29,6 +29,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --main-font: 'Montserrat', sans-serif;
 
   --main-accent-color: #3d9645; /* sample accent color, a11y: passes AA for 18px text */
+  --main-accent-color-medium: #48ad51;
   --main-accent-color-light: #d2ecd4;
   --main-accent-a11y-text: #2a8032; /* passes AA for 16pt text */
   --main-accent-color-dark: #187b21;
@@ -40,7 +41,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
 
   /* icons must have contrast of 3:1 according to WCAG */
   --item-soon-color: var(--main-accent-color-dark);
-  --item-kind-of-soon-color: #308b37; /* passes AA at 18px + bold */
+  --item-kind-of-soon-color: #2f9737; /* passes AA at 18px + bold */
   --item-not-soon-color: #48ad51;
   --item-inactive-color: #8e8d96;
 

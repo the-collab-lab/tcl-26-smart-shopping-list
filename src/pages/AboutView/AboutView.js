@@ -26,7 +26,7 @@ const AboutView = ({ listId }) => {
         <section className="about-section">
           <h2 className="about-section__header">Check items off your list</h2>
           <p className="about-section__paragraph">
-            As you buy your groceries, check them off your grocery list.
+            As you buy your groceries, check them off your list to help Peasy learn how often you need different items.
           </p>
         </section>
         <section className="about-section">

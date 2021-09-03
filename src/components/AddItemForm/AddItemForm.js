@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import firebase from 'firebase/app';
 
 import './AddItemForm.css';
 
-const AddItemForm = ({ db, listId, listItems }) => {
+const AddItemForm = ({ db, listId, listItems, showAddItem }) => {
   /** Default Values **/
   const defaultFormValues = {
     itemName: '',
@@ -77,8 +77,19 @@ const AddItemForm = ({ db, listId, listItems }) => {
     }
   };
 
+  useEffect(() => {
+    if (showAddItem) itemNameRef.current.focus();
+  }, [showAddItem]);
+
   return (
-    <form name="addItemForm" onSubmit={handleSubmit} className="add-item-form">
+    <form
+      name="addItemForm"
+      onSubmit={handleSubmit}
+      className={`add-item-form ${showAddItem ? 'add-item-form_open' : ''}`}
+      role="region"
+      aria-hidden={!showAddItem}
+    >
+      <h3 className="add-item-form__heading">Add a new item</h3>
       <div
         role="alert"
         className={`error error_type_summary ${
@@ -96,7 +107,7 @@ const AddItemForm = ({ db, listId, listItems }) => {
       </label>
       <input
         ref={itemNameRef}
-        className={`add-item-form__text-field text-field ${
+        className={`add-item-form__text-field text-field text-field_mode_dark ${
           itemErrorMessage ? 'text-field_has-error' : ''
         }`} // errorMessage ternary adds className
         type="text"
@@ -120,60 +131,60 @@ const AddItemForm = ({ db, listId, listItems }) => {
 
       <fieldset className="fieldset fieldset_type_check-radio add-item-form__options">
         <legend className="legend legend_type_check-radio add-item-form__option-legend">
-          How soon will you buy this again?
+          How soon will you need to buy this again?
         </legend>
-        <input
-          type="radio"
-          id="soonOption"
-          className="radio"
-          name="purchaseInterval"
-          value="7"
-          onChange={handleChange}
-          checked={formValues.purchaseInterval === '7'}
-        />
-        <label
-          htmlFor="soonOption"
-          className="add-item-form__label add-item-form__label_type_radio label label_type_check-radio"
-        >
-          Soon
-        </label>
 
-        <input
-          type="radio"
-          className="radio"
-          id="kindOfSoonOption"
-          name="purchaseInterval"
-          value="14"
-          onChange={handleChange}
-          checked={formValues.purchaseInterval === '14'}
-        />
-        <label
-          htmlFor="kindOfSoonOption"
-          className="add-item-form__label add-item-form__label_type_radio label label_type_check-radio"
-        >
-          Kind of Soon
-        </label>
+        <div className="fieldset__check-radio-group">
+          <input
+            type="radio"
+            id="soonOption"
+            className="radio"
+            name="purchaseInterval"
+            value="7"
+            onChange={handleChange}
+            checked={formValues.purchaseInterval === '7'}
+          />
+          <label htmlFor="soonOption" className="label label_type_check-radio">
+            soon
+          </label>
 
-        <input
-          type="radio"
-          className="radio"
-          id="notSoonOption"
-          name="purchaseInterval"
-          value="30"
-          onChange={handleChange}
-          checked={formValues.purchaseInterval === '30'}
-        />
-        <label
-          htmlFor="notSoonOption"
-          className="add-item-form__label add-item-form__label_type_radio label label_type_check-radio"
-        >
-          Not Soon
-        </label>
+          <input
+            type="radio"
+            className="radio"
+            id="kindOfSoonOption"
+            name="purchaseInterval"
+            value="14"
+            onChange={handleChange}
+            checked={formValues.purchaseInterval === '14'}
+          />
+          <label
+            htmlFor="kindOfSoonOption"
+            className="label label_type_check-radio"
+          >
+            kind of soon
+          </label>
+
+          <input
+            type="radio"
+            className="radio"
+            id="notSoonOption"
+            name="purchaseInterval"
+            value="30"
+            onChange={handleChange}
+            checked={formValues.purchaseInterval === '30'}
+          />
+          <label
+            htmlFor="notSoonOption"
+            className="label label_type_check-radio"
+          >
+            not soon
+          </label>
+        </div>
       </fieldset>
 
       <button
         type="submit"
-        className="add-item-form__submit button button_type_primary"
+        className="add-item-form__submit button button_type_primary button_mode_dark"
       >
         Add Item
       </button>

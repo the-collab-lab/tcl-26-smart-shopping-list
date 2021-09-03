@@ -19,6 +19,8 @@ const ListView = ({ listId, handleModalOpen, token }) => {
     db.collection(`lists/${listId}/items`),
   );
 
+  const [showAddItem, setShowAddItem] = useState(false);
+
   const [filter, setFilter] = useState('');
 
   const [showAllDetails, setShowAllDetails] = useState(false);
@@ -188,9 +190,17 @@ const ListView = ({ listId, handleModalOpen, token }) => {
           />
 
           <main className="list-view__main">
+            <button
+              className="list-view__add-button"
+              onClick={() => setShowAddItem(!showAddItem)}
+              aria-label="Open Add Item Form"
+              aria-expanded={showAddItem}
+            >
+              +
+            </button>
             {listItems.empty ? (
               <ShoppingListEmpty
-                openAddPanel={() => console.log('open add panel')}
+                openAddPanel={() => setShowAddItem(!showAddItem)}
               />
             ) : (
               <>
@@ -206,7 +216,12 @@ const ListView = ({ listId, handleModalOpen, token }) => {
             )}
           </main>
 
-          <AddItemForm db={db} listId={listId} listItems={listItems} />
+          <AddItemForm
+            db={db}
+            listId={listId}
+            listItems={listItems}
+            showAddItem={showAddItem}
+          />
         </>
       )}
     </div>

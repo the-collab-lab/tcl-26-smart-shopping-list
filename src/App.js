@@ -21,6 +21,7 @@ import Home from './pages/Home/Home';
 import ListView from './pages/ListView/ListView';
 import NotFound from './pages/NotFound/NotFound';
 import Modal from './components/Modal/Modal.js';
+import AboutView from './pages/AboutView/AboutView';
 
 // Functions
 import getToken from './lib/tokens';
@@ -157,6 +158,9 @@ function App() {
                 token={token}
               />
             )}
+          </Route>
+          <Route path="/about">
+            <AboutView listId={listId} />
           </Route>
           <Route component={NotFound} />
         </Switch>

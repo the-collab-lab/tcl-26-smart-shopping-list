@@ -1,0 +1,35 @@
+.page_view_about {
+  flex-direction: row;
+  background: var(--light-gray);
+  padding: 0;
+  margin: 0 0 0 10vw;
+}
+
+.about-images {
+  margin: 10vh 0 0 0;
+}
+
+.desktop__image {
+  height: 500px;
+  width: auto;
+  margin: 0 0 0 5vw;
+  border: 2px solid black;
+}
+
+.about-text {
+  margin: 0 0 0 5vw;
+}
+
+.about-button {
+  background-color: var(--main-accent-color);
+  color: white;
+  font-weight: bold;
+  padding: 1em 1.5em;
+  text-decoration: none;
+  border-radius: 15px;
+}
+
+.about-footer {
+  margin-top: 25px;
+  font-size: 10px;
+}

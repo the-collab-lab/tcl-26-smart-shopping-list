@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import './ListHeader.css';
 import peasyLogoMark from '../../images/peasy-logomark.svg';
 
@@ -36,6 +38,9 @@ const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
                 ? 'Show all item details'
                 : 'Hide all item details'}
             </button>
+            <NavLink className="link list-summary__action" to="/about">
+              Learn how Peasy works &raquo;
+            </NavLink>
           </div>
         )}
       </div>

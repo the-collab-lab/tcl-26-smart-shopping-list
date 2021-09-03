@@ -45,7 +45,8 @@ const AboutView = ({ listId }) => {
         <section className="about-section">
           <h2 className="about-section__header">Share your list</h2>
           <p className="about-section__paragraph">
-            Share your list's three-word token with friends and family.
+            You can share the same list with everyone who shops for your household. Simply provide your lists's three 
+            word token to your friend or family member, and they can use it to join your list from Peasy's home screen.
           </p>
         </section>
         <footer className=".page-view__footer">

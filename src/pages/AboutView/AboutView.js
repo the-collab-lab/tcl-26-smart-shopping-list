@@ -31,7 +31,7 @@ const AboutView = ({ listId }) => {
         </section>
         <section className="about-section">
           <h2 className="about-section__header">
-            Predict when you'll buy next
+            Peasy predicts what you'll need to buy next
           </h2>
           <p className="about-section__paragraph">
             Your list gets smarter with time! Peasy uses your buying history to predict what you'll need to buy next and 

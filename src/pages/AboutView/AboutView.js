@@ -19,8 +19,8 @@ const AboutView = ({ listId }) => {
             Add items to your grocery list
           </h2>
           <p className="about-section__paragraph">
-            Add items to your grocery list and select how soon you'll need to
-            buy your next shopping item.
+            Add items you regularly buy to your list. When you add a new item, Peasy will ask you to estimate how 
+            soon you'll need to buy it again.
           </p>
         </section>
         <section className="about-section">

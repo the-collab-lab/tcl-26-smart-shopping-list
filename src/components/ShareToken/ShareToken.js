@@ -1,84 +1,83 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import './ShareToken.css';
 
 import { ReactComponent as ShareIcon } from '../../images/icon-share.svg';
-import { ReactComponent as CopyIcon } from '../../images/icon-copy.svg';
-import { ReactComponent as CheckIcon } from '../../images/icon-checkbox.svg';
 
 const ShareToken = ({ token }) => {
-  const [showMobileShare, setShowMobileShare] = useState(false);
-  const [copySuccess, setCopySuccess] = useState(false);
+  const [showShare, setShowShare] = useState(false);
+  const shareTokenRef = useRef();
 
   function copyToken() {
-    navigator.clipboard
-      .writeText(token)
-      .then(() => {
-        setCopySuccess(true);
-        setTimeout(() => setCopySuccess(false), 5000);
-      })
-      .catch((err) => {
-        document.execCommand(token); // possible fallback for older browsers
-        console.log(err);
-      });
+    navigator.clipboard.writeText(token).catch((err) => {
+      document.execCommand(token); // possible fallback for older browsers
+    });
   }
+
+  const handleTokenShare = () => {
+    copyToken();
+    setShowShare(!showShare);
+  };
+
+  // when share area is shown, direct focus to field (helps screen readers follow along)
+  useEffect(() => {
+    if (showShare) shareTokenRef.current.focus();
+  }, [showShare]);
 
   return (
     <>
       <button
         type="button"
-        onClick={() => setShowMobileShare(!showMobileShare)}
-        className="icon-only-button header__share-toggle-button share-toggle-button"
-        aria-label="Share list"
-        aria-expanded={showMobileShare}
+        onClick={handleTokenShare}
+        className="button list-header__share-toggle-button share-toggle-button"
+        aria-label={`${showShare ? 'Hide List' : 'Share list'}`}
+        aria-expanded={showShare}
         aria-controls="share-token"
+        aria-describedby="share-token-hint"
       >
-        <ShareIcon aria-hidden="true" focusable="false" />
+        <ShareIcon
+          aria-hidden="true"
+          focusable="false"
+          className="share-toggle-button__icon icon share-icon"
+        />
+        <strong className="share-toggle-button__strong" htmlFor="shareToken">
+          {showShare ? 'Hide list token' : 'Share your list'}
+        </strong>
       </button>
 
+      <span
+        className={`share-token-hint list-header__share-token-hint ${
+          !showShare ? 'share-token-hint_show' : ''
+        }`}
+        id="share-token-hint"
+      >
+        Reveal your token and copy to clipboard.
+      </span>
+
       <div
-        className={`share-token header__share-token ${
-          showMobileShare ? 'share-token_mobile_show' : ''
+        className={`share-token list-header__share-token ${
+          showShare ? 'share-token_show' : ''
         }`}
         id="share-token"
-        role="region"
+        aria-hidden={!showShare}
       >
-        <h4 className="share-token__heading" htmlFor="shareToken">
-          Share your shopping list
-        </h4>
         <label className="share-token__label" htmlFor="shareToken">
-          Your list token:
+          Your unique token:
         </label>
-        <div className="form-group clipboard-copy clipboard-copy">
-          <input
-            className="share-token__token text-field form-group__text-field"
-            type="text"
-            id="shareToken"
-            name="shareToken"
-            value={token}
-            readOnly
-          />
-          <button
-            type="button"
-            className={`share-token__copy-button ${
-              copySuccess ? 'share-token__copy-button_copied' : ''
-            } icon-only-button form-group__field-button`}
-            onClick={(e) => {
-              copySuccess ? e.preventDefault() : copyToken();
-            }}
-            aria-label={copySuccess ? 'Copied!' : 'Copy  to clipboard'}
-          >
-            {copySuccess ? (
-              <CheckIcon
-                aria-hidden="true"
-                focusable="false"
-                className="icon copied-icon"
-              />
-            ) : (
-              <CopyIcon aria-hidden="true" focusable="false" />
-            )}
-          </button>
-        </div>
+        <input
+          className="share-token__token text-field"
+          type="text"
+          id="shareToken"
+          name="shareToken"
+          value={token}
+          ref={shareTokenRef}
+          aria-describedby="token-copied"
+          focusable={showShare}
+          readOnly
+        />
+        <span className="share-token__copied" id="token-copied">
+          Copied to clipboard!
+        </span>
       </div>
     </>
   );

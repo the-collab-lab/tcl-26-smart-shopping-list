@@ -1,107 +1,149 @@
-.share-token {
-  display: none;
-  padding: 1rem 2.25rem 2.375rem 2.25rem;
-  font-size: 1rem;
-  background: var(--light-gray);
-}
-
-.share-token_mobile_show {
-  display: block;
-}
+/* the share button */
 
 .share-toggle-button {
-  width: calc(var(--icon-size-lg) + 0.5rem);
+  display: grid;
+  grid-template-columns: min-content max-content;
+}
+
+.share-toggle-button,
+.share-toggle-button:hover,
+.share-toggle-button:focus {
+  background: none;
+  border: none;
+}
+
+.share-toggle-button:hover {
+  color: var(--main-accent-color);
+}
+
+.share-toggle-button:focus-visible {
+  border-radius: 3px;
+  box-shadow: 0 0 0 3px var(--highlight-color);
 }
 
 .share-icon {
-  width: var(--icon-size-lg);
-  height: var(--icon-size-lg);
+  fill: currentColor;
 }
 
-.share-token__heading {
-  grid-column: 1 / 3;
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1.5;
-  margin: 0 0 0.25rem 0;
+.share-toggle-button__icon {
+  justify-self: center;
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+  margin: 0 0 -0.1875rem auto;
+}
+
+.share-toggle-button__strong {
+  display: none;
+  margin: 0.5rem 0 0.125rem 0;
+  font-family: var(--logo-font);
+  font-size: 1.375rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* the token reveal area */
+
+.share-token {
+  display: none;
+  padding: 0 0 1rem 0;
+  font-size: 1rem;
+  text-align: center;
+  transition: opacity var(--transition-timing);
+}
+
+.share-token_show {
   display: block;
 }
 
-.share-token__token {
-  padding-left: 2rem;
-  font-size: 1.125rem;
-  font-style: italic;
+/* the 'Reveal your token' helper text */
+.share-token-hint {
+  justify-self: end;
+  max-width: 10rem;
+  margin: 0 1.75rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--charcoal);
   text-align: center;
-  background: #fff;
-}
-
-.copy-icon {
-  width: var(--icon-size-sm);
-  height: var(--icon-size-sm);
-  fill: currentColor;
-}
-
-.copied-icon {
-  width: var(--icon-size-lg);
-  height: var(--icon-size-lg);
-}
-.copied-icon .icon__bg,
-.copied-icon .icon__border {
-  fill: transparent;
-}
-
-.copied-icon .icon__mark {
-  fill: currentColor;
-}
-
-.share-token__copy-button {
-  transition: none;
-}
-
-.share-token__copy-button:after {
-  content: '';
-  opacity: 0;
-  transition: opacity var(--transition-timing);
-}
-
-.share-token__copy-button_copied,
-.share-token__copy-button_copied:hover,
-.share-token__copy-button_copied:focus {
-  color: var(--main-accent-color);
-}
-
-/* Show a tooltip when copy succeeds */
-.share-token__copy-button_copied:focus:after,
-.share-token__copy-button_copied:hover:after {
+  /* make visually hidden on smaller screens */
   position: absolute;
-  bottom: -1.5rem;
-  color: var(--main-accent-color);
-  content: attr(aria-label); /* Use the "Copied!" aria-label as tooltip text */
-  opacity: 1;
-  transition: opacity var(--transition-timing);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-@media only screen and (min-width: 800px) {
-  .share-token {
-    display: block;
-    width: 13.75rem;
-    padding: 0;
-    background: none;
-  }
+.share-token__token {
+  text-align: center;
+}
 
+/* the 'Copied to clipboard' helper text */
+.share-token__copied {
+  display: block;
+  color: var(--main-accent-color);
+  font-weight: 600;
+  padding-top: 0.25rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .share-token__token {
+    font-size: 1.125rem;
+    max-width: 50vw;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 900px) {
   .share-toggle-button {
-    display: none;
+    display: grid;
+    padding: 0.375rem;
+    width: 13.5rem;
   }
 
-  .share-token__heading {
-    grid-column: 1 / 3;
-    margin: 0 0 0.25rem 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 1.5;
+  .share-toggle-button__icon {
+    margin: 0 0.875rem -0.1875rem auto;
+  }
+
+  .share-toggle-button__strong {
+    display: block;
+    font-size: 1.5rem;
   }
 
   .share-token__token {
-    background: var(--light-gray);
+    font-size: 1rem;
+  }
+
+  .share-token-hint {
+    opacity: 0;
+    transition: opacity var(--transition-timing);
+    /* undo visually hidden for larger screens */
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .share-token-hint_show {
+    opacity: 1;
+    transition: 0.1s opacity var(--transition-timing);
+  }
+
+  .share-token {
+    display: block;
+    padding: 0;
+    opacity: 0;
+  }
+
+  .share-token_show {
+    display: block;
+    opacity: 1;
+    transition: 0.1s opacity var(--transition-timing);
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .share-token__token {
+    font-size: 1.125rem;
   }
 }

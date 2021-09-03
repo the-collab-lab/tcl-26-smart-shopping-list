@@ -1,0 +1,222 @@
+/* GLOBAL UI STYLES */
+
+/* SVG Icons */
+
+/* these are classes within the SVG styles, so we can reuse the same icons and swap icons easily */
+.icon {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+  color: currentColor;
+}
+
+@media only screen and (min-width: 600px) {
+  .icon {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
+  }
+}
+
+.icon__border {
+  fill: currentColor;
+}
+
+.icon__bg {
+  fill: transparent;
+}
+
+.icon__mark {
+  fill: currentColor;
+}
+
+/* Buttons */
+
+.button {
+  display: block;
+  padding: 0.5em; /* relative to font size */
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--charcoal);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  background: var(--light-gray);
+  border: var(--border-width) solid var(--charcoal);
+  border-radius: var(--ui-border-radius);
+  outline: none;
+  transition: color var(--transition-timing),
+    border-color var(--transition-timing), background var(--transition-timing);
+}
+
+.button:hover,
+.button:focus {
+  background: var(--medium-gray);
+}
+
+.button_type_primary {
+  color: #fff;
+  background: var(--main-accent-color);
+  border-color: var(--main-accent-color);
+}
+
+.button_type_primary:hover,
+.button_type_primary:focus {
+  color: #fff;
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+}
+
+.button_type_delete {
+  color: #fff;
+  background: var(--warning-color);
+  border-color: var(--warning-color);
+}
+
+.button_type_delete:hover,
+.button_type_delete:focus {
+  color: #fff;
+  background: var(--warning-color-focus);
+  border-color: var(--warning-color-focus);
+}
+
+/* Buttons that only contain an icon */
+
+.icon-only-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.125rem;
+  color: var(--icon-a11y-gray); /* controls icon color using currentColor */
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 3px; /* so a11y focus outline is not all pointy */
+  outline: none;
+  box-shadow: none;
+  transition: color var(--transition-timing);
+}
+
+.icon-only-button:hover,
+.icon-only-button:focus {
+  color: var(--charcoal); /* controls icon color using currentColor */
+  outline: none;
+}
+
+.icon-only-button:focus-visible {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
+/* User notices */
+
+.notice {
+  font-style: italic;
+  color: var(--text-a11y-gray);
+}
+
+.error {
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--warning-color);
+  transition: opacity var(--transition-timing);
+}
+
+.error_on {
+  visibility: visible;
+  padding: 0.5em 0;
+  display: block;
+  opacity: 1;
+}
+
+/* for inline form errors */
+.error_type_field {
+  height: 0.625rem;
+  margin: 0.375em 0 1.5em 0.75em;
+  font-size: 1rem;
+}
+
+.error_type_field.error_on {
+  padding: 0;
+}
+
+.error_mode_dark {
+  color: var(--warning-color-dark-mode);
+}
+
+/* Form elements */
+
+.label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: var(--ui-border-radius);
+}
+
+.text-field {
+  display: block;
+  width: 100%;
+  height: 3em; /* relative to font-size */
+  padding: 0.25rem 1.25rem;
+  box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 2.5;
+  color: var(--charcoal);
+
+  background-color: var(--input-bg-color);
+  border: none;
+  border-radius: var(--ui-border-radius);
+  outline: none;
+  box-shadow: none;
+  transition: background var(--transition-timing);
+}
+
+.text-field_mode_dark {
+  background-color: var(--light-gray);
+}
+
+.text-field:focus {
+  background-color: var(--input-focus-color);
+}
+
+.text-field_has-error:focus {
+  background-color: var(--warning-color-light);
+}
+
+/* Radio buttons */
+
+.fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.fieldset_type_check-radio {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.legend {
+  padding: 0;
+  margin: 0;
+}
+
+.legend_type_check-radio {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.radio {
+  margin: 0 0.75rem 0 0;
+}
+
+.label_type_check-radio {
+  line-height: 1.25;
+}

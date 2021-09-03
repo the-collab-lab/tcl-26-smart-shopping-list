@@ -1,7 +1,5 @@
 import peasyLogoMark from '../../images/peasy-logomark.svg';
 
-import './LogoHeader.css';
-
 const LogoHeader = ({ isHome = false }) => {
   return (
     <header className={`logo ${isHome ? 'logo_home' : ''}`}>

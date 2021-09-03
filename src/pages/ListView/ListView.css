@@ -1,0 +1,122 @@
+/* Layout styles */
+.list-view {
+  position: relative;
+  max-width: 900px;
+  padding: 1.25rem;
+  margin: 0 auto;
+  font-size: 1.25rem;
+  background: var(--light-gray);
+}
+
+.list-view__main {
+  margin: 2rem 0 0 0;
+}
+
+.list-view__filter {
+  margin: 0 0 2rem 0;
+}
+
+@media only screen and (min-width: 700px) {
+  .list-view {
+    padding: 1.25rem 3rem;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .list-view__main {
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
+  .list-view__main {
+    margin: 1rem 0 0 0;
+  }
+
+  .list-view__filter {
+    margin: 0 130px 2rem 0;
+  }
+}
+
+.list-view__empty {
+  max-width: 20rem; /* so it doesn't break weirdly on amaller mobile */
+  margin: 3rem auto 0 auto;
+  text-align: center;
+}
+
+@media only screen and (min-width: 500px) {
+  .list-view__empty {
+    max-width: none;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .list-view__empty {
+    margin: 6rem 0 0 2.625em;
+    text-align: left;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .list-view__header,
+  .list-view__empty {
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .list-view__header {
+    margin-left: -2.9375rem;
+  }
+}
+
+/* Reusable block for heading plus action links (used in empty list and item count) */
+.list-summary__heading {
+  padding: 0;
+  margin: 0;
+  font-size: 1.125em;
+  font-weight: 300;
+  line-height: 1.125;
+}
+
+.list-summary__strong {
+  font-weight: 800;
+  color: var(--main-accent-color);
+}
+
+.list-summary__extra {
+  display: none;
+}
+
+.list-summary__action {
+  position: relative;
+  top: -0.125em;
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+  height: auto;
+}
+
+.list-summary__action:before {
+  content: '|';
+  display: inline-block;
+  margin: 0 0.75em;
+  font-weight: 400;
+  color: var(--icon-a11y-gray);
+}
+
+.list-summary__action:nth-child(2):before {
+  display: none;
+}
+
+@media only screen and (min-width: 650px) {
+  .list-summary__extra {
+    display: inline;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .list-summary__action {
+    top: -0.25em;
+  }
+}

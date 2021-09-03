@@ -11,8 +11,8 @@ const NotFound = () => {
       <LogoHeader />
 
       <main className="page-view__main">
-        <h1 class="header">404: Page Not Found</h1>
-        <p class="paragraph">
+        <h1 className="header">404: Page Not Found</h1>
+        <p className="paragraph">
           Lost? Try navigating to your list or adding an item below:
         </p>
       </main>

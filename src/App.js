@@ -10,8 +10,11 @@ import {
 // Firestore
 import { db } from './lib/firebase.js';
 
-// External Files
+// Global CSS Files
 import './App.css';
+import './css/ui-elements.css';
+import './css/logo.css';
+import './css/page-view.css';
 
 // Components
 import ListView from './pages/ListView/ListView';
@@ -139,14 +142,14 @@ function App() {
       >
         <Switch>
           <Route exact path="/">
-            {listId ? (
+            {token ? (
               <Redirect to="/list" />
             ) : (
               <Home createList={createList} joinList={joinList} />
             )}
           </Route>
           <Route path="/list">
-            {!listId ? (
+            {!token ? (
               <Redirect exact to="/" />
             ) : (
               <ListView

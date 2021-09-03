@@ -60,8 +60,8 @@
 }
 
 .item {
-  padding: 0.8125rem 0.375rem 0.75rem 0.375rem;
-  border-top: var(--border-width) solid var(--light-gray);
+  padding: 0.8125em 0.625em 0.8125em 0.625em;
+  border-top: var(--border-width) solid var(--medium-gray);
 }
 
 .item:first-child {
@@ -74,28 +74,32 @@
 }
 
 .item__label {
-  padding-bottom: 0.25em; /* bumps the label up to be more even with the icons */
   margin: 0 0 0 1rem;
 }
 
 @media only screen and (min-width: 600px) {
   .item__label {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
   }
 }
 
 @media only screen and (min-width: 1200px) {
   .item__label {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
   }
 }
 
 .item__details-button {
-  margin: 0 1rem;
+  margin: 0 0 0 auto;
+  transition: transform 0.3s linear;
+}
+
+.item__details-button_expanded {
+  transform: rotate(-180deg); /* arrow points up when details expanded */
 }
 
 .item__delete-button {
-  margin: 0 0 0 auto;
+  margin: 0 0 0 0.875em;
 }
 
 .item__delete-button:hover,
@@ -110,4 +114,74 @@
 .item__message_visible {
   /* account for icon size, icon padding, and margin between icon and item name */
   margin: 0.25rem 0 0.5rem calc(var(--icon-size-lg) + 1.25rem);
+}
+
+.item__details {
+  flex-basis: 100%;
+  margin: 0.625rem 0 0 0;
+}
+
+.details {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  color: var(--text-a11y-gray);
+  line-height: 1.5;
+}
+
+.details__detail {
+  margin: 0.25rem 0 0 0;
+}
+
+.details_visible {
+  display: flex;
+}
+
+.details__name {
+  margin: 0 0.375rem 0 0;
+}
+
+.details__value {
+  color: var(--charcoal);
+  font-weight: 500;
+}
+
+.details__value-soon {
+  margin-left: 0.5rem;
+  color: var(--item-soon-color);
+  font-weight: bold;
+}
+
+.details__year {
+  font-weight: 400;
+  color: var(--text-a11y-gray);
+}
+
+@media only screen and (min-width: 400px) {
+  .details {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .details__detail {
+    margin: 0.25rem 1rem 0 1rem;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .item__details {
+    /* account for icon size, icon padding, and margin between icon and item name */
+    margin: 0.75rem 0 0 calc(var(--icon-size-lg) + 0.25rem);
+  }
+
+  .details {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .details__detail {
+    margin: 0.25rem 1rem 0 1rem;
+  }
 }

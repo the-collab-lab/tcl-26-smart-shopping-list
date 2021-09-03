@@ -1,5 +1,23 @@
 .filter {
-  margin: 20px 0;
+  position: relative;
+  font-size: 1rem;
+}
+
+.filter__text-field {
+  padding: 0 3em 0 3.25em;
+  background: var(--input-bg-color) url(../../images/icon-filter.svg) 1.0625rem
+    50% no-repeat;
+  background-size: 1.625em 1.625em;
+}
+
+.filter__clear {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 3rem;
+  height: 3rem;
+  color: var(--charcoal);
+  border: none;
 }
 
 /* some slight BEM defiance here to avoid tons of classes on SVGs we may change */
@@ -16,4 +34,19 @@
 .filter__clear:hover .icon__mark,
 .filter__clear:focus .icon__mark {
   fill: #fff;
+}
+
+@media only screen and (min-width: 600px) {
+  .filter {
+    font-size: 1.125rem;
+  }
+  .filter__text-field {
+    background: var(--input-bg-color) url(../../images/icon-filter.svg) 1.125rem
+      50% no-repeat;
+    background-size: 1.625em 1.625em;
+  }
+  .filter__clear {
+    width: 3.375rem;
+    height: 3.375rem;
+  }
 }

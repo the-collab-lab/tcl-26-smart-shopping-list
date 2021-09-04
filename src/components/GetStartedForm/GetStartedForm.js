@@ -76,54 +76,56 @@ const GetStartedForm = ({ createList, joinList }) => {
       className="home-intro__form get-started-form"
     >
       <div className={`get-started-form__join-section ${toggleJoinClass}`}>
-        <h3 className="get-started-form__heading">
-          Want to join an existing list?
-        </h3>
+        <div className="get-started-form__join-inner">
+          <h3 className="get-started-form__heading">
+            Want to join an existing list?
+          </h3>
 
-        <p className="get-started-form__directions">
-          Enter the list’s three word token below and click the{' '}
-          <strong className="strong">Join List</strong> button.
-        </p>
+          <p className="get-started-form__directions">
+            Enter the list’s three word token below and click the{' '}
+            <strong className="strong">Join List</strong> button.
+          </p>
 
-        <label
-          className="get-started-form__label visually-hidden"
-          htmlFor="shareToken"
-        >
-          Your Token:
-        </label>
+          <label
+            className="get-started-form__label visually-hidden"
+            htmlFor="shareToken"
+          >
+            Your Token:
+          </label>
 
-        <input
-          ref={shareTokenRef}
-          className={`get-started-form__text-field text-field ${
-            shareTokenError ? 'text-field_has-error' : ''
-          }`}
-          type="text"
-          id="shareToken"
-          name="shareToken"
-          value={shareToken}
-          onChange={handleTokenChange}
-          aria-describedby="shareTokenHint"
-          aria-invalid={Boolean(shareTokenError)}
-          maxLength="100"
-          required
-        />
+          <input
+            ref={shareTokenRef}
+            className={`get-started-form__text-field text-field ${
+              shareTokenError ? 'text-field_has-error' : ''
+            }`}
+            type="text"
+            id="shareToken"
+            name="shareToken"
+            value={shareToken}
+            onChange={handleTokenChange}
+            aria-describedby="shareTokenHint"
+            aria-invalid={Boolean(shareTokenError)}
+            maxLength="100"
+            required
+          />
 
-        <div
-          id="shareTokenHint"
-          className={`error error_type_field get-started-form__field-error ${
-            shareTokenError ? 'error_on' : ''
-          }`}
-        >
-          {shareTokenError}
-        </div>
+          <div
+            id="shareTokenHint"
+            className={`error error_type_field get-started-form__field-error ${
+              shareTokenError ? 'error_on' : ''
+            }`}
+          >
+            {shareTokenError}
+          </div>
 
-        <div
-          role="alert"
-          className={`error error_type_summary get-started-form__join-errors ${
-            joinListError ? 'error_on' : ''
-          }`}
-        >
-          {joinListError}
+          <div
+            role="alert"
+            className={`error error_type_summary get-started-form__join-errors ${
+              joinListError ? 'error_on' : ''
+            }`}
+          >
+            {joinListError}
+          </div>
         </div>
       </div>
 

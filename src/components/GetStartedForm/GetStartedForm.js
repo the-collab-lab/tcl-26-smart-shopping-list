@@ -67,12 +67,16 @@ const GetStartedForm = ({ createList, joinList }) => {
       });
   }
 
+  // since CSS can't animate between height 0 and height auto, we have to help the animation work
   useEffect(() => {
     if (showJoinForm) {
-      // handles animating height of accordion from 0 to auto height
+      // here we are handling slide down, so the height is set to 0 to start
+      // get the exact size "auto" height would be with scrollHeight
       const fullHeight = joinSectionRef.current.scrollHeight;
+      // change the height to this number instead of auto, since then we get an animation
       joinSectionRef.current.style.height = fullHeight + 'px';
 
+      // add an event listener to set the height back to auto once the transition is complete
       joinSectionRef.current.addEventListener(
         'transitionend',
         removeDefinedHeight,
@@ -83,12 +87,13 @@ const GetStartedForm = ({ createList, joinList }) => {
           'transitionend',
           removeDefinedHeight,
         );
-        joinSectionRef.current.style.height = null;
+        joinSectionRef.current.style.height = null; // height will go back to auto
 
         // focus on form field here, once everything is done
         shareTokenRef.current.focus();
       }
 
+      // now add in the class to show our other animations
       joinSectionRef.current.classList.add(
         'get-started-form__join-section_show',
       );

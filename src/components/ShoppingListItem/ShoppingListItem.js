@@ -122,12 +122,16 @@ const ShoppingListItem = ({
     setShowSingleDetail(showAllDetails);
   }, [showAllDetails]);
 
-  // handles animating height of accordion from 0 to auto height
+  // since CSS can't animate between height 0 and height auto, we have to help the animation work
   useEffect(() => {
     if (showSingleDetail) {
+      // here we are handling slide down, so the height is set to 0 to start
+      // get the exact size "auto" height would be with scrollHeight
       const fullHeight = detailsRef.current.scrollHeight;
+      // change the height to this number instead of auto, since then we get an animation
       detailsRef.current.style.height = fullHeight + 'px';
 
+      // add an event listener to set the height back to auto once the transition is complete
       detailsRef.current.addEventListener('transitionend', removeDefinedHeight);
 
       function removeDefinedHeight() {
@@ -135,21 +139,31 @@ const ShoppingListItem = ({
           'transitionend',
           removeDefinedHeight,
         );
-        detailsRef.current.style.height = null;
+        detailsRef.current.style.height = null; // height will go back to auto
       }
 
+      // now add in the class to show our other animations
       detailsRef.current.classList.add('details_visible');
     } else {
+      // here we are handling slide up, so the height is set to auto to start
+      // get the exact size "auto" height has worked out to
       const fullHeight = detailsRef.current.scrollHeight;
+      // remove transition and save for later, so we don't have to wait when changing height
       const cssTransition = detailsRef.current.style.transition;
       detailsRef.current.style.transition = '';
 
+      // here we're running callbacks once the browser next renders
       requestAnimationFrame(() => {
+        // change the height from auto to the exact pixel number we calculated
+        // (since we removed the transition, we can change the height with no issues)
         detailsRef.current.style.height = fullHeight + 'px';
+        // add the transition back because now we *do* want to see it
         detailsRef.current.style.transition = cssTransition;
 
         requestAnimationFrame(function () {
+          // now set the height to 0 and we will see it animate
           detailsRef.current.style.height = 0 + 'px';
+          // add in the class to show our other animations
           detailsRef.current.classList.remove('details_visible');
         });
       });

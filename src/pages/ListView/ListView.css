@@ -1,7 +1,6 @@
 /* Layout styles */
 .list-view {
   position: relative;
-  max-width: 750px;
   padding: 1.25rem;
   margin: 0 auto;
   font-size: 1.25rem;
@@ -73,9 +72,16 @@
 }
 
 @media only screen and (min-width: 1200px) {
+  .list-view {
+    box-sizing: border-box;
+    max-width: 70%;
+    padding: 1.25rem 3rem 1.25rem 4.5rem;
+    margin: 0 0 0 0;
+  }
+
   .list-view__header,
   .list-view__empty {
-    font-size: 1.375rem;
+    font-size: 1.25rem;
   }
 
   /* move the logo, count left into the gutter when there's room */
@@ -86,6 +92,50 @@
   /* make room for add button on right */
   .list-view__filter {
     margin: 0 130px 2rem 0;
+  }
+
+  .list-view__add-button {
+    position: absolute;
+    right: calc(-16px);
+    top: 0.125em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 94px;
+    height: 94px;
+    background: var(--main-accent-color);
+    border: none;
+    border-radius: 94px;
+    font-size: 3rem;
+    color: #fff;
+    transition: 0.25s right var(--transition-timing), transform 0.5s ease-in-out;
+    z-index: 100;
+    cursor: pointer;
+  }
+
+  .list-view__add-button_close {
+    /* accounts for half icon, li padding and container padding */
+    right: calc(-3rem - 0.625em - 16px);
+    transform: rotate(-135deg);
+  }
+}
+
+@media only screen and (min-width: 1530px) {
+  .list-view {
+    max-width: 750px;
+    box-sizing: content-box;
+    padding: 1.25rem;
+    margin: 0 auto;
+  }
+
+  .list-view__header,
+  .list-view__empty {
+    font-size: 1.375rem;
+  }
+
+  .list-view__add-button_close {
+    /* accounts for half icon, li padding and container padding */
+    right: calc(-2.5rem - 0.625em - 16px);
   }
 }
 

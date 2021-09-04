@@ -70,17 +70,27 @@
   margin-top: 2rem;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 1200px) {
+  .add-item-form {
+    top: 10.5rem;
+  }
+
+  .add-item-form__text-field,
+  .add-item-form__options,
+  .add-item-form__submit {
+    max-width: 18rem;
+  }
+
   .add-item-form {
     position: absolute;
     left: auto;
     right: 0;
-    top: 7.75rem;
+    top: 11rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: calc(50% - (375px + 2.5rem));
+    width: 30%;
     padding: 3rem;
     box-sizing: border-box;
     color: #fff;
@@ -101,11 +111,11 @@
     right: 0;
     top: 0;
     /* must use % here (not vw) to account for scrollbar */
-    width: calc(50% - (375px + 2.5rem));
+    width: 30%;
     height: 100vh;
     background: var(--charcoal);
     /* must use vw here (not %) to position off screen */
-    transform: translateX(calc(50vw - (375px + 2.5rem)));
+    transform: translateX(30vw);
     will-change: transform;
     transition: 0.35s transform 0.5s ease-in-out;
   }
@@ -116,15 +126,23 @@
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1530px) {
   .add-item-form {
-    top: 10.5rem;
+    width: calc(50% - (375px + 2.5rem));
+    padding: 3rem;
   }
 
-  .add-item-form__text-field,
-  .add-item-form__options,
-  .add-item-form__submit {
-    max-width: 18rem;
+  .add-item-background {
+    /* must use % here (not vw) to account for scrollbar */
+    width: calc(50% - (375px + 2.5rem));
+    height: 100vh;
+    /* must use vw here (not %) to position off screen */
+    transform: translateX(calc(50vw - (375px + 2.5rem)));
+  }
+
+  .add-item-background_open {
+    transform: translateY(0);
+    transition: transform 0.5s ease-in-out;
   }
 }
 
@@ -134,9 +152,14 @@
   }
 }
 
+@media only screen and (min-width: 1700px) {
+  .add-item-form {
+    top: 10rem;
+  }
+}
+
 @media only screen and (min-width: 1920px) {
   .add-item-form {
-    top: 9.5rem;
     /* must use % here (not vw) to account for scrollbar */
     width: calc(50% - (450px + 3.5vw));
   }

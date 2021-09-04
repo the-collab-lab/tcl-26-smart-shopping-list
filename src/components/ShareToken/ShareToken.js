@@ -9,14 +9,16 @@ const ShareToken = ({ token }) => {
   const shareTokenRef = useRef();
 
   function copyToken() {
-    navigator.clipboard.writeText(token).catch((err) => {
+    try {
+      navigator.clipboard.writeText(token);
+    } catch (err) {
       document.execCommand(token); // possible fallback for older browsers
-    });
+    }
   }
 
   const handleTokenShare = () => {
-    copyToken();
     setShowShare(!showShare);
+    copyToken();
   };
 
   // when share area is shown, direct focus to field (helps screen readers follow along)

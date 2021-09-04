@@ -15,6 +15,10 @@ const GetStartedForm = ({ createList, joinList }) => {
   const [shareToken, setShareToken] = useState(''); // value for the shareToken field
   const shareTokenRef = useRef(); // ref for the shareToken field
   const [shareTokenError, setShareTokenError] = useState(''); // error hint for the shareToken field
+  const [joinReady, setJoinReady] = useState(false); // error hint for the shareToken field
+
+  // matches a three word token
+  const tokenRegex = new RegExp(/^(?:[A-Za-z]{3,} ){2}[A-Za-z]{3,}$/);
 
   function handleCreateList() {
     setCreateListError('');
@@ -33,6 +37,7 @@ const GetStartedForm = ({ createList, joinList }) => {
     setJoinListError('');
     setShareTokenError('');
     setShareToken(event.target.value);
+    setJoinReady(tokenRegex.test(event.target.value.trim()));
   };
 
   function handleJoinList(event) {
@@ -79,14 +84,14 @@ const GetStartedForm = ({ createList, joinList }) => {
           removeDefinedHeight,
         );
         joinSectionRef.current.style.height = null;
+
+        // focus on form field here, once everything is done
+        shareTokenRef.current.focus();
       }
 
       joinSectionRef.current.classList.add(
         'get-started-form__join-section_show',
       );
-
-      // focus on form field
-      shareTokenRef.current.focus();
     }
   }, [showJoinForm]);
 
@@ -176,7 +181,9 @@ const GetStartedForm = ({ createList, joinList }) => {
         type="submit"
         className={`button ${
           showJoinForm ? 'button_type_primary' : ''
-        } get-started-form__button get-started-form__button_join`}
+        } get-started-form__button get-started-form__button_join ${
+          joinReady ? 'get-started-form__button_join-ready' : ''
+        }`}
         onClick={(e) => {
           if (!showJoinForm) {
             e.preventDefault(); // stop form submission
@@ -184,7 +191,7 @@ const GetStartedForm = ({ createList, joinList }) => {
           }
         }}
       >
-        {!showJoinForm ? 'Join List' : 'Join Now!'}
+        {joinReady ? 'Join Now!' : 'Join List'}
       </button>
     </form>
   );

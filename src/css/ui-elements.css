@@ -28,6 +28,11 @@
   fill: currentColor;
 }
 
+.add-icon {
+  width: 64px;
+  height: 64px;
+}
+
 /* Buttons */
 
 .button {
@@ -229,17 +234,61 @@
   grid-template-columns: auto 1fr;
   grid-template-rows: auto;
   align-items: center;
-  margin: 0.5em 0;
-  font-size: 1.25rem;
-}
-
-.radio {
-  margin: 0.5em 0.75em 0.5em 0;
+  margin: 0;
+  font-size: 1.125rem;
 }
 
 .label_type_check-radio {
-  margin: 0.5em 0 0.5em 0;
+  margin: 0;
   font-size: inherit;
   font-weight: 400;
   line-height: 1.25;
+}
+
+.radio-icon__mark {
+  fill: none;
+}
+
+.radio-target {
+  display: block;
+  height: var(--icon-size-sm);
+  width: var(--icon-size-sm);
+  padding: 0.125rem;
+  margin: 0.25em 0.75em 0.25em 0;
+  cursor: pointer;
+  border-radius: 3px; /* so a11y focus outline is not all pointy */
+}
+
+.radio-target .icon {
+  height: 26px;
+  width: 26px;
+}
+
+.radio:checked + .radio-target .icon__mark {
+  fill: currentColor;
+}
+
+.radio:focus-visible + .radio-target {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
+@media only screen and (min-height: 900px) {
+  .radio-target {
+    display: block;
+    height: 32px;
+    width: 32px;
+    padding: 0.125rem;
+    margin: 0.5em 0.75em 0.5em 0;
+    cursor: pointer;
+    border-radius: 3px; /* so a11y focus outline is not all pointy */
+  }
+
+  .radio-target .icon {
+    height: 32px;
+    width: 32px;
+  }
+
+  .fieldset__check-radio-group {
+    font-size: 1.25rem;
+  }
 }

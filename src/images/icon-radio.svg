@@ -1,0 +1,12 @@
+<svg class="icon radio-icon" x="0px" y="0px" viewBox="0 0 32 32">
+  <style type="text/css">
+    .icon__outline {fill-rule:evenodd;clip-rule:evenodd;fill:currentColor;}
+  </style>
+  <g>
+    <path class="icon__mark radio-icon__mark" d="M16,6.37c5.32,0,9.63,4.31,9.63,9.63s-4.31,9.63-9.63,9.63S6.37,21.32,6.37,16S10.68,6.37,16,6.37z"/>
+  </g>
+  <g>
+    <path class="icon__outline" d="M16,2.65c7.36,0,13.35,5.99,13.35,13.35S23.36,29.35,16,29.35S2.65,23.36,2.65,16S8.64,2.65,16,2.65 M16,0
+      C7.16,0,0,7.16,0,16s7.16,16,16,16s16-7.16,16-16S24.84,0,16,0L16,0z"/>
+  </g>
+</svg>

@@ -21,20 +21,25 @@
   position: absolute;
   right: calc(-16px);
   top: 0.125em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 94px;
   height: 94px;
   background: var(--main-accent-color);
   border: none;
   border-radius: 94px;
   font-size: 3rem;
+  color: #fff;
   transition: 0.25s right var(--transition-timing), transform 0.5s ease-in-out;
   z-index: 100;
+  cursor: pointer;
 }
 
 .list-view__add-button_close {
   /* accounts for half icon, li padding and container padding */
   right: calc(-2.5rem - 0.625em - 16px);
-  transform: rotate(135deg);
+  transform: rotate(-135deg);
 }
 
 .list-view__empty {
@@ -93,7 +98,6 @@
   .list-view__add-button_close {
     /* accounts for half icon, li padding and container padding */
     right: calc(-3.5vw - 0.625em - 16px);
-    transform: rotate(135deg);
   }
 }
 

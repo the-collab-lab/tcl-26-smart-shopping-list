@@ -5,6 +5,7 @@ import { db } from '../../lib/firebase.js';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { DateTime } from 'luxon';
 
+import { ReactComponent as AddCloseIcon } from '../../images/icon-add.svg';
 import './ListView.css';
 
 import Loader from '../../components/Loader/Loader';
@@ -199,7 +200,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
                 aria-label="Open Add Item Form"
                 aria-expanded={showAddItem}
               >
-                +
+                <AddCloseIcon aria-hidden="true" focusable="false" />
               </button>
               {listItems.empty ? (
                 <ShoppingListEmpty

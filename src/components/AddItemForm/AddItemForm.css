@@ -19,8 +19,16 @@
   transition: transform 0.5s ease-in-out;
 } */
 
+/* if checkbox input is checked, change the SVG color in the label.checkbox-target beside it */
+
 .add-item-form {
   font-size: 1rem;
+}
+
+.add-item-form__text-field,
+.add-item-form__options,
+.add-item-form__submit {
+  width: 100%;
 }
 
 .add-item-form_open {
@@ -44,16 +52,21 @@
   margin: 0;
 }
 
-.add-item-form {
+.add-item-form__item-error {
+  min-height: 0;
+  color: var(--warning-color-dark-mode);
+  margin-left: 0;
 }
 
 .add-item-form__option-legend {
+  font-size: 1.125rem;
   text-align: center;
+  margin: 0.75rem 0 0 0;
 }
 
 .add-item-form__submit {
-  font-size: 1.375rem;
-  padding: 0.875rem 1rem;
+  font-size: 1.125rem;
+  padding: 0.625em 0.75em;
   margin-top: 2rem;
 }
 
@@ -62,7 +75,7 @@
     position: absolute;
     left: auto;
     right: 0;
-    top: 7.9375rem;
+    top: 7.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -105,7 +118,7 @@
 
 @media only screen and (min-width: 1200px) {
   .add-item-form {
-    top: 12rem;
+    top: 10.5rem;
   }
 
   .add-item-form__text-field,
@@ -115,16 +128,25 @@
   }
 }
 
+@media only screen and (min-width: 1600px) {
+  .add-item-form__heading {
+    font-size: 1.875em;
+  }
+}
+
 @media only screen and (min-width: 1920px) {
   .add-item-form {
-    top: 7.9375rem;
+    top: 9.5rem;
     /* must use % here (not vw) to account for scrollbar */
     width: calc(50% - (450px + 3.5vw));
-    font-size: 1.125rem;
   }
 
   .add-item-form__heading {
-    font-size: 2.25rem;
+    font-size: 2em;
+  }
+
+  .add-item-form__submit {
+    font-size: 1.25rem;
   }
 
   .add-item-background {
@@ -136,5 +158,22 @@
 
   .add-item-background_open {
     transform: translateY(0);
+  }
+}
+
+/* make the form elements larger when there's enough height */
+@media only screen and (min-height: 900px) {
+  .add-item-form__option-legend {
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  .add-item-form__submit {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .add-item-form__item-error {
+    min-height: 0.626rem;
   }
 }

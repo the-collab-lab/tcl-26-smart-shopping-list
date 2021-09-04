@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import firebase from 'firebase/app';
 
+import { ReactComponent as RadioIcon } from '../../images/icon-radio.svg';
 import './AddItemForm.css';
 
 const AddItemForm = ({
@@ -144,7 +145,7 @@ const AddItemForm = ({
         />
         <div
           id="itemErrorMessage"
-          className={`error error_type_field ${
+          className={`error error_type_field add-item-form__item-error ${
             itemErrorMessage ? 'error_on' : ''
           }`}
         >
@@ -160,12 +161,15 @@ const AddItemForm = ({
             <input
               type="radio"
               id="soonOption"
-              className="radio"
+              className="radio visually-hidden"
               name="purchaseInterval"
               value="7"
               onChange={handleChange}
               checked={formValues.purchaseInterval === '7'}
             />
+            <label htmlFor="soonOption" className="radio-target">
+              <RadioIcon aria-hidden="true" focusable="false" />
+            </label>
             <label
               htmlFor="soonOption"
               className="label label_type_check-radio"
@@ -175,13 +179,16 @@ const AddItemForm = ({
 
             <input
               type="radio"
-              className="radio"
+              className="radio visually-hidden"
               id="kindOfSoonOption"
               name="purchaseInterval"
               value="14"
               onChange={handleChange}
               checked={formValues.purchaseInterval === '14'}
             />
+            <label htmlFor="kindOfSoonOption" className="radio-target">
+              <RadioIcon aria-hidden="true" focusable="false" />
+            </label>
             <label
               htmlFor="kindOfSoonOption"
               className="label label_type_check-radio"
@@ -191,13 +198,16 @@ const AddItemForm = ({
 
             <input
               type="radio"
-              className="radio"
+              className="radio visually-hidden"
               id="notSoonOption"
               name="purchaseInterval"
               value="30"
               onChange={handleChange}
               checked={formValues.purchaseInterval === '30'}
             />
+            <label htmlFor="notSoonOption" className="radio-target">
+              <RadioIcon aria-hidden="true" focusable="false" />
+            </label>
             <label
               htmlFor="notSoonOption"
               className="label label_type_check-radio"

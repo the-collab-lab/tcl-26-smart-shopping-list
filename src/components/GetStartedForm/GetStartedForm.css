@@ -12,6 +12,7 @@
   opacity: 0;
   visibility: hidden;
   height: 0;
+  overflow: hidden;
   grid-area: join-section;
   margin: 2em -8vw -2.375em -8vw;
   background: var(--charcoal);
@@ -75,7 +76,9 @@
   margin: 0 auto;
   font-size: 1.375em;
   transition: background-color var(--transition-timing),
-    color var(--transition-timing), border-color var(--transition-timing);
+    color var(--transition-timing), border-color var(--transition-timing),
+    transform var(--transition-timing);
+  z-index: 2;
 }
 
 .get-started-form__button_create {
@@ -96,8 +99,8 @@
 }
 
 /* for highlighting the button once a valid token is entered */
-.get-started-form__join-button_ready {
-  transform: scale(1.03125);
+.get-started-form__button_join-ready {
+  transform: scale(1.0625);
 }
 
 /* make join section not be full width on tablet size */

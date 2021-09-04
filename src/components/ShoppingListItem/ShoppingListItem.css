@@ -126,7 +126,8 @@
   overflow: hidden;
   visibility: hidden;
   opacity: 0;
-  transition: 0.5s height 0.35s ease-in-out, opacity var(--transition-timing),
+  will-change: height;
+  transition: 0.35s height 0.15s ease-in-out, opacity var(--transition-timing),
     visibility var(--transition-timing);
 }
 
@@ -134,8 +135,8 @@
   visibility: visible;
   opacity: 1;
   height: auto;
-  transition: height 0.5s ease-in-out, 0.5s opacity var(--transition-timing),
-    0.5s visibility var(--transition-timing);
+  transition: height 0.35s ease-in-out, 0.35s opacity var(--transition-timing),
+    0.35s visibility var(--transition-timing);
 }
 
 .details__list {

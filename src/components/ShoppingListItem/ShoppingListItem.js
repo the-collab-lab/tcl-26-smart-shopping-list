@@ -122,7 +122,7 @@ const ShoppingListItem = ({
     setShowSingleDetail(showAllDetails);
   }, [showAllDetails]);
 
-  // update whether item is recently purchased
+  // handles animating height of accordion from 0 to auto height
   useEffect(() => {
     if (showSingleDetail) {
       const fullHeight = detailsRef.current.scrollHeight;

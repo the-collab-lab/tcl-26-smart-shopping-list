@@ -8,13 +8,10 @@ const GetStartedForm = ({ createList, joinList }) => {
 
   const [showJoinForm, setShowJoinForm] = useState(false);
 
-  const toggleJoinClass = showJoinForm
-    ? 'get-started-form__join-section_show'
-    : '';
-
   const [createListError, setCreateListError] = useState(''); // error for the create list form
   const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
 
+  const joinSectionRef = useRef();
   const [shareToken, setShareToken] = useState(''); // value for the shareToken field
   const shareTokenRef = useRef(); // ref for the shareToken field
   const [shareTokenError, setShareTokenError] = useState(''); // error hint for the shareToken field
@@ -66,7 +63,31 @@ const GetStartedForm = ({ createList, joinList }) => {
   }
 
   useEffect(() => {
-    shareTokenRef.current.focus();
+    if (showJoinForm) {
+      // handles animating height of accordion from 0 to auto height
+      const fullHeight = joinSectionRef.current.scrollHeight;
+      joinSectionRef.current.style.height = fullHeight + 'px';
+
+      joinSectionRef.current.addEventListener(
+        'transitionend',
+        removeDefinedHeight,
+      );
+
+      function removeDefinedHeight(e) {
+        joinSectionRef.current.removeEventListener(
+          'transitionend',
+          removeDefinedHeight,
+        );
+        joinSectionRef.current.style.height = null;
+      }
+
+      joinSectionRef.current.classList.add(
+        'get-started-form__join-section_show',
+      );
+
+      // focus on form field
+      shareTokenRef.current.focus();
+    }
   }, [showJoinForm]);
 
   return (
@@ -75,7 +96,7 @@ const GetStartedForm = ({ createList, joinList }) => {
       onSubmit={handleJoinList}
       className="home-intro__form get-started-form"
     >
-      <div className={`get-started-form__join-section ${toggleJoinClass}`}>
+      <div ref={joinSectionRef} className="get-started-form__join-section">
         <div className="get-started-form__join-inner">
           <h3 className="get-started-form__heading">
             Want to join an existing list?

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { DateTime } from 'luxon';
 
 import {
@@ -20,9 +20,12 @@ const ShoppingListItem = ({
   handleModalOpen,
 }) => {
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
+
   const [itemNotice, setItemNotice] = useState({});
 
   const [showSingleDetail, setShowSingleDetail] = useState(false);
+
+  const detailsRef = useRef();
 
   const currentYear = DateTime.now().toFormat('yyyy');
 
@@ -119,6 +122,40 @@ const ShoppingListItem = ({
     setShowSingleDetail(showAllDetails);
   }, [showAllDetails]);
 
+  // update whether item is recently purchased
+  useEffect(() => {
+    if (showSingleDetail) {
+      const fullHeight = detailsRef.current.scrollHeight;
+      detailsRef.current.style.height = fullHeight + 'px';
+
+      detailsRef.current.addEventListener('transitionend', removeDefinedHeight);
+
+      function removeDefinedHeight(e) {
+        detailsRef.current.removeEventListener(
+          'transitionend',
+          removeDefinedHeight,
+        );
+        detailsRef.current.style.height = null;
+      }
+
+      detailsRef.current.classList.add('details_visible');
+    } else {
+      const fullHeight = detailsRef.current.scrollHeight;
+      const cssTransition = detailsRef.current.style.transition;
+      detailsRef.current.style.transition = '';
+
+      requestAnimationFrame(() => {
+        detailsRef.current.style.height = fullHeight + 'px';
+        detailsRef.current.style.transition = cssTransition;
+
+        requestAnimationFrame(function () {
+          detailsRef.current.style.height = 0 + 'px';
+          detailsRef.current.classList.remove('details_visible');
+        });
+      });
+    }
+  }, [showSingleDetail]);
+
   return (
     <li className="shopping-list__item item" id={`item-${item.id}`}>
       <div className="item__primary">
@@ -196,11 +233,7 @@ const ShoppingListItem = ({
         {itemNotice?.message && itemNotice.message}
       </div>
 
-      <div
-        className={`item__details details ${
-          showSingleDetail ? 'details_visible' : ''
-        }`}
-      >
+      <div className="item__details details" ref={detailsRef}>
         <ul
           role="region"
           className="details__list list-reset"

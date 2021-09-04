@@ -133,7 +133,7 @@
 .details_visible {
   visibility: visible;
   opacity: 1;
-  height: 100px;
+  height: auto;
   transition: height 0.5s ease-in-out, 0.5s opacity var(--transition-timing),
     0.5s visibility var(--transition-timing);
 }

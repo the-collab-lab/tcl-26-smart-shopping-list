@@ -14,6 +14,7 @@
   visibility: hidden;
   transition: opacity var(--transition-timing),
     visibility var(--transition-timing);
+  z-index: 100;
 }
 
 .dialog_open {

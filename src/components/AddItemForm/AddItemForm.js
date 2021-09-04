@@ -105,6 +105,11 @@ const AddItemForm = ({
 
   return (
     <>
+      <div
+        className={`add-item-background ${
+          showAddItem ? 'add-item-background_open' : ''
+        }`}
+      ></div>
       <form
         name="addItemForm"
         onSubmit={handleSubmit}
@@ -224,11 +229,6 @@ const AddItemForm = ({
           Add Item
         </button>
       </form>
-      <div
-        className={`add-item-background ${
-          showAddItem ? 'add-item-background_open' : ''
-        }`}
-      ></div>
     </>
   );
 };

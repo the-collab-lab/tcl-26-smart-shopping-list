@@ -168,7 +168,9 @@ const ListView = ({ listId, handleModalOpen, token }) => {
 
   return (
     <>
-      <div className="list-view">
+      <div
+        className={`list-view ${showAddItem ? 'list-view_adding-item' : ''}`}
+      >
         <Helmet>
           <title>Your Shopping List - Peasy</title>
           <style>{':root { background-color: var(--light-gray); }'}</style>
@@ -192,8 +194,9 @@ const ListView = ({ listId, handleModalOpen, token }) => {
             />
 
             <main className="list-view__main">
+              {/* For complicated z-index reasons, I couldn't figure out how to implement the design without two versions of the button */}
               <button
-                className={`list-view__add-button ${
+                className={`list-view__add-button list-view__add-button_desktop ${
                   showAddItem ? 'list-view__add-button_close' : ''
                 }`}
                 onClick={() => setShowAddItem(!showAddItem)}
@@ -229,6 +232,16 @@ const ListView = ({ listId, handleModalOpen, token }) => {
         showAddItem={showAddItem}
         setShowAddItem={setShowAddItem}
       />
+      <button
+        className={`list-view__add-button list-view__add-button_mobile ${
+          showAddItem ? 'list-view__add-button_close' : ''
+        }`}
+        onClick={() => setShowAddItem(!showAddItem)}
+        aria-label="Open Add Item Form"
+        aria-expanded={showAddItem}
+      >
+        <AddCloseIcon aria-hidden="true" focusable="false" />
+      </button>
     </>
   );
 };

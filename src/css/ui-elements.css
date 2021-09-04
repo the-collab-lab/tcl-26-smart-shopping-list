@@ -179,7 +179,7 @@
 .text-field {
   display: block;
   width: 100%;
-  height: 3em; /* relative to font-size */
+  min-height: 3em; /* relative to font-size */
   padding: 0.25rem 1.25rem;
   box-sizing: border-box;
 

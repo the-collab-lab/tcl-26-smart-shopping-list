@@ -11,8 +11,6 @@
 .list-view_adding-item {
   position: fixed;
   overflow-y: hidden;
-  width: 100%;
-  height: 100vh;
   box-sizing: border-box;
 }
 

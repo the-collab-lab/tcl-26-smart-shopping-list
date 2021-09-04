@@ -17,6 +17,7 @@
   margin: 2em -8vw -2.375em -8vw;
   background: var(--charcoal);
   color: #fff;
+  will-change: height;
   transition: height 0.35s ease-in-out, 0.35s opacity var(--transition-timing),
     0.35s visibility var(--transition-timing);
 }

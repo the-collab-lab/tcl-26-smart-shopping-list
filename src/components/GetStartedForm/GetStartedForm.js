@@ -78,7 +78,7 @@ const GetStartedForm = ({ createList, joinList }) => {
         removeDefinedHeight,
       );
 
-      function removeDefinedHeight(e) {
+      function removeDefinedHeight() {
         joinSectionRef.current.removeEventListener(
           'transitionend',
           removeDefinedHeight,

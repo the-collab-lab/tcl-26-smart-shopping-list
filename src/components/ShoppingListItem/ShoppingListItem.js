@@ -130,7 +130,7 @@ const ShoppingListItem = ({
 
       detailsRef.current.addEventListener('transitionend', removeDefinedHeight);
 
-      function removeDefinedHeight(e) {
+      function removeDefinedHeight() {
         detailsRef.current.removeEventListener(
           'transitionend',
           removeDefinedHeight,

@@ -6,6 +6,7 @@ import { ReactComponent as ShareIcon } from '../../images/icon-share.svg';
 
 const ShareToken = ({ token }) => {
   const [showShare, setShowShare] = useState(false);
+  const shareAreaRef = useRef();
   const shareTokenRef = useRef();
 
   function copyToken() {
@@ -23,7 +24,41 @@ const ShareToken = ({ token }) => {
 
   // when share area is shown, direct focus to field (helps screen readers follow along)
   useEffect(() => {
-    if (showShare) shareTokenRef.current.focus();
+    if (showShare) {
+      const fullHeight = shareAreaRef.current.scrollHeight;
+      shareAreaRef.current.style.height = fullHeight + 'px';
+
+      shareAreaRef.current.addEventListener(
+        'transitionend',
+        removeDefinedHeight,
+      );
+
+      function removeDefinedHeight() {
+        shareAreaRef.current.removeEventListener(
+          'transitionend',
+          removeDefinedHeight,
+        );
+        shareAreaRef.current.style.height = null;
+
+        // handle focus here after everything is complete
+        shareTokenRef.current.focus();
+      }
+      shareAreaRef.current.classList.add('share-token_show');
+    } else {
+      const fullHeight = shareAreaRef.current.scrollHeight;
+      const cssTransition = shareAreaRef.current.style.transition;
+      shareAreaRef.current.style.transition = '';
+
+      requestAnimationFrame(() => {
+        shareAreaRef.current.style.height = fullHeight + 'px';
+        shareAreaRef.current.style.transition = cssTransition;
+
+        requestAnimationFrame(function () {
+          shareAreaRef.current.style.height = 0 + 'px';
+          shareAreaRef.current.classList.remove('share-token_show');
+        });
+      });
+    }
   }, [showShare]);
 
   return (
@@ -57,11 +92,10 @@ const ShareToken = ({ token }) => {
       </span>
 
       <div
-        className={`share-token list-header__share-token ${
-          showShare ? 'share-token_show' : ''
-        }`}
+        className="share-token list-header__share-token"
         id="share-token"
         aria-hidden={!showShare}
+        ref={shareAreaRef}
       >
         <label className="share-token__label" htmlFor="shareToken">
           Your unique token:

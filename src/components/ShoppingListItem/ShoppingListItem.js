@@ -196,52 +196,56 @@ const ShoppingListItem = ({
         {itemNotice?.message && itemNotice.message}
       </div>
 
-      <ul
-        role="region"
+      <div
         className={`item__details details ${
           showSingleDetail ? 'details_visible' : ''
-        } list-reset`}
-        id={`item-details-${item.id}`}
-        aria-label={`${item.itemName} details`}
+        }`}
       >
-        <li className="details__detail">
-          <span className="details__name">Purchases: </span>
-          <span className="details__value">{item.numberOfPurchases}</span>
-        </li>
-
-        {item.lastPurchaseDate && ( // if the item has been purchased before
+        <ul
+          role="region"
+          className="details__list list-reset"
+          id={`item-details-${item.id}`}
+          aria-label={`${item.itemName} details`}
+        >
           <li className="details__detail">
-            <span className="details__name">Last purchase:</span>
-            <span className="details__value">
-              {formatDate(item.lastPurchaseDate)}
-            </span>
+            <span className="details__name">Purchases: </span>
+            <span className="details__value">{item.numberOfPurchases}</span>
           </li>
-        )}
 
-        {item.status === 'inactive' ? (
-          <li className="details__detail details__detail_inactive">
-            You don't seem to be buying this.&nbsp;
-            <button
-              className="link_delete link"
-              onClick={() => handleModalOpen(item)}
-              aria-haspopup="true"
-            >
-              Delete?
-            </button>
-          </li>
-        ) : (
-          // only show the next purchase date for active items
-          <li className="details__detail">
-            <span className="details__name">Next purchase: </span>
-            <span className="details__value">
-              {`~ ${formatDate(item.nextPurchaseDate)}`}
-            </span>
-            <span className="details__value details__value-soon">
-              {item.status === 'soon' ? 'soon!' : ''}
-            </span>
-          </li>
-        )}
-      </ul>
+          {item.lastPurchaseDate && ( // if the item has been purchased before
+            <li className="details__detail">
+              <span className="details__name">Last purchase:</span>
+              <span className="details__value">
+                {formatDate(item.lastPurchaseDate)}
+              </span>
+            </li>
+          )}
+
+          {item.status === 'inactive' ? (
+            <li className="details__detail details__detail_inactive">
+              You don't seem to be buying this.&nbsp;
+              <button
+                className="link_delete link"
+                onClick={() => handleModalOpen(item)}
+                aria-haspopup="true"
+              >
+                Delete?
+              </button>
+            </li>
+          ) : (
+            // only show the next purchase date for active items
+            <li className="details__detail">
+              <span className="details__name">Next purchase: </span>
+              <span className="details__value">
+                {`~ ${formatDate(item.nextPurchaseDate)}`}
+              </span>
+              <span className="details__value details__value-soon">
+                {item.status === 'soon' ? 'soon!' : ''}
+              </span>
+            </li>
+          )}
+        </ul>
+      </div>
     </li>
   );
 };

@@ -126,7 +126,16 @@ const AboutView = ({ listId }) => {
           >
             Ander
           </a>
-          , Connie, Nick, & Sheila in partnership with&nbsp;
+          , Connie, Nick, &amp;{' '}
+          <a
+            className="link link_footer"
+            href="https://github.com/SheilaRMoore/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Sheila
+          </a>{' '}
+          in partnership with&nbsp;
           <a
             className="link link_footer"
             href="https://the-collab-lab.codes/"

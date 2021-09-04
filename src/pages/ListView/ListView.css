@@ -97,7 +97,7 @@
   }
 
   .list-view__empty {
-    margin: 6rem 0 0 2.625em;
+    margin: 0rem 0 0 2.625em;
     text-align: left;
   }
 }
@@ -127,6 +127,12 @@
   /* move the logo, count left into the gutter when there's room */
   .list-view__header {
     margin-left: -2.9375rem;
+  }
+
+  .list-view__empty {
+    margin: 0 0 0 0.5em;
+    text-align: left;
+    padding-top: 1.5rem;
   }
 
   /* make room for add button on right */

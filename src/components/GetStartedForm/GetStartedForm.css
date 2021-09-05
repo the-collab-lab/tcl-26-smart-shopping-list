@@ -97,6 +97,14 @@
   .get-started-form__join-section {
     border-radius: var(--container-border-radius);
   }
+
+  .get-started-form__heading {
+    font-size: 1.375em;
+  }
+
+  .get-started-form__directions {
+    font-size: 1.125em;
+  }
 }
 
 /* styles for larger devices that are wider than tall */
@@ -112,6 +120,10 @@
 
   .get-started-form__heading {
     font-size: 1.25em;
+  }
+
+  .get-started-form__directions {
+    font-size: 1em;
   }
 
   .get-started-form__join-section {

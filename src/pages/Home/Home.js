@@ -6,7 +6,7 @@ import GetStartedForm from '../../components/GetStartedForm/GetStartedForm.js';
 
 function Home({ createList, joinList }) {
   return (
-    <div className="page-view">
+    <div className="page-view page-view_home">
       <LogoHeader isHome={true} />
 
       <main className="page-view__main home-intro">

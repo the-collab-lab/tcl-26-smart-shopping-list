@@ -89,10 +89,13 @@
 }
 
 /* add some extra padding at the sides of list when there's room */
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 650px) {
   .list-view {
-    padding: 1.25rem 2.5rem calc(94px + 4rem) 2.5rem;
+    padding: 2rem 2.5rem calc(94px + 5rem) 2.5rem;
     font-size: 1.25rem;
+  }
+  .list-view__add-button_mobile {
+    bottom: 3rem;
   }
 }
 

@@ -100,6 +100,13 @@
     max-width: 50vw;
     margin: 0 auto;
   }
+
+  .share-toggle-button__icon {
+    justify-self: center;
+    width: 36px;
+    height: 36px;
+    margin: 0 0 -0.1875rem auto;
+  }
 }
 
 @media only screen and (min-width: 900px) {
@@ -110,6 +117,8 @@
   }
 
   .share-toggle-button__icon {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
     margin: 0 0.875rem -0.1875rem auto;
   }
 

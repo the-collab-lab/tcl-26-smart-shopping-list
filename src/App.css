@@ -48,7 +48,7 @@ CSS Organization reference: https://gist.github.com/awkale/ad46e2ade70e833fa178
   --light-gray: #f5f3fa;
   --medium-gray: #dddce6;
   --text-a11y-gray: #76757c; /* a11y: passes AA at 16px */
-  --icon-a11y-gray: #91909b; /* a11y: passes AA at 18px or for icons */
+  --icon-a11y-gray: #76757c; /* a11y: passes AA at 18px or for icons */
   --charcoal: #2a2933;
 
   --border-width: 2px; /* consistent border width for UI elements, dividers, etc. */

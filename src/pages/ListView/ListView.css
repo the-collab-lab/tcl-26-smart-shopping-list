@@ -47,6 +47,11 @@
   color: #fff;
   cursor: pointer;
   z-index: 2;
+  outline: none;
+}
+
+.list-view__add-button:focus-visible {
+  box-shadow: 0 0 1px 5px var(--highlight-color);
 }
 
 .list-view__add-button_desktop {
@@ -110,13 +115,24 @@
     margin: 0 0 0 0;
   }
 
+  /* add right veggies background */
+  .list-view:after,
+  .list-view_adding-item:after {
+    position: fixed;
+    left: auto;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 30%;
+    background: url(../../images/veg-home.svg) left top no-repeat;
+    background-size: cover;
+    content: '';
+    z-index: 0;
+  }
+
   .list-view_adding-item {
     position: static;
     overflow-y: visible;
-  }
-
-  .list-view_adding-item:after {
-    display: none;
   }
 
   .list-view__header,
@@ -169,6 +185,23 @@
     margin: 0 auto;
   }
 
+  /* add left veggies */
+  .list-view:before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: calc(50% - (375px + 2.5rem));
+    background: url(../../images/veg-home.svg) right top no-repeat;
+    background-size: cover;
+    content: '';
+  }
+
+  /* right veggies */
+  .list-view:after {
+    width: calc(50% - (375px + 2.5rem));
+  }
+
   .list-view__header,
   .list-view__empty {
     font-size: 1.375rem;
@@ -184,6 +217,12 @@
   .list-view {
     max-width: 900px;
     padding: 1.25rem 3.5vw;
+  }
+
+  /* adjust width of left and right veggies */
+  .list-view:after,
+  .list-view:before {
+    width: calc(50% - (450px + 3.5vw));
   }
 
   .list-view__add-button_close {

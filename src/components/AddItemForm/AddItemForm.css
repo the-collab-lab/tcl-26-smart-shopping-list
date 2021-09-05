@@ -47,13 +47,15 @@
   z-index: 1;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.35s ease-in-out;
+  /* necessary to transition visibility here or opacity won't fade out */
+  transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
   background: var(--charcoal);
 }
 
 .add-item-form_open {
   opacity: 1;
   visibility: visible;
+  /* necessary to not transition visibility here to make sure form can focus */
   transition: 0.5s opacity 0.35s ease-in-out;
 }
 
@@ -132,6 +134,7 @@
     top: 11rem;
     width: 30%;
     padding: 3rem;
+    background: none;
   }
 
   .add-item-background {

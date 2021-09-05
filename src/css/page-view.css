@@ -9,6 +9,7 @@
 
 .page-view__main {
   padding: 0 8vw 3rem 8vw;
+  z-index: 1;
 }
 
 .page-view__footer {
@@ -18,6 +19,7 @@
   color: #fff;
   text-align: center;
   background: var(--charcoal);
+  z-index: 1;
 }
 
 .link_footer {
@@ -48,11 +50,26 @@
     margin: 0 0 0 18vw;
   }
 
-  /* after minimum 800x600, scale the padding + margin taking into account available height and width */
-  @media only screen and (min-height: 600px) {
-    .page-view {
-      padding: 7vh 14vh;
-    }
+  .page-view:before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: calc(100vw - 18vw - 12rem - 900px);
+    background: url(../images/veg-home.svg) left top no-repeat;
+    background-size: cover;
+    content: '';
+  }
+
+  .page-view_home:before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: calc(100vw - 18vw - 5.25rem - 30rem);
+    background: url(../images/veg-home.svg) left top no-repeat;
+    background-size: cover;
+    content: '';
   }
 
   .page-view__main {
@@ -74,7 +91,26 @@
     color: var(--main-accent-color);
   }
 
+  /* after minimum 800x600, scale the padding + margin taking into account available height and width */
+  @media only screen and (min-height: 600px) {
+    .page-view {
+      padding: 7vh 14vh;
+    }
+
+    .page-view:before {
+      width: calc(100vw - 18vw - 20vh - 900px);
+    }
+
+    .page-view_home:before {
+      width: calc(100vw - 18vw - 14vh - 32rem);
+    }
+  }
+
   @media only screen and (min-height: 800px) {
+    .page-view_home:before {
+      width: calc(100vw - 18vw - 14vh - 28rem);
+    }
+
     .page-view__footer {
       font-size: 1.5rem;
     }

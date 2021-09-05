@@ -155,9 +155,3 @@
     padding: 0.25rem 0 0 0;
   }
 }
-
-@media only screen and (min-width: 1600px) {
-  .share-token__token {
-    font-size: 1.125rem;
-  }
-}

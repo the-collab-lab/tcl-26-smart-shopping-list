@@ -1,14 +1,33 @@
 /* Layout styles */
 .list-view {
   position: relative;
-  max-width: 900px;
-  padding: 1.25rem;
+  padding: 1.25rem 1.25rem calc(94px + 4rem) 1.25rem;
   margin: 0 auto;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   background: var(--light-gray);
+  z-index: 1;
+}
+
+.list-view_adding-item {
+  position: fixed;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.list-view_adding-item:after {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: block;
+  background: var(--overlay-background);
+  width: 100%;
+  height: 100vh;
+  content: '';
 }
 
 .list-view__main {
+  position: relative;
   margin: 2rem 0 0 0;
 }
 
@@ -16,26 +35,46 @@
   margin: 0 0 2rem 0;
 }
 
-@media only screen and (min-width: 700px) {
-  .list-view {
-    padding: 1.25rem 3rem;
-  }
+.list-view__add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 94px;
+  height: 94px;
+  background: var(--main-accent-color);
+  border: none;
+  border-radius: 94px;
+  font-size: 3rem;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+  outline: none;
 }
 
-@media only screen and (min-width: 900px) {
-  .list-view__main {
-    margin: 0;
-  }
+.list-view__add-button:focus-visible {
+  box-shadow: 0 0 1px 5px var(--highlight-color);
 }
 
-@media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
-  .list-view__main {
-    margin: 1rem 0 0 0;
-  }
+.list-view__add-button_desktop {
+  display: none;
+}
 
-  .list-view__filter {
-    margin: 0 130px 2rem 0;
-  }
+.list-view__add-button_mobile {
+  position: fixed;
+  left: calc(50% - 47px);
+  bottom: 2rem;
+  transition: 0.5s bottom 0.05s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.list-view__add-button_close {
+  transform: rotate(-135deg);
+}
+
+.list-view__add-button_mobile.list-view__add-button_close {
+  position: absolute;
+  left: calc(50% - 47px);
+  bottom: calc(100vh - 8rem - 47px);
+  transition: bottom 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 .list-view__empty {
@@ -50,27 +89,169 @@
   }
 }
 
+/* add some extra padding at the sides of list when there's room */
+@media only screen and (min-width: 650px) {
+  .list-view {
+    padding: 2rem 2.5rem calc(94px + 5rem) 2.5rem;
+    font-size: 1.25rem;
+  }
+  .list-view__add-button_mobile {
+    bottom: 3rem;
+  }
+}
+
 @media only screen and (min-width: 900px) {
+  .list-view__main {
+    margin: 0;
+  }
+
   .list-view__empty {
-    margin: 6rem 0 0 2.625em;
+    margin: 0rem 0 0 2.625em;
     text-align: left;
   }
 }
 
 @media only screen and (min-width: 1200px) {
+  .list-view {
+    box-sizing: border-box;
+    max-width: 70%;
+    padding: 1.25rem 3rem 1.25rem 4.5rem;
+    margin: 0 0 0 0;
+  }
+
+  /* add right veggies background */
+  .list-view:after,
+  .list-view_adding-item:after {
+    position: fixed;
+    left: auto;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 30%;
+    background: url(../../images/veg-right.svg) left top no-repeat;
+    background-size: cover;
+    content: '';
+    z-index: 0;
+  }
+
+  .list-view_adding-item {
+    position: static;
+    overflow-y: visible;
+    width: auto;
+  }
+
   .list-view__header,
   .list-view__empty {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  /* move the logo, count left into the gutter when there's room */
+  .list-view__header {
+    margin-left: -2.9375rem;
+  }
+
+  .list-view__empty {
+    margin: 0 0 0 0.5em;
+    text-align: left;
+    padding-top: 1.5rem;
+  }
+
+  /* make room for add button on right */
+  .list-view__filter {
+    margin: 0 130px 2rem 0;
+  }
+
+  .list-view__add-button_mobile {
+    display: none;
+  }
+
+  .list-view__add-button_desktop {
+    display: flex;
+    position: absolute;
+    left: auto;
+    bottom: auto;
+    right: calc(-16px);
+    top: 0.125em;
+    transition: 0.25s right var(--transition-timing), transform 0.5s ease-in-out;
+  }
+
+  .list-view__add-button_close {
+    /* accounts for half icon, li padding and container padding */
+    right: calc(-3rem - 0.625em - 16px);
+    transform: rotate(-135deg);
+  }
+}
+
+@media only screen and (min-width: 1530px) {
+  .list-view {
+    max-width: 750px;
+    box-sizing: content-box;
+    padding: 1.25rem;
+    margin: 0 auto;
+  }
+
+  /* add left veggies */
+  .list-view:before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: calc(50% - (375px + 5.5rem));
+    background: url(../../images/veg-left.svg) right top no-repeat;
+    background-size: cover;
+    content: '';
+  }
+
+  /* right veggies */
+  .list-view:after {
+    width: calc(50% - (375px + 2.5rem));
+  }
+
+  .list-view__header,
+  .list-view__empty {
+    font-size: 1.375rem;
+  }
+
+  .list-view__main {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .list-view__add-button_close {
+    /* accounts for half icon, li padding and container padding */
+    right: calc(-2.5rem - 0.625em - 16px);
   }
 }
 
 @media only screen and (min-width: 1600px) {
-  .list-view__header {
-    margin-left: -2.9375rem;
+  .list-view__main {
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .list-view {
+    max-width: 900px;
+    padding: 1.25rem 3.5vw;
+  }
+
+  /* left veggies */
+  .list-view:before {
+    width: calc(50% - (450px + 3.5vw + 3rem));
+  }
+
+  /* right veggies */
+  .list-view:after {
+    width: calc(50% - (450px + 3.5vw));
+  }
+
+  .list-view__add-button_close {
+    /* accounts for half icon, li padding and container padding */
+    right: calc(-3.5vw - 0.625em - 16px);
   }
 }
 
 /* Reusable block for heading plus action links (used in empty list and item count) */
+
 .list-summary__heading {
   padding: 0;
   margin: 0;
@@ -84,23 +265,21 @@
   color: var(--main-accent-color);
 }
 
-.list-summary__extra {
-  display: none;
+.list-summary__action {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.25;
+  height: auto;
 }
 
 .list-summary__action {
-  position: relative;
-  top: -0.125em;
   display: inline-block;
-  font-size: 1rem;
-  line-height: 1;
-  height: auto;
 }
 
 .list-summary__action:before {
   content: '|';
   display: inline-block;
-  margin: 0 0.75em;
+  margin: 0 0.5em;
   font-weight: 400;
   color: var(--icon-a11y-gray);
 }
@@ -109,14 +288,20 @@
   display: none;
 }
 
+.list-summary__extra {
+  display: none;
+}
+
 @media only screen and (min-width: 650px) {
   .list-summary__extra {
     display: inline;
   }
-}
 
-@media only screen and (min-width: 1200px) {
-  .list-summary__action {
-    top: -0.25em;
+  .list-summary__mobile {
+    display: none;
+  }
+
+  .list-summary__action:before {
+    margin: 0 0.75em;
   }
 }

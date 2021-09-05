@@ -2,7 +2,11 @@ import { NavLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import LogoHeader from '../../components/LogoHeader/LogoHeader';
-import phoneSample from '../../images/phone.png';
+import phoneAdd from '../../images/phone-add.png';
+import phoneCheck from '../../images/phone-check.png';
+import phonePredict from '../../images/phone-predict.png';
+import phoneShare from '../../images/phone-share.png';
+
 import './AboutView.css';
 
 const AboutView = ({ listId }) => {
@@ -19,7 +23,7 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
+            src={phoneAdd}
             alt="Screenshot of adding items to your list"
             className="about-section__image"
           />
@@ -37,8 +41,8 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
-            alt="Screenshot of adding items to your list"
+            src={phoneCheck}
+            alt="Screenshot of checking items off your list"
             className="about-section__image"
           />
           <div className="about-section__description">
@@ -54,8 +58,8 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
-            alt="Screenshot of adding items to your list"
+            src={phonePredict}
+            alt="Screenshot showing list sorting and next purchase estimates"
             className="about-section__image"
           />
           <div className="about-section__description">
@@ -77,8 +81,8 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
-            alt="Screenshot of adding items to your list"
+            src={phoneShare}
+            alt="Screenshot of sharing your list token"
             className="about-section__image"
           />
           <div className="about-section__description">

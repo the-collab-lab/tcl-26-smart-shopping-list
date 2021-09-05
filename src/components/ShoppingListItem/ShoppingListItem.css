@@ -118,14 +118,33 @@
 
 .item__details {
   flex-basis: 100%;
-  margin: 0.625rem 0 0 0;
+  margin: 0;
 }
 
 .details {
-  display: none;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  will-change: height;
+  transition: 0.35s height 0.15s ease-in-out, opacity var(--transition-timing),
+    visibility var(--transition-timing);
+}
+
+.details_visible {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  transition: height 0.35s ease-in-out, 0.35s opacity var(--transition-timing),
+    0.35s visibility var(--transition-timing);
+}
+
+.details__list {
+  display: flex;
   flex-direction: column;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
+  padding: 0.625rem 0 0 0;
   font-size: 1rem;
   color: var(--text-a11y-gray);
   line-height: 1.5;
@@ -133,10 +152,6 @@
 
 .details__detail {
   margin: 0.25rem 0 0 0;
-}
-
-.details_visible {
-  display: flex;
 }
 
 .details__name {
@@ -173,12 +188,13 @@
 @media only screen and (min-width: 600px) {
   .item__details {
     /* account for icon size, icon padding, and margin between icon and item name */
-    margin: 0.75rem 0 0 calc(var(--icon-size-lg) + 0.25rem);
+    margin: 0 0 0 calc(var(--icon-size-lg) + 0.25rem);
   }
 
-  .details {
+  .details__list {
     flex-direction: row;
     justify-content: flex-start;
+    padding: 0.75rem 0 0 0;
   }
 
   .details__detail {

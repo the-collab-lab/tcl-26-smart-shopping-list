@@ -6,22 +6,74 @@ import { ReactComponent as ShareIcon } from '../../images/icon-share.svg';
 
 const ShareToken = ({ token }) => {
   const [showShare, setShowShare] = useState(false);
+  const shareAreaRef = useRef();
   const shareTokenRef = useRef();
 
   function copyToken() {
-    navigator.clipboard.writeText(token).catch((err) => {
+    try {
+      navigator.clipboard.writeText(token);
+    } catch (err) {
       document.execCommand(token); // possible fallback for older browsers
-    });
+    }
   }
 
   const handleTokenShare = () => {
-    copyToken();
     setShowShare(!showShare);
+    copyToken();
   };
 
-  // when share area is shown, direct focus to field (helps screen readers follow along)
+  // since CSS can't animate between height 0 and height auto, we have to help the animation work
   useEffect(() => {
-    if (showShare) shareTokenRef.current.focus();
+    if (showShare) {
+      // here we are handling slide down, so the height is set to 0 to start
+      // get the exact size "auto" height would be with scrollHeight
+      const fullHeight = shareAreaRef.current.scrollHeight;
+      // change the height to this number instead of auto, since then we get an animation
+      shareAreaRef.current.style.height = fullHeight + 'px';
+
+      // add an event listener to set the height back to auto once the transition is complete
+      shareAreaRef.current.addEventListener(
+        'transitionend',
+        removeDefinedHeight,
+      );
+
+      function removeDefinedHeight() {
+        shareAreaRef.current.removeEventListener(
+          'transitionend',
+          removeDefinedHeight,
+        );
+        shareAreaRef.current.style.height = null; // height will go back to auto
+
+        // handle focus here after everything is complete (helps screen readers follow along)
+        shareTokenRef.current.focus();
+      }
+
+      // now add in the class to show our other animations
+      shareAreaRef.current.classList.add('share-token_show');
+    } else {
+      // here we are handling slide up, so the height is set to auto to start
+      // get the exact size "auto" height has worked out to
+      const fullHeight = shareAreaRef.current.scrollHeight;
+      // remove transition and save for later, so we don't have to wait when changing height
+      const cssTransition = shareAreaRef.current.style.transition;
+      shareAreaRef.current.style.transition = '';
+
+      // here we're running callbacks once the browser next renders
+      requestAnimationFrame(() => {
+        // change the height from auto to the exact pixel number we calculated
+        // (since we removed the transition, we can change the height with no issues)
+        shareAreaRef.current.style.height = fullHeight + 'px';
+        // add the transition back because now we *do* want to see it
+        shareAreaRef.current.style.transition = cssTransition;
+
+        requestAnimationFrame(function () {
+          // now set the height to 0 and we will see it animate
+          shareAreaRef.current.style.height = 0 + 'px';
+          // add in the class to show our other animations
+          shareAreaRef.current.classList.remove('share-token_show');
+        });
+      });
+    }
   }, [showShare]);
 
   return (
@@ -55,11 +107,10 @@ const ShareToken = ({ token }) => {
       </span>
 
       <div
-        className={`share-token list-header__share-token ${
-          showShare ? 'share-token_show' : ''
-        }`}
+        className="share-token list-header__share-token"
         id="share-token"
         aria-hidden={!showShare}
+        ref={shareAreaRef}
       >
         <label className="share-token__label" htmlFor="shareToken">
           Your unique token:

@@ -9,17 +9,30 @@
 }
 
 .get-started-form__join-section {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
   grid-area: join-section;
-  padding: 2em 8vw 3em 8vw;
-  margin: 2em -8vw -2.375em -8vw;
+  margin: 2em -8vw -2.5em -8vw;
   background: var(--charcoal);
   color: #fff;
-  text-align: center;
+  will-change: height;
+  transition: height 0.35s ease-in-out, 0.35s opacity var(--transition-timing),
+    0.35s visibility var(--transition-timing);
 }
 
 .get-started-form__join-section_show {
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+}
+
+.get-started-form__join-inner {
   display: grid;
+  padding: 2em 8vw 3em 8vw;
+
+  text-align: center;
 }
 
 .get-started-form__text-field {
@@ -63,17 +76,20 @@
   width: 10em;
   margin: 0 auto;
   font-size: 1.375em;
-  transition: all var(--transition-timing);
+  transition: background-color var(--transition-timing),
+    color var(--transition-timing), border-color var(--transition-timing),
+    transform var(--transition-timing);
+  z-index: 2;
 }
 
 .get-started-form__button_create {
   grid-area: create-button;
-  margin: 0 auto 0.75rem auto;
+  margin: 0 auto 0.625em auto;
 }
 
 .get-started-form__button_join {
   grid-area: join-button;
-  margin: 0.75rem auto 0 auto;
+  margin: 0.625em auto 0 auto;
 }
 
 /* Join button shouldn't change to black on focus when over black form */
@@ -84,8 +100,8 @@
 }
 
 /* for highlighting the button once a valid token is entered */
-.get-started-form__join-button_ready {
-  transform: scale(1.03125);
+.get-started-form__button_join-ready {
+  transform: scale(1.0625);
 }
 
 /* make join section not be full width on tablet size */
@@ -96,6 +112,23 @@
   }
   .get-started-form__join-section {
     border-radius: var(--container-border-radius);
+  }
+
+  .get-started-form__heading {
+    font-size: 1.375em;
+  }
+
+  .get-started-form__directions {
+    font-size: 1.125em;
+  }
+}
+
+@media only screen and (min-width: 650px) {
+  .get-started-form__join-section {
+    margin: 2em -8vw -2.75em -8vw;
+  }
+  .get-started-form__button {
+    font-size: 1.5em;
   }
 }
 
@@ -114,16 +147,19 @@
     font-size: 1.25em;
   }
 
+  .get-started-form__directions {
+    font-size: 1em;
+  }
+
   .get-started-form__join-section {
     margin: 0;
-    padding: 0;
-    text-align: left;
     background: none;
     color: inherit;
   }
 
-  .get-started-form__join-section_show {
-    display: block;
+  .get-started-form__join-inner {
+    padding: 0;
+    text-align: left;
   }
 
   .get-started-form__create-errors.error_on,

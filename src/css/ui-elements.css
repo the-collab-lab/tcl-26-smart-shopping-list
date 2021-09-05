@@ -7,6 +7,7 @@
   width: var(--icon-size-sm);
   height: var(--icon-size-sm);
   color: currentColor;
+  pointer-events: none;
 }
 
 @media only screen and (min-width: 600px) {
@@ -28,11 +29,16 @@
   fill: currentColor;
 }
 
+.add-icon {
+  width: 64px;
+  height: 64px;
+}
+
 /* Buttons */
 
 .button {
   display: block;
-  padding: 0.5em; /* relative to font size */
+  padding: 0.5em 1em; /* relative to font size */
 
   font-family: inherit;
   font-size: inherit;
@@ -84,6 +90,19 @@
   color: #fff;
   background: var(--warning-color-focus);
   border-color: var(--warning-color-focus);
+}
+
+.button_mode_dark {
+  color: var(--charcoal);
+  background: var(--light-gray);
+  border-color: var(--light-gray);
+}
+
+.button_mode_dark:hover,
+.button_mode_dark:focus {
+  color: var(--charcoal);
+  background: var(--main-accent-color-light);
+  border-color: var(--main-accent-color-light);
 }
 
 /* Buttons that only contain an icon */
@@ -140,9 +159,10 @@
 
 /* for inline form errors */
 .error_type_field {
-  height: 0.625rem;
+  min-height: 0.625rem;
   margin: 0.375em 0 1.5em 0.75em;
   font-size: 1rem;
+  line-height: 1.25;
 }
 
 .error_type_field.error_on {
@@ -164,7 +184,7 @@
 .text-field {
   display: block;
   width: 100%;
-  height: 3em; /* relative to font-size */
+  min-height: 3em; /* relative to font-size */
   padding: 0.25rem 1.25rem;
   box-sizing: border-box;
 
@@ -181,16 +201,22 @@
   transition: background var(--transition-timing);
 }
 
-.text-field_mode_dark {
-  background-color: var(--light-gray);
-}
-
 .text-field:focus {
   background-color: var(--input-focus-color);
 }
 
 .text-field_has-error:focus {
   background-color: var(--warning-color-light);
+}
+
+.text-field_mode_dark {
+  color: #fff;
+  background-color: transparent;
+  border: 2px solid var(--light-gray);
+}
+
+.text-field_mode_dark:focus {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Radio buttons */
@@ -201,26 +227,73 @@
   border: none;
 }
 
-.fieldset_type_check-radio {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-}
-
 .legend {
   padding: 0;
   margin: 0;
+  font-weight: 600;
+  line-height: 1.375;
 }
 
-.legend_type_check-radio {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-
-.radio {
-  margin: 0 0.75rem 0 0;
+.fieldset__check-radio-group {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+  align-items: center;
+  margin: 0;
+  font-size: 1.125rem;
 }
 
 .label_type_check-radio {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 400;
   line-height: 1.25;
+}
+
+.radio-icon__mark {
+  fill: none;
+}
+
+.radio-target {
+  display: block;
+  height: var(--icon-size-sm);
+  width: var(--icon-size-sm);
+  padding: 0.125rem;
+  margin: 0.25em 0.75em 0.25em 0;
+  cursor: pointer;
+  border-radius: 3px; /* so a11y focus outline is not all pointy */
+}
+
+.radio-target .icon {
+  height: 26px;
+  width: 26px;
+}
+
+.radio:checked + .radio-target .icon__mark {
+  fill: currentColor;
+}
+
+.radio:focus-visible + .radio-target {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
+@media only screen and (min-height: 900px) {
+  .radio-target {
+    display: block;
+    height: 32px;
+    width: 32px;
+    padding: 0.125rem;
+    margin: 0.5em 0.75em 0.5em 0;
+    cursor: pointer;
+    border-radius: 3px; /* so a11y focus outline is not all pointy */
+  }
+
+  .radio-target .icon {
+    height: 32px;
+    width: 32px;
+  }
+
+  .fieldset__check-radio-group {
+    font-size: 1.25rem;
+  }
 }

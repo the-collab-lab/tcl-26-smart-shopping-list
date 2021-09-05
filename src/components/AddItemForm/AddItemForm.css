@@ -1,0 +1,231 @@
+/* .add-item-form {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 800px;
+  overflow-y: auto;
+  padding: 3rem;
+  box-sizing: border-box;
+  color: #fff;
+  background: var(--charcoal);
+  z-index: 99;
+  will-change: transform;
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+} */
+
+/* if checkbox input is checked, change the SVG color in the label.checkbox-target beside it */
+
+.add-item-form {
+  font-size: 1rem;
+}
+
+.add-item-form__text-field,
+.add-item-form__options,
+.add-item-form__submit {
+  width: 100%;
+  max-width: 30rem;
+}
+
+.add-item-form {
+  position: absolute;
+  left: 0;
+  top: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 5rem 2rem;
+  box-sizing: border-box;
+  color: #fff;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  /* necessary to transition visibility here or opacity won't fade out */
+  transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+  background: var(--charcoal);
+}
+
+.add-item-form_open {
+  opacity: 1;
+  visibility: visible;
+  /* necessary to not transition visibility here to make sure form can focus */
+  transition: 0.5s opacity 0.35s ease-in-out;
+}
+
+.add-item-background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 8rem;
+  /* must use % here (not vw) to account for scrollbar */
+  width: 100%;
+  min-height: calc(100vh - 8rem);
+  background: var(--charcoal);
+  /* must use vw here (not %) to position off screen */
+  transform: translateY(calc(100vh - 8rem));
+  will-change: transform;
+  transition: transform 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.add-item-background_open {
+  transform: translateY(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.add-item-form__heading {
+  font-family: var(--logo-font);
+  font-weight: 400;
+  font-size: 1.75em;
+  margin: 0 0 0.5em 0;
+}
+
+.add-item-form__label {
+  margin: 0 0 0.125em 0;
+  font-size: 1em;
+}
+
+.add-item-form__text-field {
+  font-size: 1.125em;
+  margin: 0;
+}
+
+.add-item-form__item-error {
+  min-height: 0;
+  color: var(--warning-color-dark-mode);
+  margin-left: 0;
+}
+
+.add-item-form__option-legend {
+  font-size: 1.125rem;
+  text-align: center;
+  margin: 0.75rem 0 0 0;
+}
+
+.add-item-form__submit {
+  font-size: 1.125rem;
+  padding: 0.625em 0.75em;
+  margin-top: 2rem;
+}
+
+@media only screen and (min-width: 1200px) {
+  .add-item-form {
+    top: 10.5rem;
+    padding: 3rem;
+  }
+
+  .add-item-form__text-field,
+  .add-item-form__options,
+  .add-item-form__submit {
+    max-width: 18rem;
+  }
+
+  .add-item-form {
+    position: absolute;
+    left: auto;
+    right: 0;
+    top: 11rem;
+    width: 30%;
+    padding: 3rem;
+    background: none;
+  }
+
+  .add-item-background {
+    left: auto;
+    right: 0;
+    top: 0;
+    /* must use % here (not vw) to account for scrollbar */
+    width: 30%;
+    height: 100vh;
+    /* must use vw here (not %) to position off screen */
+    transform: translateX(30vw);
+    transition: 0.35s transform 0.5s ease-in-out;
+    z-index: 0;
+  }
+
+  .add-item-background_open {
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+  }
+}
+
+@media only screen and (min-width: 1530px) {
+  .add-item-form {
+    width: calc(50% - (375px + 2.5rem));
+  }
+
+  .add-item-background {
+    /* must use % here (not vw) to account for scrollbar */
+    width: calc(50% - (375px + 2.5rem));
+    height: 100vh;
+    /* must use vw here (not %) to position off screen */
+    transform: translateX(calc(50vw - (375px + 2.5rem)));
+  }
+
+  .add-item-background_open {
+    transform: translateY(0);
+    transition: transform 0.5s ease-in-out;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .add-item-form__heading {
+    font-size: 1.875em;
+  }
+}
+
+@media only screen and (min-width: 1700px) {
+  .add-item-form {
+    top: 10rem;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  .add-item-form {
+    /* must use % here (not vw) to account for scrollbar */
+    width: calc(50% - (450px + 3.5vw));
+  }
+
+  .add-item-form__heading {
+    font-size: 2em;
+  }
+
+  .add-item-form__submit {
+    font-size: 1.25rem;
+  }
+
+  .add-item-background {
+    /* must use % here (not vw) to account for scrollbar */
+    width: calc(50% - (450px + 3.5vw));
+    /* must use vw here (not %) to position off screen */
+    transform: translateX(calc(50vw - (450px + 3.5vw)));
+  }
+
+  .add-item-background_open {
+    transform: translateY(0);
+  }
+}
+
+/* make the form elements larger when there's enough height */
+@media only screen and (min-height: 900px) {
+  .add-item-form__option-legend {
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem 0;
+  }
+
+  .add-item-form__submit {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .add-item-form__item-error {
+    min-height: 0.626rem;
+  }
+}

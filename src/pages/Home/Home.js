@@ -6,7 +6,7 @@ import GetStartedForm from '../../components/GetStartedForm/GetStartedForm.js';
 
 function Home({ createList, joinList }) {
   return (
-    <div className="page-view">
+    <div className="page-view page-view_home">
       <LogoHeader isHome={true} />
 
       <main className="page-view__main home-intro">
@@ -19,7 +19,7 @@ function Home({ createList, joinList }) {
       </main>
 
       <footer className="page-view__footer">
-        <NavLink to="/about" className="link help-link page-view__footer-link">
+        <NavLink to="/about" className="link help-link link_footer">
           Learn how Peasy works &raquo;
         </NavLink>
       </footer>

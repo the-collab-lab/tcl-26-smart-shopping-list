@@ -23,7 +23,9 @@ const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
             <h2 className="list-summary__heading">
               You have&nbsp;
               <strong className="strong list-summary__strong">
-                {listItems?.docs.length} items
+                {listItems?.docs.length === 1
+                  ? '1 item'
+                  : `${listItems.docs.length} items`}
               </strong>
               &nbsp;
               <span className="list-summary__extra">on your shopping list</span>
@@ -38,7 +40,16 @@ const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
                 ? 'Show all item details'
                 : 'Hide all item details'}
             </button>
-            <NavLink className="link list-summary__action" to="/about">
+            <NavLink
+              className="link list-summary__action list-summary__mobile"
+              to="/about"
+            >
+              Help
+            </NavLink>
+            <NavLink
+              className="link list-summary__action list-summary__extra"
+              to="/about"
+            >
               Learn how Peasy works &raquo;
             </NavLink>
           </div>

@@ -23,13 +23,19 @@
 
 .list-header__share-toggle-button {
   position: absolute;
-  top: 0.5rem;
+  top: 0;
   right: 0;
 }
 
 .list-header__share-token {
   grid-area: share-token;
   margin: 1.25rem 0 0.25rem 0;
+}
+
+@media only screen and (min-width: 650px) {
+  .list-header__share-toggle-button {
+    right: -1.25rem;
+  }
 }
 
 @media only screen and (min-width: 900px) {
@@ -58,4 +64,10 @@
   .list-header__share-token-hint {
     grid-area: share-token;
   }
+}
+
+@media only screen and (min-width: 1200px) {
+}
+
+@media only screen and (min-width: 1920px) {
 }

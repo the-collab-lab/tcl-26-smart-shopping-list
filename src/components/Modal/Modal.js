@@ -49,7 +49,7 @@ const Modal = ({ showModal, handleModalClose, deleteItem, item }) => {
   }, [handleModalClose, showModal]);
 
   return (
-    <div className={`dialog ${toggleModalClassName}`}>
+    <div className={`dialog ${toggleModalClassName}`} aria-hidden={!showModal}>
       <div
         className="dialog__modal"
         role="alertdialog"

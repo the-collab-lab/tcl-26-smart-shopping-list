@@ -45,15 +45,24 @@
 /* the token reveal area */
 
 .share-token {
-  display: none;
-  padding: 0 0 1rem 0;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  will-change: height;
   font-size: 1rem;
   text-align: center;
-  transition: opacity var(--transition-timing);
+  transition: 0.35s height 0.15s ease-in-out, opacity var(--transition-timing),
+    visibility var(--transition-timing);
 }
 
 .share-token_show {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
   display: block;
+  transition: height 0.35s ease-in-out, 0.35s opacity var(--transition-timing),
+    0.35s visibility var(--transition-timing);
 }
 
 /* the 'Reveal your token' helper text */
@@ -82,7 +91,7 @@
   display: block;
   color: var(--main-accent-color);
   font-weight: 600;
-  padding-top: 0.25rem;
+  padding: 0.25rem 0 1rem 0;
 }
 
 @media only screen and (min-width: 600px) {
@@ -90,6 +99,13 @@
     font-size: 1.125rem;
     max-width: 50vw;
     margin: 0 auto;
+  }
+
+  .share-toggle-button__icon {
+    justify-self: center;
+    width: 36px;
+    height: 36px;
+    margin: 0 0 -0.1875rem auto;
   }
 }
 
@@ -101,6 +117,8 @@
   }
 
   .share-toggle-button__icon {
+    width: var(--icon-size-lg);
+    height: var(--icon-size-lg);
     margin: 0 0.875rem -0.1875rem auto;
   }
 
@@ -130,20 +148,19 @@
   }
 
   .share-token {
-    display: block;
+    height: auto !important;
+    overflow: visible !important;
     padding: 0;
-    opacity: 0;
+    transition: opacity var(--transition-timing),
+      visibility var(--transition-timing);
   }
 
   .share-token_show {
-    display: block;
-    opacity: 1;
-    transition: 0.1s opacity var(--transition-timing);
+    transition: 0.1s opacity var(--transition-timing),
+      0.1s visibility var(--transition-timing);
   }
-}
 
-@media only screen and (min-width: 1200px) {
-  .share-token__token {
-    font-size: 1.125rem;
+  .share-token__copied {
+    padding: 0.25rem 0 0 0;
   }
 }

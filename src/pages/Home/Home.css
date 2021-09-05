@@ -8,13 +8,16 @@
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
+  background: url(../../images/veg-home_vertical.svg) 33% calc(8vh + 3rem)
+    no-repeat;
+  background-size: cover;
 }
 
 .home-intro__tagline {
-  width: 12rem;
-  padding: 0 0 0.5em 5.75rem; /* line up with logo */
+  width: 10rem;
+  padding: 0 0 0.5em 4.75rem; /* line up with logo */
   margin: 0 0 1.5rem 0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.125;
 }
@@ -27,11 +30,19 @@
 
 .home-intro__form {
   padding-bottom: 2.5em;
-  margin: auto 0;
+  margin: 8vh 0 auto 0;
   font-size: 1rem;
 }
 
 @media only screen and (min-width: 600px) {
+  .home-intro__tagline {
+    width: 13rem;
+    padding: 0 0 0.5em 7.375rem; /* line up with logo */
+    font-size: 1.9375rem;
+  }
+}
+
+@media only screen and (min-height: 800px) {
   .home-intro__tagline {
     width: 13rem;
     padding: 0 0 0.5em 7.375rem; /* line up with logo */
@@ -44,6 +55,8 @@
   .home-intro {
     align-items: flex-start;
     padding: 0;
+    max-width: 30rem;
+    background: none;
   }
 
   .home-intro__tagline {
@@ -64,33 +77,33 @@
   /* start viewport-relative sizing only at a certain minimum height */
   @media only screen and (min-height: 600px) {
     .home-intro {
-      min-width: 430px; /* prevents tagline from breaking at certain resolutions */
+      min-width: 26.875rem; /* prevents tagline from breaking at certain resolutions */
+      max-width: 37rem; /* enough room for text*/
     }
 
     .home-intro__tagline {
-      margin: 0.5em 0 0.875em 0;
+      margin: 0.5em 0 1.5em 0;
       font-size: 5.5vh;
-    }
-
-    @media only screen and (min-width: 800px) {
-      .home-intro {
-        min-width: 40vh; /* prevents tagline from breaking onto 4 lines */
-      }
     }
   }
 
   /* break smart onto it's own line once there's room */
   @media only screen and (min-height: 800px) {
+    .home-intro {
+      min-width: 430px; /* prevents tagline from breaking at certain resolutions */
+      max-width: 30rem; /* enough room for text*/
+    }
+
+    .home-intro__tagline {
+      margin: 0.5em 0 1em 0;
+    }
+
     .home-intro__tagline-keyword {
       display: block;
     }
   }
 
   @media only screen and (min-height: 1080px) {
-    .home-intro {
-      max-width: 480px;
-    }
-
     .home-intro__form {
       font-size: 1.125rem;
     }

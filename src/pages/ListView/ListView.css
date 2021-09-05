@@ -12,6 +12,7 @@
   position: fixed;
   overflow-y: hidden;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .list-view_adding-item:after {
@@ -136,6 +137,7 @@
   .list-view_adding-item {
     position: static;
     overflow-y: visible;
+    width: auto;
   }
 
   .list-view__header,

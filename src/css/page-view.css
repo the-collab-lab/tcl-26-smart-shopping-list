@@ -50,6 +50,17 @@
     margin: 0 0 0 18vw;
   }
 
+  .page-view:before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: calc(100vw - 18vw - 12rem - 900px);
+    background: url(../images/veg-home.svg) left top no-repeat;
+    background-size: cover;
+    content: '';
+  }
+
   .page-view_home:before {
     position: fixed;
     top: 0;
@@ -84,6 +95,10 @@
   @media only screen and (min-height: 600px) {
     .page-view {
       padding: 7vh 14vh;
+    }
+
+    .page-view:before {
+      width: calc(100vw - 18vw - 20vh - 900px);
     }
 
     .page-view_home:before {

@@ -2,7 +2,11 @@ import { NavLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import LogoHeader from '../../components/LogoHeader/LogoHeader';
-import phoneSample from '../../images/phone.png';
+import phoneAdd from '../../images/phone-add.png';
+import phoneCheck from '../../images/phone-check.png';
+import phonePredict from '../../images/phone-predict.png';
+import phoneShare from '../../images/phone-share.png';
+
 import './AboutView.css';
 
 const AboutView = ({ listId }) => {
@@ -19,7 +23,7 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
+            src={phoneAdd}
             alt="Screenshot of adding items to your list"
             className="about-section__image"
           />
@@ -37,7 +41,7 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
+            src={phoneCheck}
             alt="Screenshot of adding items to your list"
             className="about-section__image"
           />
@@ -54,7 +58,7 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
+            src={phonePredict}
             alt="Screenshot of adding items to your list"
             className="about-section__image"
           />
@@ -77,7 +81,7 @@ const AboutView = ({ listId }) => {
 
         <section className="about-text__section about-section">
           <img
-            src={phoneSample}
+            src={phoneShare}
             alt="Screenshot of adding items to your list"
             className="about-section__image"
           />

@@ -14,7 +14,7 @@
   height: 0;
   overflow: hidden;
   grid-area: join-section;
-  margin: 2em -8vw -2.375em -8vw;
+  margin: 2em -8vw -2.5em -8vw;
   background: var(--charcoal);
   color: #fff;
   will-change: height;
@@ -84,12 +84,12 @@
 
 .get-started-form__button_create {
   grid-area: create-button;
-  margin: 0 auto 0.75rem auto;
+  margin: 0 auto 0.625em auto;
 }
 
 .get-started-form__button_join {
   grid-area: join-button;
-  margin: 0.75rem auto 0 auto;
+  margin: 0.625em auto 0 auto;
 }
 
 /* Join button shouldn't change to black on focus when over black form */
@@ -120,6 +120,15 @@
 
   .get-started-form__directions {
     font-size: 1.125em;
+  }
+}
+
+@media only screen and (min-width: 650px) {
+  .get-started-form__join-section {
+    margin: 2em -8vw -2.75em -8vw;
+  }
+  .get-started-form__button {
+    font-size: 1.5em;
   }
 }
 

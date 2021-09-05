@@ -32,6 +32,12 @@
   margin: 1.25rem 0 0.25rem 0;
 }
 
+@media only screen and (min-width: 650px) {
+  .list-header__share-toggle-button {
+    right: -1.25rem;
+  }
+}
+
 @media only screen and (min-width: 900px) {
   .list-header {
     display: grid;

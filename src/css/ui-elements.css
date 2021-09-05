@@ -56,6 +56,10 @@
   background: var(--medium-gray);
 }
 
+.button:focus-visible {
+  box-shadow: 0 0 0 3px var(--highlight-color); /* a11y outline for keyboard nav only */
+}
+
 .button_type_primary {
   color: #fff;
   background: var(--main-accent-color);

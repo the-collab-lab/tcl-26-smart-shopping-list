@@ -85,7 +85,11 @@ const AddItemForm = ({
   };
 
   // focus on the item field when panel is opened
-  useEffect(() => {}, [showAddItem]);
+  useEffect(() => {
+    if (showAddItem) {
+      itemNameRef.current.focus();
+    }
+  }, [showAddItem]);
 
   useEffect(() => {
     const handleKeyEvents = (e) => {
@@ -95,7 +99,6 @@ const AddItemForm = ({
 
     if (showAddItem) {
       // when panel opens, add eventListeners and put initial focus on item field
-      itemNameRef.current.focus();
       document.addEventListener('keydown', handleKeyEvents);
     }
     return () => {

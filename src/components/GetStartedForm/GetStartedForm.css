@@ -9,17 +9,30 @@
 }
 
 .get-started-form__join-section {
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
   grid-area: join-section;
-  padding: 2em 8vw 3em 8vw;
   margin: 2em -8vw -2.375em -8vw;
   background: var(--charcoal);
   color: #fff;
-  text-align: center;
+  will-change: height;
+  transition: height 0.35s ease-in-out, 0.35s opacity var(--transition-timing),
+    0.35s visibility var(--transition-timing);
 }
 
 .get-started-form__join-section_show {
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+}
+
+.get-started-form__join-inner {
   display: grid;
+  padding: 2em 8vw 3em 8vw;
+
+  text-align: center;
 }
 
 .get-started-form__text-field {
@@ -63,7 +76,10 @@
   width: 10em;
   margin: 0 auto;
   font-size: 1.375em;
-  transition: all var(--transition-timing);
+  transition: background-color var(--transition-timing),
+    color var(--transition-timing), border-color var(--transition-timing),
+    transform var(--transition-timing);
+  z-index: 2;
 }
 
 .get-started-form__button_create {
@@ -84,8 +100,8 @@
 }
 
 /* for highlighting the button once a valid token is entered */
-.get-started-form__join-button_ready {
-  transform: scale(1.03125);
+.get-started-form__button_join-ready {
+  transform: scale(1.0625);
 }
 
 /* make join section not be full width on tablet size */
@@ -116,14 +132,13 @@
 
   .get-started-form__join-section {
     margin: 0;
-    padding: 0;
-    text-align: left;
     background: none;
     color: inherit;
   }
 
-  .get-started-form__join-section_show {
-    display: block;
+  .get-started-form__join-inner {
+    padding: 0;
+    text-align: left;
   }
 
   .get-started-form__create-errors.error_on,

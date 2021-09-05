@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { DateTime } from 'luxon';
 
 import {
@@ -20,9 +20,12 @@ const ShoppingListItem = ({
   handleModalOpen,
 }) => {
   const [recentlyPurchased, setIsRecentlyPurchased] = useState(false);
+
   const [itemNotice, setItemNotice] = useState({});
 
   const [showSingleDetail, setShowSingleDetail] = useState(false);
+
+  const detailsRef = useRef();
 
   const currentYear = DateTime.now().toFormat('yyyy');
 
@@ -119,6 +122,54 @@ const ShoppingListItem = ({
     setShowSingleDetail(showAllDetails);
   }, [showAllDetails]);
 
+  // since CSS can't animate between height 0 and height auto, we have to help the animation work
+  useEffect(() => {
+    if (showSingleDetail) {
+      // here we are handling slide down, so the height is set to 0 to start
+      // get the exact size "auto" height would be with scrollHeight
+      const fullHeight = detailsRef.current.scrollHeight;
+      // change the height to this number instead of auto, since then we get an animation
+      detailsRef.current.style.height = fullHeight + 'px';
+
+      // add an event listener to set the height back to auto once the transition is complete
+      detailsRef.current.addEventListener('transitionend', removeDefinedHeight);
+
+      function removeDefinedHeight() {
+        detailsRef.current.removeEventListener(
+          'transitionend',
+          removeDefinedHeight,
+        );
+        detailsRef.current.style.height = null; // height will go back to auto
+      }
+
+      // now add in the class to show our other animations
+      detailsRef.current.classList.add('details_visible');
+    } else {
+      // here we are handling slide up, so the height is set to auto to start
+      // get the exact size "auto" height has worked out to
+      const fullHeight = detailsRef.current.scrollHeight;
+      // remove transition and save for later, so we don't have to wait when changing height
+      const cssTransition = detailsRef.current.style.transition;
+      detailsRef.current.style.transition = '';
+
+      // here we're running callbacks once the browser next renders
+      requestAnimationFrame(() => {
+        // change the height from auto to the exact pixel number we calculated
+        // (since we removed the transition, we can change the height with no issues)
+        detailsRef.current.style.height = fullHeight + 'px';
+        // add the transition back because now we *do* want to see it
+        detailsRef.current.style.transition = cssTransition;
+
+        requestAnimationFrame(function () {
+          // now set the height to 0 and we will see it animate
+          detailsRef.current.style.height = 0 + 'px';
+          // add in the class to show our other animations
+          detailsRef.current.classList.remove('details_visible');
+        });
+      });
+    }
+  }, [showSingleDetail]);
+
   return (
     <li className="shopping-list__item item" id={`item-${item.id}`}>
       <div className="item__primary">
@@ -196,52 +247,52 @@ const ShoppingListItem = ({
         {itemNotice?.message && itemNotice.message}
       </div>
 
-      <ul
-        role="region"
-        className={`item__details details ${
-          showSingleDetail ? 'details_visible' : ''
-        } list-reset`}
-        id={`item-details-${item.id}`}
-        aria-label={`${item.itemName} details`}
-      >
-        <li className="details__detail">
-          <span className="details__name">Purchases: </span>
-          <span className="details__value">{item.numberOfPurchases}</span>
-        </li>
-
-        {item.lastPurchaseDate && ( // if the item has been purchased before
+      <div className="item__details details" ref={detailsRef}>
+        <ul
+          role="region"
+          className="details__list list-reset"
+          id={`item-details-${item.id}`}
+          aria-label={`${item.itemName} details`}
+        >
           <li className="details__detail">
-            <span className="details__name">Last purchase:</span>
-            <span className="details__value">
-              {formatDate(item.lastPurchaseDate)}
-            </span>
+            <span className="details__name">Purchases: </span>
+            <span className="details__value">{item.numberOfPurchases}</span>
           </li>
-        )}
 
-        {item.status === 'inactive' ? (
-          <li className="details__detail details__detail_inactive">
-            You don't seem to be buying this.&nbsp;
-            <button
-              className="link_delete link"
-              onClick={() => handleModalOpen(item)}
-              aria-haspopup="true"
-            >
-              Delete?
-            </button>
-          </li>
-        ) : (
-          // only show the next purchase date for active items
-          <li className="details__detail">
-            <span className="details__name">Next purchase: </span>
-            <span className="details__value">
-              {`~ ${formatDate(item.nextPurchaseDate)}`}
-            </span>
-            <span className="details__value details__value-soon">
-              {item.status === 'soon' ? 'soon!' : ''}
-            </span>
-          </li>
-        )}
-      </ul>
+          {item.lastPurchaseDate && ( // if the item has been purchased before
+            <li className="details__detail">
+              <span className="details__name">Last purchase:</span>
+              <span className="details__value">
+                {formatDate(item.lastPurchaseDate)}
+              </span>
+            </li>
+          )}
+
+          {item.status === 'inactive' ? (
+            <li className="details__detail details__detail_inactive">
+              You don't seem to be buying this.&nbsp;
+              <button
+                className="link_delete link"
+                onClick={() => handleModalOpen(item)}
+                aria-haspopup="true"
+              >
+                Delete?
+              </button>
+            </li>
+          ) : (
+            // only show the next purchase date for active items
+            <li className="details__detail">
+              <span className="details__name">Next purchase: </span>
+              <span className="details__value">
+                {`~ ${formatDate(item.nextPurchaseDate)}`}
+              </span>
+              <span className="details__value details__value-soon">
+                {item.status === 'soon' ? 'soon!' : ''}
+              </span>
+            </li>
+          )}
+        </ul>
+      </div>
     </li>
   );
 };

@@ -34,11 +34,11 @@
   padding-left: 3.875em;
   padding: 0 0 0 3.875em; /* balance logo padding when centered */
   margin: 2rem 0 0 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .logo__heading_home {
-  width: 12rem;
+  width: 10rem;
 }
 
 .logo__image_home {
@@ -61,12 +61,30 @@
   }
 }
 
+/* Make the logo bigger on mobile when there's room */
+@media only screen and (min-height: 800px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  .logo_home {
+    font-size: 1.875rem;
+  }
+  .logo__heading_home {
+    width: 13rem;
+  }
+}
+
 /* styles for larger devices, wider than tall */
 @media only screen and (min-width: 800px) and (min-aspect-ratio: 1/1) {
   .logo {
     left: -2.625em;
     padding: 0 0 0 2.625em;
     margin: 0; /* undo centering */
+    font-size: 1.5rem;
+  }
+
+  .logo_home {
+    font-size: 1.875rem;
   }
 
   .logo_home {
@@ -80,6 +98,7 @@
 
   .logo__heading_home {
     width: auto;
+    width: 13rem;
   }
 
   .logo__image,

@@ -13,7 +13,7 @@
 }
 
 .page-view__footer {
-  padding: 1em;
+  padding: 1em 2rem;
   margin-top: auto;
   font-size: 1rem;
   color: #fff;
@@ -22,18 +22,19 @@
   z-index: 1;
 }
 
-.page-view__footer-link {
+.link_footer {
   color: #fff;
 }
 
-.page-view__footer-link:hover,
-.page-view__footer-link:focus {
+.link_footer:hover,
+.link_footer:focus {
   color: var(--main-accent-color-light);
 }
 
 @media only screen and (min-width: 600px) {
   .page-view__footer {
     font-size: 1.25rem;
+    padding: 1em 3rem;
   }
 }
 
@@ -71,11 +72,11 @@
     color: var(--charcoal);
   }
 
-  .page-view__footer-link {
+  .link_footer {
     color: var(--charcoal);
   }
-  .page-view__footer-link:hover,
-  .page-view__footer-link:focus {
+  .link_footer:hover,
+  .link_footer:focus {
     color: var(--main-accent-color);
   }
 

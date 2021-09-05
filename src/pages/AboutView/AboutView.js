@@ -42,7 +42,7 @@ const AboutView = ({ listId }) => {
         <section className="about-text__section about-section">
           <img
             src={phoneCheck}
-            alt="Screenshot of adding items to your list"
+            alt="Screenshot of checking items off your list"
             className="about-section__image"
           />
           <div className="about-section__description">
@@ -59,7 +59,7 @@ const AboutView = ({ listId }) => {
         <section className="about-text__section about-section">
           <img
             src={phonePredict}
-            alt="Screenshot of adding items to your list"
+            alt="Screenshot showing list sorting and next purchase estimates"
             className="about-section__image"
           />
           <div className="about-section__description">
@@ -82,7 +82,7 @@ const AboutView = ({ listId }) => {
         <section className="about-text__section about-section">
           <img
             src={phoneShare}
-            alt="Screenshot of adding items to your list"
+            alt="Screenshot of sharing your list token"
             className="about-section__image"
           />
           <div className="about-section__description">

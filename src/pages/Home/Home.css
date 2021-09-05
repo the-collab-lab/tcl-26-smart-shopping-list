@@ -14,10 +14,10 @@
 }
 
 .home-intro__tagline {
-  width: 12rem;
-  padding: 0 0 0.5em 5.75rem; /* line up with logo */
+  width: 10rem;
+  padding: 0 0 0.5em 4.75rem; /* line up with logo */
   margin: 0 0 1.5rem 0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.125;
 }
@@ -35,6 +35,14 @@
 }
 
 @media only screen and (min-width: 600px) {
+  .home-intro__tagline {
+    width: 13rem;
+    padding: 0 0 0.5em 7.375rem; /* line up with logo */
+    font-size: 1.9375rem;
+  }
+}
+
+@media only screen and (min-height: 800px) {
   .home-intro__tagline {
     width: 13rem;
     padding: 0 0 0.5em 7.375rem; /* line up with logo */
@@ -74,7 +82,7 @@
     }
 
     .home-intro__tagline {
-      margin: 0.5em 0 0.875em 0;
+      margin: 0.5em 0 1.5em 0;
       font-size: 5.5vh;
     }
   }
@@ -84,6 +92,10 @@
     .home-intro {
       min-width: 430px; /* prevents tagline from breaking at certain resolutions */
       max-width: 30rem; /* enough room for text*/
+    }
+
+    .home-intro__tagline {
+      margin: 0.5em 0 1em 0;
     }
 
     .home-intro__tagline-keyword {

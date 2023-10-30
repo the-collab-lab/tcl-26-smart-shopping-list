@@ -67,7 +67,7 @@ function ShoppingList({ listItems, listId, showAllDetails, handleModalOpen }) {
   return (
     <div className="shopping-list">
       <ul className="shopping-list__list list-reset">
-        {listItems.map((item) => (
+        {listItems?.map((item) => (
           <ShoppingListItem
             key={item.id}
             item={item}

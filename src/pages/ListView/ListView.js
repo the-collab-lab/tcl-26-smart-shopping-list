@@ -205,7 +205,7 @@ const ListView = ({ listId, handleModalOpen, token }) => {
               >
                 <AddCloseIcon aria-hidden="true" focusable="false" />
               </button>
-              {listItems.empty ? (
+              {listItems?.empty ? (
                 <ShoppingListEmpty
                   openAddPanel={() => setShowAddItem(!showAddItem)}
                 />

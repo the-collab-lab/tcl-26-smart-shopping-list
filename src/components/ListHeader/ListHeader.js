@@ -16,16 +16,16 @@ const ListHeader = ({ toggleDetailView, showAllDetails, listItems, token }) => {
           </h1>
         </div>
 
-        {listItems?.docs.length === 0 ? (
+        {listItems?.docs?.length === 0 ? (
           ''
         ) : (
           <div className="list-summary list-header__count">
             <h2 className="list-summary__heading">
               You have&nbsp;
               <strong className="strong list-summary__strong">
-                {listItems?.docs.length === 1
+                {listItems?.docs?.length === 1
                   ? '1 item'
-                  : `${listItems.docs.length} items`}
+                  : `${listItems?.docs?.length} items`}
               </strong>
               &nbsp;
               <span className="list-summary__extra">on your shopping list</span>

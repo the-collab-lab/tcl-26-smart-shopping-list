@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState, useRef, useEffect } from 'react';
 
 import firebase from 'firebase/app';

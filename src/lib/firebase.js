@@ -4,12 +4,12 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyD38OqGDPdVpQJ071ndKlQ2HQXVrl6E1hc',
-  authDomain: 'peasy-aa52a.firebaseapp.com',
-  projectId: 'peasy-aa52a',
-  storageBucket: 'peasy-aa52a.appspot.com',
-  messagingSenderId: '960539340910',
-  appId: '1:960539340910:web:d504d4aee09c7956a1367f',
+  apiKey: 'AIzaSyDlgVTZkjq6HT0pFm7sBiSm60EQ19D2RrI',
+  authDomain: 'tcl-26-shopping-list.firebaseapp.com',
+  projectId: 'tcl-26-shopping-list',
+  storageBucket: 'tcl-26-shopping-list.appspot.com',
+  messagingSenderId: '368940430821',
+  appId: '1:368940430821:web:5347ad9d833f3a84cd6b0c',
 };
 
 const firebaseInstance = firebase.initializeApp(firebaseConfig);

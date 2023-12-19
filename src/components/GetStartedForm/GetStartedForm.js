@@ -8,6 +8,7 @@ const GetStartedForm = ({ createList, joinList }) => {
 
   const [showJoinForm, setShowJoinForm] = useState(false);
 
+  // eslint-disable-next-line no-unused-vars
   const [createListError, setCreateListError] = useState(''); // error for the create list form
   const [joinListError, setJoinListError] = useState(''); // error for the entire join list form
 
@@ -21,16 +22,17 @@ const GetStartedForm = ({ createList, joinList }) => {
   const tokenRegex = new RegExp(/^(?:[A-Za-z]{3,} ){2}[A-Za-z]{3,}$/);
 
   function handleCreateList() {
-    setCreateListError('');
-    createList()
-      .then((success) => {
-        history.push('/list');
-      })
-      .catch((err) => {
-        setCreateListError(
-          'Sorry, there was a problem creating your list. Please check your connection and try again.',
-        );
-      });
+    // setCreateListError('');
+    // createList()
+    //   .then((success) => {
+    //     history.push('/list');
+    //   })
+    //   .catch((err) => {
+    //     setCreateListError(
+    //       'Sorry, there was a problem creating your list. Please check your connection and try again.',
+    //     );
+    //   });
+    console.log('Creating new lists is no longer supported');
   }
 
   const handleTokenChange = (event) => {

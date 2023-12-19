@@ -1,5 +1,6 @@
 // Packages
 import { useState, useEffect } from 'react';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 import {
   BrowserRouter as Router,
   Switch,
@@ -145,7 +146,10 @@ function App() {
             {token ? (
               <Redirect to="/list" />
             ) : (
-              <Home createList={createList} joinList={joinList} />
+              <>
+                <Home createList={createList} joinList={joinList} />
+                <ArchivalNoticeModal />
+              </>
             )}
           </Route>
           <Route path="/list">
